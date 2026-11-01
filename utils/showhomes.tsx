@@ -16,6 +16,11 @@ export async function ShowHomes(myMap: google.maps.Map) {
   myMap.panTo({ lat: 46.2229104, lng: -64.5333937 });
   myMap.setZoom(18);
 
+	const existingList = sidebarTarget.querySelector("#IDShowHomes");
+	if (existingList) {
+		existingList.remove();
+	}
+  
   const SHcontent = document.createElement("div");
   SHcontent.id = "IDShowHomes";
 
@@ -76,7 +81,7 @@ export async function ShowHomes(myMap: google.maps.Map) {
       }
     });
 
-    sidebar.appendChild(SHcontent);
+    sidebarTarget.appendChild(SHcontent); 
 
     SHcontent.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;

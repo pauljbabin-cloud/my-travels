@@ -8,6 +8,7 @@ import { Trip } from "@/utils/trip";
 
 export default function MapPage() {
 	const mapRef = useRef<HTMLDivElement>(null);
+	const sidebarRef = useRef<HTMLElement>(null);
 	
 	const [targetTrip, setTargetTrip] = useState<TripParams | null>(null);
 	const [currentAction, setCurrentAction] = useState<string>("goHome");
@@ -20,7 +21,7 @@ export default function MapPage() {
 
 	const onMenuClick = async (action: string) => {
 		setCurrentAction(action);
-		await handleMenuAction(action, setTargetTrip);
+		await handleMenuAction(action, setTargetTrip, sidebarRef.current); 
 	};
 
 	return (
@@ -46,7 +47,7 @@ export default function MapPage() {
 				</nav>
 			</header>
 			<div className="flex overflow-hidden relative w-screen h-screen"> 			
-				<aside 
+				<aside ref={sidebarRef}
 					id="sidebar" 
 					key={currentAction} 
 					className="w-1/3 overflow-y-auto sidebar-item"
