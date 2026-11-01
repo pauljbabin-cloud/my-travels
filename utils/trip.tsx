@@ -143,19 +143,19 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
     try {
         const RouteRequest = {
             origin: {
-                latLng: {
+                location: {
                     lat: routeData.origin.location.lat,
                     lng: routeData.origin.location.lng
                 }
             },
             destination: {
-                latLng: {
+                location: {
                     lat: routeData.destination.location.lat,
                     lng: routeData.destination.location.lng
                 }
             },
             intermediates: routeData.intermediates.map((waypoint: any) => ({
-                latLng: {
+                location: {
                     lat: waypoint.location.lat,
                     lng: waypoint.location.lng
                 }
