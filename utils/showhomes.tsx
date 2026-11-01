@@ -10,7 +10,8 @@ let activeMarker: google.maps.marker.AdvancedMarkerElement | null = null;
 let markerCluster: any = null;
 let markerRegistry: Record<number, google.maps.marker.AdvancedMarkerElement> = {};
 
-export async function ShowHomes(myMap: google.maps.Map) {
+export async function ShowHomes(myMap: google.maps.Map, sidebarTarget: HTMLElement | null) {
+
   if (typeof window === "undefined" || typeof document === "undefined") return;
   
   myMap.panTo({ lat: 46.2229104, lng: -64.5333937 });
