@@ -43,6 +43,7 @@ export function Trip({ params }: { params: TripParams}) {
         if (typeof window === 'undefined' || !params.TripMap)
             return;
 
+		const currentMap = params.TripMap;
         let active = true;
 
         let libs: GoogleLibs = {
@@ -70,7 +71,6 @@ export function Trip({ params }: { params: TripParams}) {
 			decodePath: encoding.decodePath
 		};
 	}
-
 
         async function loadRouteFromCSV(filePath: string) {
             try {
@@ -172,7 +172,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
             const lines = routes[0].createPolylines();
             
             lines.forEach((polyline) => {
-                polyline.setMap(params.TripMap);
+                polyline.setMap(currentMap);
                 mapPolylines.push(polyline);
             });
         }
@@ -226,8 +226,8 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
                         markerRegistry[id] = marker;
 
                         markerContentElement.addEventListener("click", () => {
-                            params.TripMap.setZoom(18);
-                            params.TripMap.setCenter(position);
+                            currentMap.setZoom(18);
+                            currentMap.setCenter(position);
                             toggleHighlight(marker);
                         });
 
@@ -248,7 +248,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
                     return [];
 
                 const clustererInstance = new MarkerClusterer({
-                    map: params.TripMap!
+                    map: currentMap!
                 });
                 clustererInstance.addMarkers(markers);
                 setMarkerCluster(clustererInstance);
@@ -272,7 +272,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
             while (markers.length > 0) {
                 const marker = markers.pop();
                 if (marker)
-                    marker.setMap(null);
+                    marker.map = null;
             }
             Object.keys(markerRegistry).forEach((key) => {
                 delete markerRegistry[key];
@@ -320,10 +320,10 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
     }, [params]);
 
     const handleItemClick = (item: SidebarItemData) => {
-        if (!params.TripMap)
+        if (!currentMap)
             return;
-        params.TripMap.setZoom(18);
-        params.TripMap.setCenter(item.position);
+        currentMap.setZoom(18);
+        currentMap.setCenter(item.position);
 
         const linkedMarker = markerRegistry[item.id];
         if (linkedMarker) {
