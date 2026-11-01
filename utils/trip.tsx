@@ -139,34 +139,52 @@ export function Trip({ params }: { params: TripParams}) {
             }
         }
 
-        async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
-			
-			const { Route } = await google.maps.importLibrary('routes');
-			
-            try {
-                const RouteRequest = {
-                    origin: routeData.origin,
-                    destination: routeData.destination,
-                    intermediates: routeData.intermediates,
-                    travelMode: routeData.travelMode,
-                    routingPreference: routeData.routingPreference,
-                    routeModifiers: routeData.routeModifiers,
-                    fields: ['path'],
-                };
+async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
+    const { Route } = await google.maps.importLibrary('routes');
 
-				const {routes} = await Route.computeRoutes(RouteRequest);
-				
-				mapPolylines = routes[0].createPolylines();
-				
-				mapPolylines.forEach((polyline) => {
-					polyline.setMap(params.TripMap);
-					mapPolylines.push(polyline);
-				});
-				
-            } catch (error) {
-                console.error('Error computing engine travel routes:', error);
-			}
+    try {
+        const RouteRequest = {
+            // REMOVE the extra .location wrapper here
+            origin: {
+                latLng: {
+                    lat: routeData.origin.location.lat,
+                    lng: routeData.origin.location.lng
+                }
+            },
+            destination: {
+                latLng: {
+                    lat: routeData.destination.location.lat,
+                    lng: routeData.destination.location.lng
+                }
+            },
+            // REMOVE the extra .location wrapper from intermediates as well
+            intermediates: routeData.intermediates.map((waypoint: any) => ({
+                latLng: {
+                    lat: waypoint.location.lat,
+                    lng: waypoint.location.lng
+                }
+            })),
+            travelMode: routeData.travelMode,
+            routingPreference: routeData.routingPreference,
+            routeModifiers: routeData.routeModifiers,
+            fields: ['routes.legs.polyline', 'routes.polyline'],
+        };
+
+        const { routes } = await Route.computeRoutes(RouteRequest);
+        
+        if (routes && routes.length > 0) {
+            const lines = routes[0].createPolylines();
+            
+            lines.forEach((polyline) => {
+                polyline.setMap(params.TripMap);
+                mapPolylines.push(polyline);
+            });
         }
+        
+    } catch (error) {
+        console.error('Error computing engine travel routes:', error);
+    }
+}
 
         async function parseSidebarCSVAndBuildMarkers(detailsPath: string, activeLibs: GoogleLibs): Promise < SidebarItemData[] > {
             const parsedItems: SidebarItemData[] = [];
@@ -280,10 +298,14 @@ export function Trip({ params }: { params: TripParams}) {
             if (!active)
                 return; 
 
-            await computeAndDrawRoute(fileData, libs);
-            if (!active)
-                return;
-
+			if (fileData && fileData.origin && fileData.destination) {
+				await computeAndDrawRoute(fileData, libs);
+			} else {
+				//console.error("Skipping route calculation: Route data is incomplete or invalid.", fileData);
+				return;
+			}
+			if (!active) return;
+			
             if (params.TripDetails !== '0000Trip.csv') {
                 const structuralData = await parseSidebarCSVAndBuildMarkers(params.TripDetails, libs);
                 if (active) {
