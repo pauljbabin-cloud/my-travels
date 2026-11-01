@@ -32,7 +32,7 @@ interface GoogleLibs {
     AdvancedMarkerElement: any;
     PolylineClass: any;
     decodePath: any;
-    routesServiceInstance: any;
+ //   routesServiceInstance: any;
 }
 
 export function Trip({ params }: { params: TripParams}) {
@@ -144,7 +144,6 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
 
     try {
         const RouteRequest = {
-            // REMOVE the extra .location wrapper here
             origin: {
                 latLng: {
                     lat: routeData.origin.location.lat,
@@ -157,7 +156,6 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
                     lng: routeData.destination.location.lng
                 }
             },
-            // REMOVE the extra .location wrapper from intermediates as well
             intermediates: routeData.intermediates.map((waypoint: any) => ({
                 latLng: {
                     lat: waypoint.location.lat,
@@ -170,7 +168,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
             fields: ['routes.legs.polyline', 'routes.polyline'],
         };
 
-        const { routes } = await Route.computeRoutes(RouteRequest);
+        const { routes } = await Route.computeRoutes(RouteRequest as any);
         
         if (routes && routes.length > 0) {
             const lines = routes[0].createPolylines();
