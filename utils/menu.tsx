@@ -6,9 +6,7 @@ import { ArgentiaFerryRoute } from "./ferry";
 import { ClearEverything } from "./cleareverything";
 import { TripParams } from "./types";
 
-export async function handleMenuAction(
-    action: string,
-    setTargetTrip: (params: TripParams | null) => void) {
+export async function handleMenuAction(action: string, setTargetTrip: (params: TripParams | null) => void, sidebar: HTMLElement | null) {
     if (typeof window === "undefined" || !gMap)
         return;
 
