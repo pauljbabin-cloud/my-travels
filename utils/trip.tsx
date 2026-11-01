@@ -163,7 +163,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
             travelMode: routeData.travelMode,
             routingPreference: routeData.routingPreference,
             routeModifiers: routeData.routeModifiers,
-            fields: ['routes.legs.polyline', 'routes.polyline'],
+            fields: ['path', 'legs'], 
         };
 
         const { routes } = await Route.computeRoutes(RouteRequest as any);
