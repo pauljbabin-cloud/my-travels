@@ -46,7 +46,7 @@ export function Trip({ params }: { params: TripParams}) {
 		const currentMap = params.TripMap;
         let active = true;
 
-        let libs: GoogleLibs = {
+        let libs: GoogleLibs | null = {
             AdvancedMarkerElement: null,
             PolylineClass: null,
             decodePath: null,
@@ -287,7 +287,7 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
 			});
 
             libs = await initGoogleLibraries();
-            if (!active)
+            if (!active || !libs)
                 return; 
 
             const fileData = await loadRouteFromCSV(params.TripRoute);
@@ -297,7 +297,6 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
 			if (fileData && fileData.origin && fileData.destination) {
 				await computeAndDrawRoute(fileData, libs);
 			} else {
-				//console.error("Skipping route calculation: Route data is incomplete or invalid.", fileData);
 				return;
 			}
 			if (!active) return;
@@ -320,10 +319,10 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
     }, [params]);
 
     const handleItemClick = (item: SidebarItemData) => {
-        if (!currentMap)
+        if (!params.TripMap)
             return;
-        currentMap.setZoom(18);
-        currentMap.setCenter(item.position);
+        params.TripMap.setZoom(18);
+        params.TripMap.setCenter(item.position);
 
         const linkedMarker = markerRegistry[item.id];
         if (linkedMarker) {
