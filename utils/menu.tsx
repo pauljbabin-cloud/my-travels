@@ -37,7 +37,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             TripRoute: "",
             TripDetails: "0000Trip.csv"
         });
-        await ShowHomes(gMap);
+        await ShowHomes(gMap,sidebar);
         break;
 
     case "CtoUKandBack":
