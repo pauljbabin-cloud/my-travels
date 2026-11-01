@@ -1,0 +1,7 @@
+type,lat,lng,
+origin,45.3091796,-66.0249313,Saint John
+destination,45.3091796,-66.0249313,Saint John
+intermediate,46.0963280123778,-64.7656092875105,Moncton
+intermediate,46.8851245126791,-60.5063817269465,Cape North
+intermediate,45.9096803775413,-59.9840523719723,Louisbourg
+intermediate,45.6474398610196,-61.404384102996,Port Hastings
