@@ -13,8 +13,6 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
     await ClearEverything(gMap);
     setTargetTrip(null);
 
-    const sidebar = document.getElementById("sidebar");
-
     switch (action) {
     case "goHome":
         gMap.panTo({
