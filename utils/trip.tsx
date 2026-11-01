@@ -32,7 +32,6 @@ interface GoogleLibs {
     AdvancedMarkerElement: any;
     PolylineClass: any;
     decodePath: any;
- //   routesServiceInstance: any;
 }
 
 export function Trip({ params }: { params: TripParams}) {
@@ -50,7 +49,6 @@ export function Trip({ params }: { params: TripParams}) {
             AdvancedMarkerElement: null,
             PolylineClass: null,
             decodePath: null,
-            routesServiceInstance: null
         };
 
 	async function initGoogleLibraries(): Promise<GoogleLibs | null> {
