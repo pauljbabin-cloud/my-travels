@@ -158,7 +158,8 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
                 location: {
                     lat: waypoint.location.lat,
                     lng: waypoint.location.lng
-                }
+                },
+				via: true
             })),
             travelMode: routeData.travelMode,
             routingPreference: routeData.routingPreference,
@@ -290,17 +291,29 @@ async function computeAndDrawRoute(routeData: any, activeLibs: GoogleLibs) {
             if (!active || !libs)
                 return; 
 
-            const fileData = await loadRouteFromCSV(params.TripRoute);
+            const fileData0 = await loadRouteFromCSV(params.TripRoute);
             if (!active)
                 return; 
 
-			if (fileData && fileData.origin && fileData.destination) {
-				await computeAndDrawRoute(fileData, libs);
+			if (fileData0 && fileData0.origin && fileData0.destination) {
+				await computeAndDrawRoute(fileData0, libs);
 			} else {
 				return;
 			}
 			if (!active) return;
 			
+			if (params.TripRoute1 !== null) {
+				const fileData1 = await loadRouteFromCSV(params.TripRoute1);
+				if (!active)
+					return; 
+
+				if (fileData1 && fileData1.origin && fileData1.destination) {
+					await computeAndDrawRoute(fileData1, libs);
+				} 
+				if (!active) return;
+				
+			}
+			console.log(params.TripDetails);
             if (params.TripDetails !== '0000Trip.csv') {
                 const structuralData = await parseSidebarCSVAndBuildMarkers(params.TripDetails, libs);
                 if (active) {

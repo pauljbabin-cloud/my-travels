@@ -2,6 +2,7 @@ export interface TripParams {
   TripMap: google.maps.Map | null;
   TripHTML: string;
   TripRoute: string;
+  TripRoute1: string;
   TripDetails: string;
 }
 
