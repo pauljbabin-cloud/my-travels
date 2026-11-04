@@ -271,7 +271,7 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
 	const iconMap: Record<string, any> = { faGasPump, faCamera, faBed, faCampground };
 	const selectedIcon = iconMap[cleanVariable] || faBed;
 	const iconHtml = faIcon(selectedIcon).html[0];
-	const detailsClass = styles.details || 'details'; 
+	const detailsClass = 'details';
  
 	if (details.image === 'blank') {
 		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
