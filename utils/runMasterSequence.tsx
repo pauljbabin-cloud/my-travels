@@ -274,7 +274,7 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
 	if (details.image === 'blank') {
 		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="details"> <div class="description">${details.title}</div> </div>`;
 	} else {
-		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="details"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="details"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="50" height="50" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
 	}
 	return container;
 }
