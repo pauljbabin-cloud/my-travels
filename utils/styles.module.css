@@ -1,0 +1,15 @@
+:global(.details) {
+    display: none;
+	flex-direction: column;
+	flex: 1;
+}
+
+:global(.details):hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+:global(.details):hover .description {
+  color: #0070f3;
+}
