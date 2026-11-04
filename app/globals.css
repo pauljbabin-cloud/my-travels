@@ -359,3 +359,9 @@ ul {
   margin-right: auto;
   height: auto;
 }
+
+.details:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
