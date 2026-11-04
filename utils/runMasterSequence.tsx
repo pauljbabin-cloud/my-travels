@@ -6,7 +6,7 @@ import { loadRouteFromCSV } from "@/utils/loadRouteFromCSV";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faGasPump, faCamera, faBed, faCampground } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import styles from './styles.module.css';
+import styles from '@/utils/styles.module.css';
 
 interface GoogleLibs {
     AdvancedMarkerElement: any;
@@ -271,11 +271,12 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
 	const iconMap: Record<string, any> = { faGasPump, faCamera, faBed, faCampground };
 	const selectedIcon = iconMap[cleanVariable] || faBed;
 	const iconHtml = faIcon(selectedIcon).html[0];
-  
+	const detailsClass = styles.details || 'details'; 
+ 
 	if (details.image === 'blank') {
-		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="styles.details"> <div class="description">${details.title}</div> </div>`;
+		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
 	} else {
-		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="styles.details"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
 	}
 	return container;
 }
