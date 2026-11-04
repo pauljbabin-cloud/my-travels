@@ -1,10 +1,10 @@
-.details {
-    display: none;
-	flex-direction: column;
-	flex: 1;
+:global(.details) {
+  display: none;
+  flex-direction: column;
+  flex: 1;
 }
 
-.details:hover {
+:global(.details):hover {
   background-color: #f0f0f0;
   transform: scale(1.02);
   transition: all 0.2s ease;
