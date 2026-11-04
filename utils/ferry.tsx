@@ -1,3 +1,5 @@
+"use client";
+
 let ArgentiaFerry: google.maps.Polyline | null = null;
 
 export async function ArgentiaFerryRoute(myMap: google.maps.Map): Promise<void> {

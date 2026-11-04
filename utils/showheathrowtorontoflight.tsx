@@ -1,3 +1,5 @@
+"use client";
+
 let FlightPath: google.maps.Polyline | null = null;
 
 export async function ShowHeathrowTorontoFlight(myMap: google.maps.Map): Promise<void> {

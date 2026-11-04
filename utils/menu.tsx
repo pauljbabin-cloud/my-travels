@@ -1,3 +1,5 @@
+"use client";
+
 import { gMap } from "./main";
 import { ShowHomes } from "./showhomes";
 import { ShowShipVoyage } from "./showshipvoyage";
@@ -37,9 +39,9 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             TripHTML: "<h4>Select from the addresses below and the map will jump to that location. Click on the icon to see some details.</h4>",
             TripRoute: "",
 			TripRoute1: "",
-            TripDetails: "0000Trip.csv"
+            TripDetails: "homes"
         });
-        await ShowHomes(gMap,sidebar);
+		await ShowHomes(gMap, (homes) => {});
         break;
 
     case "CtoUKandBack":

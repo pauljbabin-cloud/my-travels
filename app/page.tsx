@@ -47,11 +47,7 @@ export default function MapPage() {
 				</nav>
 			</header>
 			<div className="flex overflow-hidden relative w-screen h-screen"> 			
-				<aside ref={sidebarRef}
-					id="sidebar" 
-					key={currentAction} 
-					className="w-1/3 overflow-y-auto sidebar-item"
-				> 					
+				<aside ref={sidebarRef} id="sidebar" key={currentAction} className="w-1/3 overflow-y-auto sidebar-item" > 					
 					{targetTrip ? (
 						<Trip params={targetTrip} />
 					) : (

@@ -1,3 +1,5 @@
+"use client";
+
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 
 export let gMap: google.maps.Map | null = null;

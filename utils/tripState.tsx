@@ -1,32 +1,48 @@
 "use client";
 
-export let markerCluster: any = null;
-export let markers: google.maps.marker.AdvancedMarkerElement[] = [];
-export let markerRegistry: Record < string, google.maps.marker.AdvancedMarkerElement >  = {};
-export let mapPolylines: google.maps.Polyline[] = [];
+export interface TripStateInstance {
+    markerCluster: any;
+    markers: google.maps.marker.AdvancedMarkerElement[];
+    markerRegistry: Record < string,
+    google.maps.marker.AdvancedMarkerElement > ;
+    mapPolylines: google.maps.Polyline[];
+}
 
-export function resetMarkerClusterer(): void {
-    if (markerCluster) {
-        if (typeof markerCluster.clearMarkers === "function") {
-            markerCluster.clearMarkers();
+export function createTripState(): TripStateInstance {
+    return {
+        markerCluster: null,
+        markers: [],
+        markerRegistry: {},
+        mapPolylines: [],
+    };
+}
+
+export function resetMarkerClusterer(state: TripStateInstance): void {
+    if (state.markerCluster) {
+        if (typeof state.markerCluster.clearMarkers === "function") {
+            state.markerCluster.clearMarkers();
         }
-		if (typeof markerCluster.setMap === "function") {
-			markerCluster.setMap(null);
-		}
-        markerCluster = null;
+        if (typeof state.markerCluster.setMap === "function") {
+            state.markerCluster.setMap(null);
+        }
+        state.markerCluster = null;
     }
-    markers = [];
-    markerRegistry = {};
+
+    state.markers.forEach((marker) => {
+        if (marker)
+            marker.map = null;
+    });
+    state.markers = [];
+
+    Object.keys(state.markerRegistry).forEach((key) => {
+        delete state.markerRegistry[key];
+    });
 }
 
-export function getPolylines(): google.maps.Polyline[]{
-    return mapPolylines;
-}
-
-export function setMarkerCluster(cluster: any) {
-    markerCluster = cluster;
-}
-
-export function clearPolylines(): void {
-    mapPolylines = [];
+export function clearPolylines(state: TripStateInstance): void {
+    state.mapPolylines.forEach((polyline) => {
+        if (polyline)
+            polyline.setMap(null);
+    });
+    state.mapPolylines = [];
 }
