@@ -2,6 +2,12 @@
 
 import { importLibrary } from "@googlemaps/js-api-loader";
 
+export interface GoogleLibs {
+    AdvancedMarkerElement: typeof google.maps.marker.AdvancedMarkerElement;
+    PolylineClass: typeof google.maps.Polyline;
+    decodePath: (encodedPath: string) => google.maps.LatLng[];
+}
+
 export async function initGoogleLibraries(): Promise < GoogleLibs | null > {
     if (typeof window === "undefined")
         return null;
