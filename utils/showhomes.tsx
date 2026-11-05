@@ -44,6 +44,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
 
 //        const response = await fetch("/csvs/homes.csv");
 		const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+		console.error(baseUrl);
 		const response = await fetch(`${baseUrl}/csvs/homes.csv`);
     
 		if (!response.ok) {
