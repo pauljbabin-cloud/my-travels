@@ -98,7 +98,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
             map: myMap
         });
         markerCluster.addMarkers(markers);
-
+console.log(loadedHomes);
         if (onHomesLoaded) {
             onHomesLoaded(loadedHomes);
         }
