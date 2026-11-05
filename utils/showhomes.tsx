@@ -1,4 +1,4 @@
-"use client";
+
 
 import { HomeDetails } from "./types";
 import { importLibrary } from "@googlemaps/js-api-loader";
