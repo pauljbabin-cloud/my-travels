@@ -47,23 +47,47 @@ export function Trip({ params }: { params: TripParams }) {
       resetMarkerClusterer(currentSnapshot);
     };
     
-  }, [params.TripDetails, params.TripRoute, params.TripRoute1, params.TripMap]);
+  }, [params]);
 
   return (
     <>
       {params.TripHTML && <div dangerouslySetInnerHTML={{ __html: params.TripHTML }} />}
       
-      {homesItems.length > 0 && homesItems.map((home) => (
-        <li key={home.id} className="sidebar-item" style={{ cursor: 'pointer' }} onClick={() => panToHomeMarker(home.id, params.TripMap!)}>
-          {home.address}
-        </li>
-      ))}
+    {homesItems.length > 0 && (
+        <div id="IDShowHomes">
+          <ol className="flexible-list">
+            {homesItems.map((home) => (
+              <li 
+                key={home.id} 
+                className="sidebar-item" 
+                style={{ cursor: 'pointer' }} 
+                onClick={() => panToHomeMarker(home.id, params.TripMap!)}
+              >
+                {home.address}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
       
-      {sidebarItems.length > 0 && sidebarItems.map((item) => (
-        <li key={item.id} className="sidebar-item" data-id={item.id} onClick={() => handleItemClick(item)} style={{ cursor: 'pointer' }}>
-          {item.description}
-        </li>
-      ))}
+      {/* Conditionally render the IDShowTrips container only when there are items */}
+      {sidebarItems.length > 0 && (
+        <div id="IDShowTrips">
+          <ul className="flexible-list">
+            {sidebarItems.map((item) => (
+              <li 
+                key={item.id} 
+                className="sidebar-item" 
+                data-id={item.id} 
+                onClick={() => handleItemClick(item)} 
+                style={{ cursor: 'pointer' }}
+              >
+                {item.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 }

@@ -4,6 +4,7 @@ export interface TripParams {
   TripRoute: string;
   TripRoute1: string;
   TripDetails: string;
+  onHomesLoaded?: (homes: any[]) => void;
 }
 
 export interface HomeDetails {

@@ -90,6 +90,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
 
                 markers.push(marker);
                 loadedHomes.push(details);
+				
             }
         });
 

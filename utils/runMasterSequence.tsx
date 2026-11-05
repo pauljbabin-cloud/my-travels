@@ -7,6 +7,7 @@ import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faGasPump, faCamera, faBed, faCampground } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import styles from '@/utils/styles.module.css';
+import { ShowHomes } from "./showhomes";
 
 interface GoogleLibs {
     AdvancedMarkerElement: any;
@@ -60,6 +61,21 @@ export async function runMasterSequence(
     if (signal.aborted || !libs)
         return;
 
+    if (params.TripDetails === 'homes') {
+        setSidebarItems([]);
+
+        await ShowHomes(currentMap, (loadedHomes) => {
+            if (!signal.aborted) {
+                const parsedHomes = loadedHomes.map((home) => ({
+                            id: home.index,
+                            address: home.address
+                        }));
+                setHomesItems(parsedHomes);
+            }
+        });
+        return;
+    }
+
     const fileData0 = await loadRouteFromCSV(params.TripRoute);
     if (signal.aborted)
         return;
@@ -83,30 +99,6 @@ export async function runMasterSequence(
         }
         if (signal.aborted)
             return;
-    }
-
-    if (params.TripDetails === 'homes') {
-        setSidebarItems([]);
-        const response = await fetch("/csvs/homes.csv", {
-            signal
-        });
-        if (signal.aborted)
-            return;
-
-        const csvText = await response.text();
-        const rows = csvText.split("\n").slice(1).filter(row => row.trim() !== "");
-        const parsedHomes = rows.map((row, i) => {
-            const cols = row.split(",");
-            return {
-                id: i + 1,
-                address: cols[2] || ""
-            };
-        });
-
-        if (!signal.aborted) {
-            setHomesItems(parsedHomes);
-        }
-        return;
     }
 
     if (params.TripDetails !== '0000Trip.csv') {
@@ -265,20 +257,26 @@ async function parseSidebarCSVAndBuildMarkers(
 }
 
 function buildMarkerUI(details: TripDetails): HTMLDivElement {
-	const container = document.createElement("div");
-	container.className = "property";
-	const cleanVariable = details.type.trim();
-	const iconMap: Record<string, any> = { faGasPump, faCamera, faBed, faCampground };
-	const selectedIcon = iconMap[cleanVariable] || faBed;
-	const iconHtml = faIcon(selectedIcon).html[0];
-	const detailsClass = 'details';
- 
-	if (details.image === 'blank') {
-		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
-	} else {
-		container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
-	}
-	return container;
+    const container = document.createElement("div");
+    container.className = "property";
+    const cleanVariable = details.type.trim();
+    const iconMap: Record < string,
+    any >  = {
+        faGasPump,
+        faCamera,
+        faBed,
+        faCampground
+    };
+    const selectedIcon = iconMap[cleanVariable] || faBed;
+    const iconHtml = faIcon(selectedIcon).html[0];
+    const detailsClass = 'details';
+
+    if (details.image === 'blank') {
+        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
+    } else {
+        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+    }
+    return container;
 }
 
 export function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarkerElement) {
