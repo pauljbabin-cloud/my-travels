@@ -1,4 +1,4 @@
-"use client";
+
 
 let FlightPath: google.maps.Polyline | null = null;
 

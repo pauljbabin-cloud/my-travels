@@ -1,4 +1,4 @@
-"use client";
+
 
 import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
 import { initGoogleLibraries } from "@/utils/initGoogleLibraries";

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { gMap } from "./main";
 import { ShowHomes } from "./showhomes";

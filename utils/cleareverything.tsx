@@ -1,4 +1,3 @@
-"use client";
 
 import { resetHomesClusterer } from "./showhomes";
 import { getVoyagePath } from "./showshipvoyage";

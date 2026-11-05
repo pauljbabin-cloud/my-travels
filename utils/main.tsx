@@ -1,4 +1,4 @@
-"use client";
+
 
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 

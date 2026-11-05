@@ -1,4 +1,4 @@
-"use client";
+
 
 let ArgentiaFerry: google.maps.Polyline | null = null;
 
