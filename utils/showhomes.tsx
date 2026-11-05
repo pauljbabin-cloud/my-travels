@@ -42,7 +42,15 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
     try {
         const { AdvancedMarkerElement } = await importLibrary("marker")as google.maps.MarkerLibrary;
 
-        const response = await fetch("/csvs/homes.csv");
+//        const response = await fetch("/csvs/homes.csv");
+		const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+		const response = await fetch(`${baseUrl}/csvs/homes.csv`);
+    
+		if (!response.ok) {
+			console.error(`Failed to fetch CSV. Status: ${response.status}`);
+			return; 
+		}
+		
         const csvText = await response.text();
 		const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
         const loadedHomes: HomeDetails[] = [];
