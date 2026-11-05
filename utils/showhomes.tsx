@@ -44,10 +44,9 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
 
         const response = await fetch("/csvs/homes.csv");
         const csvText = await response.text();
-        const rows = csvText.split("\n").slice(1).filter(row => row.trim() !== "");
-
+		const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
         const loadedHomes: HomeDetails[] = [];
-
+		
         rows.forEach((row, i) => {
             const cols = row.split(",");
             if (cols.length < 7)

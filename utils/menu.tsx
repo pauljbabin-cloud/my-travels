@@ -39,8 +39,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             TripHTML: "<h4>Select from the addresses below and the map will jump to that location. Click on the icon to see some details.</h4>",
             TripRoute: "",
 			TripRoute1: "",
-            TripDetails: "homes",
-			onHomesLoaded: (homes) => {}
+            TripDetails: "homes"
         });
         break;
 
