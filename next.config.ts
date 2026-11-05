@@ -23,3 +23,9 @@ safelist: [
   'highlight'
 ]
 
+module.exports = {
+  logging: {
+    browserToTerminal: true,
+  },
+}
+
