@@ -53,6 +53,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
 		
         const csvText = await response.text();
 		const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
+		console.log(rows);
         const loadedHomes: HomeDetails[] = [];
 		
         rows.forEach((row, i) => {
