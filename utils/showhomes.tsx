@@ -42,9 +42,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
     try {
         const { AdvancedMarkerElement } = await importLibrary("marker")as google.maps.MarkerLibrary;
 
-//        const response = await fetch("/csvs/homes.csv");
 		const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
-		console.error(baseUrl);
 		const response = await fetch(`${baseUrl}/csvs/homes.csv`);
     
 		if (!response.ok) {
@@ -54,7 +52,6 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
 		
         const csvText = await response.text();
 		const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
-		console.log(rows);
         const loadedHomes: HomeDetails[] = [];
 		
         rows.forEach((row, i) => {
@@ -108,7 +105,7 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
             map: myMap
         });
         markerCluster.addMarkers(markers);
-console.log(loadedHomes);
+
         if (onHomesLoaded) {
             onHomesLoaded(loadedHomes);
         }
