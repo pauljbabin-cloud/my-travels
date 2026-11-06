@@ -337,3 +337,23 @@ ul {
   height: 100%;
   background-color: #f3f4f6; 
 }
+
+gmp-advanced-marker:hover .property:not(.highlight) {
+  /* Mimic the background logic you want on hover */
+  opacity: 0.9;
+  filter: brightness(0.95);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* If you want the hidden details card to appear strictly on hover */
+gmp-advanced-marker:hover .property .details {
+  display: flex;
+}
+
+gmp-advanced-marker:hover .property {
+  background-color: #ffffff !important;
+  border-radius: 8px;
+  height: 80px;
+  padding: 8px 15px;
+  width: auto;
+}

@@ -6,7 +6,6 @@ import { loadRouteFromCSV } from "@/utils/loadRouteFromCSV";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faGasPump, faCamera, faBed, faCampground } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import styles from '@/utils/styles.module.css';
 import { ShowHomes } from "./showhomes";
 
 interface GoogleLibs {
