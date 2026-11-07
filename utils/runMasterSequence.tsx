@@ -267,13 +267,18 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
         faCampground
     };
     const selectedIcon = iconMap[cleanVariable] || faBed;
-    const iconHtml = faIcon(selectedIcon).html[0];
+	let adjustedIcon: any; 
+	adjustedIcon = faIcon(selectedIcon, {
+			styles: { color: 'black', 'font-size': '2em' },
+			attributes: { 'aria-hidden': 'true' }, 
+		});
+	const iconHtml = adjustedIcon.html[0];
     const detailsClass = 'details';
 
     if (details.image === 'blank') {
         container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
     } else {
-        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+        container.innerHTML = `<div class="icon" style="color: black;">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
     }
     return container;
 }
