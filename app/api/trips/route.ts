@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma"; // This runs safely on the server only
 
 export async function GET(request: Request) {
   try {
