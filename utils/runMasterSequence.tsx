@@ -1,12 +1,9 @@
-
-
 import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
 import { initGoogleLibraries } from "@/utils/initGoogleLibraries";
-import { loadRouteFromCSV } from "@/utils/loadRouteFromCSV";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faGasPump, faCamera, faBed, faCampground } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { ShowHomes } from "./showhomes";
+import { loadRouteFromCSV } from "./loadRouteFromCSV"; // Imported helper
 
 interface GoogleLibs {
     AdvancedMarkerElement: any;
@@ -25,8 +22,9 @@ export interface SidebarItemData {
 
 interface RunMasterSequenceParams {
     TripMap: any;
-    TripRoute: any;
-    TripRoute1: any;
+    tripId?: string;       // Added to dynamically fetch API route
+    TripRoute: string;     // Changed from any to string
+    TripRoute1: string | null;
     TripDetails: string;
 }
 
@@ -43,63 +41,66 @@ let activeMarker: google.maps.marker.AdvancedMarkerElement | null = null;
 export async function runMasterSequence(
     params: RunMasterSequenceParams,
     state: TripStateInstance,
-    setSidebarItems: React.Dispatch < React.SetStateAction < SidebarItemData[] >> ,
-    setHomesItems: React.Dispatch < React.SetStateAction < any[] >> ,
-    signal: AbortSignal): Promise < void > {
+    setSidebarItems: React.Dispatch<React.SetStateAction<SidebarItemData[]>>,
+    setHomesItems: React.Dispatch<React.SetStateAction<any[]>>,
+    signal: AbortSignal
+): Promise<void> {
     const currentMap = params.TripMap;
-    if (!currentMap)
-        return;
+    if (!currentMap) return;
 
     clearPolylines(state);
     resetMarkerClusterer(state);
 
-    if (signal.aborted)
-        return;
+    if (signal.aborted) return;
 
     const libs = await initGoogleLibraries();
-    if (signal.aborted || !libs)
-        return;
+    if (signal.aborted || !libs) return;
 
     if (params.TripDetails === 'homes') {
         setSidebarItems([]);
+        const response = await fetch('/api/homes', { signal });
+        const loadedHomes = await response.json();
+        console.log(loadedHomes);
+        setHomesItems(loadedHomes);
+        return;
+    }
 
-        await ShowHomes(currentMap, (loadedHomes) => {
-            if (!signal.aborted) {
-                const parsedHomes = loadedHomes.map((home) => ({
-                            id: home.index,
-                            address: home.address
-                        }));
-                setHomesItems(parsedHomes);
+    // --- Route 0 Execution (with CSV Fallback) ---
+    let fileData0 = null;
+    if (params.tripId) {
+        try {
+            const routeRes = await fetch(`/api/routes/${params.tripId}/0`, { signal });
+            if (routeRes.ok) {
+                fileData0 = await routeRes.json();
             }
-        });
-        return;
+        } catch (error) {
+            console.warn("API route failed, trying CSV fallback:", error);
+        }
     }
 
-    const fileData0 = await loadRouteFromCSV(params.TripRoute);
-    if (signal.aborted)
-        return;
+    // Fallback to legacy CSV tracking if API data could not be built
+    if ((!fileData0 || !fileData0.origin) && params.TripRoute) {
+        fileData0 = await loadRouteFromCSV(params.TripRoute);
+    }
 
-    if (fileData0 && fileData0.origin && fileData0.destination) {
+    if (fileData0 && fileData0.origin && !signal.aborted) {
         await computeAndDrawRoute(fileData0, state, currentMap, signal);
-    } else {
-        return;
     }
 
-    if (signal.aborted)
-        return;
+    if (signal.aborted) return;
 
-    if (params.TripRoute1 !== null) {
+    // --- Route 1 Execution ---
+    if (params.TripRoute1) {
         const fileData1 = await loadRouteFromCSV(params.TripRoute1);
-        if (signal.aborted)
-            return;
+        if (signal.aborted) return;
 
         if (fileData1 && fileData1.origin && fileData1.destination) {
             await computeAndDrawRoute(fileData1, state, currentMap, signal);
         }
-        if (signal.aborted)
-            return;
+        if (signal.aborted) return;
     }
 
+    // --- Sidebar Markers ---
     if (params.TripDetails !== '0000Trip.csv') {
         const structuralData = await parseSidebarCSVAndBuildMarkers(currentMap, params.TripDetails, state, libs, signal);
         if (!signal.aborted) {
@@ -115,9 +116,8 @@ export async function runMasterSequence(
 }
 
 async function computeAndDrawRoute(routeData: any, state: TripStateInstance, currentMap: any, signal: AbortSignal) {
-    const { Route } = await google.maps.importLibrary('routes');
-    if (signal.aborted)
-        return;
+    const { Route } = await google.maps.importLibrary('routes') as any;
+    if (signal.aborted) return;
 
     try {
         const RouteRequest = {
@@ -134,25 +134,24 @@ async function computeAndDrawRoute(routeData: any, state: TripStateInstance, cur
                 }
             },
             intermediates: routeData.intermediates.map((waypoint: any) => ({
-                    location: {
-                        lat: waypoint.location.lat,
-                        lng: waypoint.location.lng
-                    },
-                    via: true
-                })),
-            travelMode: routeData.travelMode,
-            routingPreference: routeData.routingPreference,
-            routeModifiers: routeData.routeModifiers,
+                location: {
+                    lat: waypoint.location.lat,
+                    lng: waypoint.location.lng
+                },
+                via: true
+            })),
+            travelMode: routeData.travelMode || 'DRIVING',
+            routingPreference: routeData.routingPreference || 'TRAFFIC_AWARE',
+            routeModifiers: routeData.routeModifiers || { avoidFerries: false, avoidTolls: false },
             fields: ['path', 'legs'],
         };
 
         const { routes } = await Route.computeRoutes(RouteRequest as any);
-        if (signal.aborted)
-            return;
+        if (signal.aborted) return;
 
         if (routes && routes.length > 0) {
             const lines = routes[0].createPolylines();
-            lines.forEach((polyline) => {
+            lines.forEach((polyline: any) => {
                 if (signal.aborted) {
                     polyline.setMap(null);
                     return;
@@ -171,22 +170,19 @@ async function parseSidebarCSVAndBuildMarkers(
     detailsPath: string,
     state: TripStateInstance,
     activeLibs: GoogleLibs,
-    signal: AbortSignal): Promise < SidebarItemData[] > {
+    signal: AbortSignal
+): Promise<SidebarItemData[]> {
     const parsedItems: SidebarItemData[] = [];
     try {
-        const response = await fetch(detailsPath, {
-            signal
-        });
-        if (signal.aborted || !response.ok)
-            return [];
+        const response = await fetch(detailsPath, { signal });
+        if (signal.aborted || !response.ok) return [];
 
         const csvText = await response.text();
         const rows = csvText.split('\n').slice(1);
 
         rows.forEach((row, i) => {
             const trimmedRow = row.trim();
-            if (!trimmedRow)
-                return;
+            if (!trimmedRow) return;
 
             const cols = trimmedRow.split(',');
             const lat = parseFloat(cols[0]);
@@ -203,10 +199,7 @@ async function parseSidebarCSVAndBuildMarkers(
             const updatedTitle: string = details.title.replaceAll("<br />", ". ");
 
             if (!isNaN(lat) && !isNaN(lng)) {
-                const position = {
-                    lat,
-                    lng
-                };
+                const position = { lat, lng };
                 const markerContentElement = buildMarkerUI(details);
 
                 const marker = new activeLibs.AdvancedMarkerElement({
@@ -243,9 +236,7 @@ async function parseSidebarCSVAndBuildMarkers(
             return [];
         }
 
-        const clustererInstance = new MarkerClusterer({
-            map: currentMap
-        });
+        const clustererInstance = new MarkerClusterer({ map: currentMap });
         clustererInstance.addMarkers(state.markers);
         state.markerCluster = clustererInstance;
 
@@ -259,20 +250,18 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
     const container = document.createElement("div");
     container.className = "property";
     const cleanVariable = details.type.trim();
-    const iconMap: Record < string,
-    any >  = {
+    const iconMap: Record<string, any> = {
         faGasPump,
         faCamera,
         faBed,
         faCampground
     };
     const selectedIcon = iconMap[cleanVariable] || faBed;
-	let adjustedIcon: any; 
-	adjustedIcon = faIcon(selectedIcon, {
-			styles: { color: 'black', 'font-size': '2em' },
-			attributes: { 'aria-hidden': 'true' }, 
-		});
-	const iconHtml = adjustedIcon.html[0];
+    let adjustedIcon = faIcon(selectedIcon, {
+        styles: { color: 'black', 'font-size': '2em' },
+        attributes: { 'aria-hidden': 'true' }, 
+    });
+    const iconHtml = adjustedIcon.html[0];
     const detailsClass = 'details';
 
     if (details.image === 'blank') {
@@ -285,8 +274,7 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
 
 export function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarkerElement) {
     const content = clickedMarker.content as HTMLElement;
-    if (!content)
-        return;
+    if (!content) return;
     if (content.classList.contains("highlight")) {
         content.classList.remove("highlight");
         clickedMarker.zIndex = null;
@@ -294,8 +282,7 @@ export function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarker
     } else {
         if (activeMarker && activeMarker !== clickedMarker) {
             const oldContent = activeMarker.content as HTMLElement;
-            if (oldContent)
-                oldContent.classList.remove("highlight");
+            if (oldContent) oldContent.classList.remove("highlight");
             activeMarker.zIndex = null;
         }
         content.classList.add("highlight");
