@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../generated/prisma/client";
+import { PrismaClient } from "../app/generated/prisma/client";
 import { PrismaPostgresAdapter } from "@prisma/adapter-ppg";
 
 const prisma = new PrismaClient({
