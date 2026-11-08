@@ -22,7 +22,7 @@
       "@/*": ["./*"]
     },
     "types": [
-      "node"
+      "node" , "google.maps"
     ]
   },
   "include": [
@@ -35,3 +35,4 @@
   ],
   "exclude": ["node_modules"]
 }
+
