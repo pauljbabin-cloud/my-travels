@@ -34,6 +34,7 @@
     "dotenv": "^18.0.10",
     "eslint": "^9.39.5",
     "eslint-config-next": "^0.2.4",
+    "knip": "^6.44.2",
     "prisma": "^8.0.0-rc.32",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
