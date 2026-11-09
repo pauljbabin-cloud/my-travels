@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsc",
+    "build": "next",
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma db migrate"
