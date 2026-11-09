@@ -1,0 +1,30 @@
+lat,lng,title,from,to,desc,type
+43.6572703479904,-79.3877236711644,Toronto - 555 University Ave,April 1955,May 1955,I was born April 4th 1955 here at the Sick Children's Hospital and stayed until May 12th following operation for umbilical fistula,faHospitalUser
+43.6711239,-79.3789357,Toronto - 69 Huntley St,May 1955,1956,1st home,faHouseUser
+43.6700528,-79.3167953,Toronto - 37 Robbins Ave,1956,1957,2nd home,faHouseUser
+43.6605008,-79.335465,Toronto - 43 Winnifred Ave,1957,1958,3rd home,faHouseUser
+43.6809691,-79.3502245,Toronto - 993 Logan Ave,1958,April 1959,4th home. Last before leaving Canada for England,faHouseUser
+51.1242688628049,0.252385322318625,Tunbridge Wells - 20 Eridge Rd,April 1959,1961,1st home in England living with Granny,faHouseUser
+51.1091194636052,-0.0283291038711379,East Grinstead,1961,1962,Mum was the resident matron at the Fonthill School (approximate location) and I was living with her ,faSchool
+51.3622151468928,1.43355699614785,Broadstairs,1962,1963,Mum was the matron at a Broardstairs school (not sure which one) and I was a pupil but we lived in a caravan,faCaravan
+52.9063764124414,1.08752253859402,Holt - 6 New St,1963,1964,1st home after Mum married Nigel,faHouseUser
+52.9092769493949,1.09984743859428,Holt - 89 Cromer Rd,1964,1967,2nd home with Mum and Nigel,faHouseUser
+51.3496295956439,-0.0941455903600166,South Croydon - 5 Glossop Rd,1967,1971,3rd home with Mum and Nigel,faHouseUser
+52.9564944974197,0.846522,Wells-next-the-Sea - 4 Bases Ln,1971,1973,4th home and last with Mum and Nigel (also known as Tuskar House),faHouseUser
+52.5991726061097,1.72828874114396,Great Yarmouth,1973,1973,Lived and worked at a children's home for about 6 months not sure where in Great Yarmouth,faHouseUser
+51.4613133440335,-0.11415147432923,Brixton,1973,1976,1st apartment by myself. Found various jobs in London,faHouseUser
+52.626367757733,1.29385689401782,Norwich,1976,April 1978,2nd apartment by myself somewhere in Norwich and the last in England before returning to Canada,faHouseUser
+43.7231907338857,-79.4099453190284,Toronto,April 1978,August 1978,Somewhere in Toronto - 1st apartment back in Canada while I was looking for Edmond,faHouseUser
+46.7372304394758,-64.9743260935344,Saint-Louis-de-Kent - 35 Notre Dame St,August 1978,September 1978,Stayed with Uncle Alcide after finding Edmond until moving to Saint John (house was demolished some years later after Alcide died),faHouseUser
+45.2886056989572,-65.9988554129573,Saint John - Dorothea Dr,September 1978,December 1978,1st apartment in Saint John while I attended NBCC Backhoe course,faHouseUser
+45.2719841115188,-66.0584256245227,Saint John - Princess St,December 1978,1979,2nd apartment in Saint John - Edmond stayed with me for a few months,faHouseUser
+45.2759086,-66.0833094,Saint John - 5 Elgin St,1979,1986,3rd apartment in Saint John - actually owned by Uncle Edgar,faHouseUser
+45.2778772,-66.0592159,Saint John - 77 Coburg St,1986,1990,4th apartment in Saint John,faHouseUser
+45.3091796,-66.0249313,Saint John - 21 Sandpiper Rd,1990,2003,I bought a mini-home - married Denise in 2001,faHouseUser
+45.2827290429399,-66.0551875484655,Saint John - 41 Meadow St,2003,2004,1st apartment with Denise,faHouseUser
+45.2760358,-66.0518563,Saint John - 362 Union St,2004,2005,2nd apartment with Denise,faHouseUser
+46.2232297,-64.5321685,Shediac - 58 la Batture St,2005,2011,1st apartment in Shediac,faHouseUser
+46.2219171,-64.5456296,Shediac - 65 Calder St,2011,2013,2nd apartment in Shediac,faHouseUser
+46.2219825,-64.533242,Shediac - 442A Main St,2013,2017,3rd apartment in Shediac,faHouseUser
+46.2223867,-64.5339489,Shediac - 340 Pascal-Poirier St,2017,2026,4th apartment in Shediac - Denise died Dec 24th 2025,faHouseUser
+46.2229104,-64.5333937,Shediac - 366 Pascal-Poirier St,2026,Current,Care home without Denise,faHouseUser
