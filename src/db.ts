@@ -1,8 +1,8 @@
 import "dotenv/config";
 import postgres from "@prisma/orm-postgres/runtime";
 import { contractFromJson } from "@prisma/orm-postgres/static";
-import type { Contract } from "./prisma/contract.d";
-import contractJson from "./prisma/contract.json";
+import type { Contract } from "./prisma/contract.d.ts";
+import contractJson from "./prisma/contract.json" with { type: "json" };
 
 export const db = postgres({
   contract: contractFromJson<Contract>(contractJson),

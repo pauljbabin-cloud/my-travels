@@ -1,9 +1,9 @@
 
 import { useEffect, useState, useRef } from 'react';
-import { TripParams } from "./types";
-import { createTripState, resetMarkerClusterer, clearPolylines } from "./tripState";
-import { panToHomeMarker } from "@/utils/showhomes";
-import { runMasterSequence, toggleHighlight, SidebarItemData } from "@/utils/runMasterSequence";
+import { TripParams } from "./types.tsx";
+import { createTripState, resetMarkerClusterer, clearPolylines } from "./tripState.tsx";
+import { panToHomeMarker } from "@/utils/showhomes.tsx";
+import { runMasterSequence, toggleHighlight, SidebarItemData } from "@/utils/runMasterSequence.tsx";
 
 export function Trip({ params }: { params: TripParams }) {
     const [sidebarItems, setSidebarItems] = useState < SidebarItemData[] > ([]);

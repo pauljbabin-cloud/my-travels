@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server.ts';
 import fs from 'fs';
 import path from 'path';
 

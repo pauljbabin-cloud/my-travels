@@ -1,6 +1,6 @@
 
 
-import { HomeDetails } from "./types";
+import { HomeDetails } from "./types.tsx";
 import { importLibrary } from "@googlemaps/js-api-loader";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faHospitalUser, faHouseUser, faSchool, faCaravan } from '@fortawesome/free-solid-svg-icons';
