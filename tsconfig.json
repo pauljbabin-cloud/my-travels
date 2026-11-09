@@ -7,12 +7,15 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+	"outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
     "plugins": [
       {
         "name": "next"
@@ -31,7 +34,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+	"src"
   ],
   "exclude": ["node_modules"]
 }
