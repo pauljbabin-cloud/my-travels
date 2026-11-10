@@ -1,12 +1,13 @@
-import 'dotenv/config';
-import { definePrismaConfig } from '@prisma/cli-engine';
-import { defineConfig as ormConfig } from '@prisma/orm-postgres/config';
+// prisma.config.ts
+import { defineConfig as composer } from '@prisma/composer/config';
+import { nodeBuild } from '@prisma/composer/node/control';
+import { prismaCloud, prismaState } from '@prisma/composer-prisma-cloud/control';
+import { definePrismaConfig } from 'prisma/config';
 
 export default definePrismaConfig({
-  orm: ormConfig({
-    contract: "./src/prisma/contract.prisma",
-    db: {
-      connection: process.env['DATABASE_URL']!,
-    },
+  composer: composer({
+    entry: './module.ts',
+    extensions: [prismaCloud(), nodeBuild()],
+    state: prismaState(),
   }),
 });
