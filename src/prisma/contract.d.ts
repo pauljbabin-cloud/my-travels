@@ -23,9 +23,9 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'8a1350e12ac723e3939fdcd98a5bb3462cce6fd47fdc6a3f4b88e89b5c34acfb'>;
+  StorageHashBase<'920a87b50729a867e21706dd0fa5c3739e273a84ed89eb2f3525633b2d6ef85c'>;
 export type ExecutionHash =
-  ExecutionHashBase<'596121bd84e958587f5af746723086dfa57821c02326512040859bcaa01d00b5'>;
+  ExecutionHashBase<'0ff7f5c55037616d53a67c7c581c1178658b41c7a674a85dd59fc3b8f9dd8a49'>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
 
@@ -309,62 +309,32 @@ export type StorageColumnInputTypes = ColumnTypesFromStorage<
 >;
 
 export namespace Models {
-  export type public_Home = {
-    address: FieldOutputTypes['public']['Home']['address'];
-    description: FieldOutputTypes['public']['Home']['description'];
-    from: FieldOutputTypes['public']['Home']['from'];
-    id: FieldOutputTypes['public']['Home']['id'];
-    lat: FieldOutputTypes['public']['Home']['lat'];
-    lng: FieldOutputTypes['public']['Home']['lng'];
-    to: FieldOutputTypes['public']['Home']['to'];
-    type: FieldOutputTypes['public']['Home']['type'];
-    readonly [RelationKeys]?: never;
+  export type public_Post = {
+    authorId: FieldOutputTypes['public']['Post']['authorId'];
+    content: FieldOutputTypes['public']['Post']['content'];
+    createdAt: FieldOutputTypes['public']['Post']['createdAt'];
+    id: FieldOutputTypes['public']['Post']['id'];
+    title: FieldOutputTypes['public']['Post']['title'];
+    updatedAt: FieldOutputTypes['public']['Post']['updatedAt'];
+    author: public_User;
+    readonly [RelationKeys]?: 'author';
   };
-  export type public_Trip = {
-    actionKey: FieldOutputTypes['public']['Trip']['actionKey'];
-    createdAt: FieldOutputTypes['public']['Trip']['createdAt'];
-    htmlDescription: FieldOutputTypes['public']['Trip']['htmlDescription'];
-    id: FieldOutputTypes['public']['Trip']['id'];
-    panLat: FieldOutputTypes['public']['Trip']['panLat'];
-    panLng: FieldOutputTypes['public']['Trip']['panLng'];
-    zoom: FieldOutputTypes['public']['Trip']['zoom'];
-    details: public_TripDetail[];
-    waypoints: public_Waypoint[];
-    readonly [RelationKeys]?: 'details' | 'waypoints';
-  };
-  export type public_TripDetail = {
-    description: FieldOutputTypes['public']['TripDetail']['description'];
-    id: FieldOutputTypes['public']['TripDetail']['id'];
-    image: FieldOutputTypes['public']['TripDetail']['image'];
-    lat: FieldOutputTypes['public']['TripDetail']['lat'];
-    lng: FieldOutputTypes['public']['TripDetail']['lng'];
-    order: FieldOutputTypes['public']['TripDetail']['order'];
-    title: FieldOutputTypes['public']['TripDetail']['title'];
-    tripId: FieldOutputTypes['public']['TripDetail']['tripId'];
-    type: FieldOutputTypes['public']['TripDetail']['type'];
-    trip: public_Trip;
-    readonly [RelationKeys]?: 'trip';
-  };
-  export type public_Waypoint = {
-    id: FieldOutputTypes['public']['Waypoint']['id'];
-    lat: FieldOutputTypes['public']['Waypoint']['lat'];
-    lng: FieldOutputTypes['public']['Waypoint']['lng'];
-    name: FieldOutputTypes['public']['Waypoint']['name'];
-    order: FieldOutputTypes['public']['Waypoint']['order'];
-    routeNum: FieldOutputTypes['public']['Waypoint']['routeNum'];
-    tripId: FieldOutputTypes['public']['Waypoint']['tripId'];
-    type: FieldOutputTypes['public']['Waypoint']['type'];
-    trip: public_Trip;
-    readonly [RelationKeys]?: 'trip';
+  export type public_User = {
+    createdAt: FieldOutputTypes['public']['User']['createdAt'];
+    email: FieldOutputTypes['public']['User']['email'];
+    id: FieldOutputTypes['public']['User']['id'];
+    name: FieldOutputTypes['public']['User']['name'];
+    updatedAt: FieldOutputTypes['public']['User']['updatedAt'];
+    username: FieldOutputTypes['public']['User']['username'];
+    posts: public_Post[];
+    readonly [RelationKeys]?: 'posts';
   };
 }
 
 export declare const models: {
   public: {
-    Home: Models.public_Home;
-    Trip: Models.public_Trip;
-    TripDetail: Models.public_TripDetail;
-    Waypoint: Models.public_Waypoint;
+    Post: Models.public_Post;
+    User: Models.public_User;
   };
 };
 
@@ -386,21 +356,88 @@ type ContractBase = Omit<
         readonly kind: 'postgres-schema';
         readonly entries: {
           readonly table: {
-            readonly Home: {
+            readonly Post: {
               columns: {
-                readonly address: {
+                readonly authorId: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly content: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                  readonly many: false;
+                };
+                readonly createdAt: {
+                  readonly dataType: 'pg/timestamptz';
+                  readonly codecId: 'pg/timestamptz-date@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                  readonly typeParams: { readonly precision: 3 };
+                  readonly many: false;
+                };
+                readonly id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'function';
+                    readonly expression: 'autoincrement()';
+                  };
+                  readonly many: false;
+                };
+                readonly title: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
                   readonly many: false;
                 };
-                readonly description: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
+                readonly updatedAt: {
+                  readonly dataType: 'pg/timestamptz';
+                  readonly codecId: 'pg/timestamptz-date@1';
                   readonly nullable: false;
+                  readonly typeParams: { readonly precision: 3 };
                   readonly many: false;
                 };
-                readonly from: {
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [];
+              indexes: readonly [
+                {
+                  readonly name: 'Post_authorId_idx_e47547ed';
+                  readonly prefix: 'Post_authorId_idx';
+                  readonly columns: readonly ['authorId'];
+                  readonly unique: false;
+                },
+              ];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Post';
+                    readonly columns: readonly ['authorId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'User';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
+            readonly User: {
+              columns: {
+                readonly createdAt: {
+                  readonly dataType: 'pg/timestamptz';
+                  readonly codecId: 'pg/timestamptz-date@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                  readonly typeParams: { readonly precision: 3 };
+                  readonly many: false;
+                };
+                readonly email: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
@@ -416,241 +453,30 @@ type ContractBase = Omit<
                   };
                   readonly many: false;
                 };
-                readonly lat: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lng: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly to: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly type: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-              };
-              primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
-              indexes: readonly [];
-              foreignKeys: readonly [];
-            };
-            readonly Trip: {
-              columns: {
-                readonly actionKey: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly createdAt: {
-                  readonly dataType: 'pg/timestamp';
-                  readonly codecId: 'pg/timestamp-date@1';
-                  readonly nullable: false;
-                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
-                  readonly typeParams: { readonly precision: 3 };
-                  readonly many: false;
-                };
-                readonly htmlDescription: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly id: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly panLat: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly panLng: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly zoom: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-              };
-              primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
-              indexes: readonly [
-                {
-                  readonly name: 'Trip_actionKey_key';
-                  readonly columns: readonly ['actionKey'];
-                  readonly unique: true;
-                },
-              ];
-              foreignKeys: readonly [];
-            };
-            readonly TripDetail: {
-              columns: {
-                readonly description: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly id: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly image: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lat: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lng: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly order: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly title: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly tripId: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly type: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-              };
-              primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
-              indexes: readonly [];
-              foreignKeys: readonly [
-                {
-                  readonly source: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'TripDetail';
-                    readonly columns: readonly ['tripId'];
-                  };
-                  readonly target: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Trip';
-                    readonly columns: readonly ['id'];
-                  };
-                },
-              ];
-            };
-            readonly Waypoint: {
-              columns: {
-                readonly id: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lat: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lng: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
                 readonly name: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: true;
                   readonly many: false;
                 };
-                readonly order: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
+                readonly updatedAt: {
+                  readonly dataType: 'pg/timestamptz';
+                  readonly codecId: 'pg/timestamptz-date@1';
                   readonly nullable: false;
+                  readonly typeParams: { readonly precision: 3 };
                   readonly many: false;
                 };
-                readonly routeNum: {
-                  readonly dataType: 'pg/int4';
-                  readonly codecId: 'pg/int4@1';
-                  readonly nullable: false;
-                  readonly default: {
-                    readonly kind: 'literal';
-                    readonly value: DefaultLiteralValue<'pg/int4@1', 0>;
-                  };
-                  readonly many: false;
-                };
-                readonly tripId: {
+                readonly username: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly type: {
-                  readonly dataType: 'pg/text';
-                  readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
+                  readonly nullable: true;
                   readonly many: false;
                 };
               };
               primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [];
+              uniques: readonly [{ readonly columns: readonly ['email'] }];
               indexes: readonly [];
-              foreignKeys: readonly [
-                {
-                  readonly source: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Waypoint';
-                    readonly columns: readonly ['tripId'];
-                  };
-                  readonly target: {
-                    readonly namespaceId: 'public' & NamespaceId;
-                    readonly tableName: 'Trip';
-                    readonly columns: readonly ['id'];
-                  };
-                },
-              ];
+              foreignKeys: readonly [];
             };
           };
         };
@@ -663,165 +489,32 @@ type ContractBase = Omit<
   readonly target: 'postgres';
   readonly targetFamily: 'sql';
   readonly roots: {
-    readonly Home: { readonly namespace: 'public' & NamespaceId; readonly model: 'Home' };
-    readonly Trip: { readonly namespace: 'public' & NamespaceId; readonly model: 'Trip' };
-    readonly TripDetail: {
-      readonly namespace: 'public' & NamespaceId;
-      readonly model: 'TripDetail';
-    };
-    readonly Waypoint: { readonly namespace: 'public' & NamespaceId; readonly model: 'Waypoint' };
+    readonly Post: { readonly namespace: 'public' & NamespaceId; readonly model: 'Post' };
+    readonly User: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
   };
   readonly domain: {
     readonly namespaces: {
       readonly public: {
         readonly models: {
-          readonly Home: {
+          readonly Post: {
             readonly fields: {
-              readonly address: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly description: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly from: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly id: {
+              readonly authorId: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
-              readonly lat: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly lng: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly to: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly type: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-            };
-            readonly relations: Record<string, never>;
-            readonly storage: {
-              readonly table: 'Home';
-              readonly namespaceId: 'public';
-              readonly fields: {
-                readonly address: { readonly column: 'address' };
-                readonly description: { readonly column: 'description' };
-                readonly from: { readonly column: 'from' };
-                readonly id: { readonly column: 'id' };
-                readonly lat: { readonly column: 'lat' };
-                readonly lng: { readonly column: 'lng' };
-                readonly to: { readonly column: 'to' };
-                readonly type: { readonly column: 'type' };
-              };
-            };
-          };
-          readonly Trip: {
-            readonly fields: {
-              readonly actionKey: {
-                readonly nullable: false;
+              readonly content: {
+                readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly createdAt: {
                 readonly nullable: false;
                 readonly type: {
                   readonly kind: 'scalar';
-                  readonly codecId: 'pg/timestamp-date@1';
+                  readonly codecId: 'pg/timestamptz-date@1';
                   readonly typeParams: { readonly precision: 3 };
                 };
               };
-              readonly htmlDescription: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
               readonly id: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly panLat: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly panLng: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly zoom: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
-              };
-            };
-            readonly relations: {
-              readonly details: {
-                readonly to: {
-                  readonly namespace: 'public' & NamespaceId;
-                  readonly model: 'TripDetail';
-                };
-                readonly cardinality: '1:N';
-                readonly on: {
-                  readonly localFields: readonly ['id'];
-                  readonly targetFields: readonly ['tripId'];
-                };
-              };
-              readonly waypoints: {
-                readonly to: {
-                  readonly namespace: 'public' & NamespaceId;
-                  readonly model: 'Waypoint';
-                };
-                readonly cardinality: '1:N';
-                readonly on: {
-                  readonly localFields: readonly ['id'];
-                  readonly targetFields: readonly ['tripId'];
-                };
-              };
-            };
-            readonly storage: {
-              readonly table: 'Trip';
-              readonly namespaceId: 'public';
-              readonly fields: {
-                readonly actionKey: { readonly column: 'actionKey' };
-                readonly createdAt: { readonly column: 'createdAt' };
-                readonly htmlDescription: { readonly column: 'htmlDescription' };
-                readonly id: { readonly column: 'id' };
-                readonly panLat: { readonly column: 'panLat' };
-                readonly panLng: { readonly column: 'panLng' };
-                readonly zoom: { readonly column: 'zoom' };
-              };
-            };
-          };
-          readonly TripDetail: {
-            readonly fields: {
-              readonly description: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly id: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly image: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly lat: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly lng: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly order: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
@@ -829,100 +522,94 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly tripId: {
+              readonly updatedAt: {
                 readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly type: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-date@1';
+                  readonly typeParams: { readonly precision: 3 };
+                };
               };
             };
             readonly relations: {
-              readonly trip: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Trip' };
+              readonly author: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'User' };
                 readonly cardinality: 'N:1';
                 readonly nullable: false;
                 readonly on: {
-                  readonly localFields: readonly ['tripId'];
+                  readonly localFields: readonly ['authorId'];
                   readonly targetFields: readonly ['id'];
                 };
               };
             };
             readonly storage: {
-              readonly table: 'TripDetail';
+              readonly table: 'Post';
               readonly namespaceId: 'public';
               readonly fields: {
-                readonly description: { readonly column: 'description' };
+                readonly authorId: { readonly column: 'authorId' };
+                readonly content: { readonly column: 'content' };
+                readonly createdAt: { readonly column: 'createdAt' };
                 readonly id: { readonly column: 'id' };
-                readonly image: { readonly column: 'image' };
-                readonly lat: { readonly column: 'lat' };
-                readonly lng: { readonly column: 'lng' };
-                readonly order: { readonly column: 'order' };
                 readonly title: { readonly column: 'title' };
-                readonly tripId: { readonly column: 'tripId' };
-                readonly type: { readonly column: 'type' };
+                readonly updatedAt: { readonly column: 'updatedAt' };
               };
             };
           };
-          readonly Waypoint: {
+          readonly User: {
             readonly fields: {
-              readonly id: {
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-date@1';
+                  readonly typeParams: { readonly precision: 3 };
+                };
+              };
+              readonly email: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly lat: {
+              readonly id: {
                 readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly lng: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
               readonly name: {
                 readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly order: {
+              readonly updatedAt: {
                 readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-date@1';
+                  readonly typeParams: { readonly precision: 3 };
+                };
               };
-              readonly routeNum: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
-              };
-              readonly tripId: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly type: {
-                readonly nullable: false;
+              readonly username: {
+                readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
             };
             readonly relations: {
-              readonly trip: {
-                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Trip' };
-                readonly cardinality: 'N:1';
-                readonly nullable: false;
+              readonly posts: {
+                readonly to: { readonly namespace: 'public' & NamespaceId; readonly model: 'Post' };
+                readonly cardinality: '1:N';
                 readonly on: {
-                  readonly localFields: readonly ['tripId'];
-                  readonly targetFields: readonly ['id'];
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['authorId'];
                 };
               };
             };
             readonly storage: {
-              readonly table: 'Waypoint';
+              readonly table: 'User';
               readonly namespaceId: 'public';
               readonly fields: {
+                readonly createdAt: { readonly column: 'createdAt' };
+                readonly email: { readonly column: 'email' };
                 readonly id: { readonly column: 'id' };
-                readonly lat: { readonly column: 'lat' };
-                readonly lng: { readonly column: 'lng' };
                 readonly name: { readonly column: 'name' };
-                readonly order: { readonly column: 'order' };
-                readonly routeNum: { readonly column: 'routeNum' };
-                readonly tripId: { readonly column: 'tripId' };
-                readonly type: { readonly column: 'type' };
+                readonly updatedAt: { readonly column: 'updatedAt' };
+                readonly username: { readonly column: 'username' };
               };
             };
           };
@@ -970,32 +657,54 @@ type ContractBase = Omit<
             readonly params: { readonly precision: 3 };
           };
           readonly ref: {
-            readonly entry: 'Trip';
+            readonly entry: 'Post';
             readonly field: 'createdAt';
             readonly namespace: 'public';
           };
         },
         {
-          readonly onCreate: { readonly id: 'uuidv4'; readonly kind: 'generator' };
+          readonly onCreate: {
+            readonly id: 'timestampNow';
+            readonly kind: 'generator';
+            readonly params: { readonly precision: 3 };
+          };
+          readonly onUpdate: {
+            readonly id: 'timestampNow';
+            readonly kind: 'generator';
+            readonly params: { readonly precision: 3 };
+          };
           readonly ref: {
-            readonly entry: 'Trip';
-            readonly field: 'id';
+            readonly entry: 'Post';
+            readonly field: 'updatedAt';
             readonly namespace: 'public';
           };
         },
         {
-          readonly onCreate: { readonly id: 'uuidv4'; readonly kind: 'generator' };
+          readonly onCreate: {
+            readonly id: 'timestampNow';
+            readonly kind: 'generator';
+            readonly params: { readonly precision: 3 };
+          };
           readonly ref: {
-            readonly entry: 'TripDetail';
-            readonly field: 'id';
+            readonly entry: 'User';
+            readonly field: 'createdAt';
             readonly namespace: 'public';
           };
         },
         {
-          readonly onCreate: { readonly id: 'uuidv4'; readonly kind: 'generator' };
+          readonly onCreate: {
+            readonly id: 'timestampNow';
+            readonly kind: 'generator';
+            readonly params: { readonly precision: 3 };
+          };
+          readonly onUpdate: {
+            readonly id: 'timestampNow';
+            readonly kind: 'generator';
+            readonly params: { readonly precision: 3 };
+          };
           readonly ref: {
-            readonly entry: 'Waypoint';
-            readonly field: 'id';
+            readonly entry: 'User';
+            readonly field: 'updatedAt';
             readonly namespace: 'public';
           };
         },
