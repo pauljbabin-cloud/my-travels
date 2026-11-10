@@ -1,6 +1,6 @@
 // app/api/trips/route.ts
 import { NextResponse } from "next/server";
-import { db } from "@/prisma/db"; 
+import { db } from "@/src/prisma/db"; 
 
 export async function GET() {
   try {
