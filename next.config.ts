@@ -2,24 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     output: 'standalone',
-    cacheComponents: true,
-    partialPrefetching: true,
-
+    logging: {
+        browserToTerminal: true,
+    },
 };
 
-export default nextConfig;
-
-safelist:
-[
+/xport const safelist = [
     'property',
     'icon',
     'details',
     'description',
     'highlight'
-]
+];
 
-module.exports = {
-    logging: {
-        browserToTerminal: true,
-    },
-}
+export default nextConfig;
