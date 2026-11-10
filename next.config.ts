@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     },
 };
 
-/xport const safelist = [
+export const safelist = [
     'property',
     'icon',
     'details',
