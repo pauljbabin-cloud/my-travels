@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { db } from "@/prisma/db"; 
 
 // GET all homes
 export async function GET() {
   try {
-    const homes = await prisma.home.findMany();
+    const homes = await db.home.findMany();
     return NextResponse.json(homes, { status: 200 });
   } catch (error) {
     console.error("Failed to fetch homes:", error);
@@ -17,13 +15,11 @@ export async function GET() {
   }
 }
 
-// POST a new home
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { lat, lng, address, from, to, description, type } = body;
 
-    // Validate required fields explicitly
     if (
       lat === undefined || 
       lng === undefined || 
@@ -39,7 +35,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const newHome = await prisma.home.create({
+    const newHome = await db.home.create({
       data: {
         lat,
         lng,
