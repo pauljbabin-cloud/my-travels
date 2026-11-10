@@ -1,6 +1,6 @@
 // use prisma-8
 
-model Trip {
+model trip {
   id                String       @id @default(uuid())
   actionKey         String       @unique // e.g., "Ontario", "StoNF", "Newfoundland"
   panLat            Float
@@ -12,7 +12,7 @@ model Trip {
   createdAt         TimestamptzString @default(now())
 }
 
-model Waypoint {
+model waypoint {
   id        String   @id @default(uuid())
   tripId    String
   trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
@@ -24,7 +24,7 @@ model Waypoint {
   order     Int      // To ensure the path points are loaded sequentially
 }
 
-model TripDetail {
+model tripDetail {
   id          String   @id @default(uuid())
   tripId      String
   trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
@@ -37,7 +37,7 @@ model TripDetail {
   order       Int      // Maintains sidebar ordering sequence
 }
 
-model Home {
+model home {
   id          Int      @id @default(autoincrement())
   lat         Float
   lng         Float
