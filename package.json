@@ -18,8 +18,11 @@
     "@googlemaps/markerclusterer": "^2.6.2",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
-    "@prisma/orm-postgres": "^8.0.0-rc.23",
+    "@prisma/composer": "0.38.0",
+    "@prisma/composer-prisma-cloud": "0.38.0",
+    "@prisma/orm-postgres": "8.0.0-rc.23",
     "csv-parser": "^3.2.1",
+    "effect": "4.0.5",
     "next": "^16.4.6",
     "pg": "^8.23.1",
     "react": "^19.3.1",
@@ -41,5 +44,12 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "@effect/platform-bun": "4.0.5",
+    "@effect/platform-node": "4.0.5",
+    "@effect/platform-node-shared": "4.0.5",
+    "@effect/vitest": "4.0.5",
+    "effect": "4.0.5"
   }
 }
