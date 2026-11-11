@@ -1,21 +1,49 @@
 // use prisma-8
 
-model User {
-  id        Int                @id @default(autoincrement())
-  email     String             @unique
-  username  String?
-  name      String?
-  posts     Post[]
-  createdAt DateTime           @default(now()) @onCreate(now())
-  updatedAt temporal.UpdatedAt
+model Trip {
+  id                String       @id @onCreate(uuid())
+  actionKey         String       @unique // e.g., "Ontario", "StoNF", "Newfoundland"
+  panLat            Float
+  panLng            Float
+  zoom              Int
+  htmlDescription   String       // Stores the rich HTML text shown in the sidebar
+  waypoints         Waypoint[]
+  details           TripDetail[]
+  createdAt         TimestamptzString @default(now())
 }
 
-model Post {
-  id        Int                @id @default(autoincrement())
-  title     String
-  content   String?
-  author    User               @relation(fields: [authorId], references: [id])
-  authorId  Int
-  createdAt DateTime           @default(now()) @onCreate(now())
-  updatedAt temporal.UpdatedAt
+model Waypoint {
+  id        String   @id @onCreate(uuid())
+  tripId    String
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  type      String   // "origin", "destination", or "intermediate"
+  lat       Float
+  lng       Float
+  name      String?  // Optional site name from the CSV
+  routeNum  Int      @default(0) // Distinguishes route0 from route1 if a trip has multiple route CSVs
+  order     Int      // To ensure the path points are loaded sequentially
+}
+
+model TripDetail {
+  id          String   @id @onCreate(uuid())
+  tripId      String
+  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  lat         Float
+  lng         Float
+  title       String
+  description String
+  image       String   // Will store "blank" or the slideshow image ID
+  type        String   // e.g., "faCamera", "faBed"
+  order       Int      // Maintains sidebar ordering sequence
+}
+
+model Home {
+  id          Int      @id @default(autoincrement())
+  lat         Float
+  lng         Float
+  address     String
+  from        String
+  to          String
+  description String
+  type        String   // e.g., "faHouseUser", "faHospitalUser"
 }

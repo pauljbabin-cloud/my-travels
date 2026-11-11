@@ -4,12 +4,20 @@
   "target": "postgres",
   "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
   "roots": {
-    "Post": {
-      "model": "Post",
+    "Home": {
+      "model": "Home",
       "namespace": "public"
     },
-    "User": {
-      "model": "User",
+    "Trip": {
+      "model": "Trip",
+      "namespace": "public"
+    },
+    "TripDetail": {
+      "model": "TripDetail",
+      "namespace": "public"
+    },
+    "Waypoint": {
+      "model": "Waypoint",
       "namespace": "public"
     }
   },
@@ -17,17 +25,101 @@
     "namespaces": {
       "public": {
         "models": {
-          "Post": {
+          "Home": {
             "fields": {
-              "authorId": {
+              "address": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "from": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/int4@1",
                   "kind": "scalar"
                 }
               },
-              "content": {
-                "nullable": true,
+              "lat": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "lng": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "to": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "type": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "fields": {
+                "address": {
+                  "column": "address"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "from": {
+                  "column": "from"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "lat": {
+                  "column": "lat"
+                },
+                "lng": {
+                  "column": "lng"
+                },
+                "to": {
+                  "column": "to"
+                },
+                "type": {
+                  "column": "type"
+                }
+              },
+              "namespaceId": "public",
+              "table": "Home"
+            }
+          },
+          "Trip": {
+            "fields": {
+              "actionKey": {
+                "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -36,14 +128,144 @@
               "createdAt": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "htmlDescription": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
                 }
               },
               "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "panLat": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "panLng": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "zoom": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "details": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "tripId"
+                  ]
+                },
+                "to": {
+                  "model": "TripDetail",
+                  "namespace": "public"
+                }
+              },
+              "waypoints": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "tripId"
+                  ]
+                },
+                "to": {
+                  "model": "Waypoint",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "actionKey": {
+                  "column": "actionKey"
+                },
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "htmlDescription": {
+                  "column": "htmlDescription"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "panLat": {
+                  "column": "panLat"
+                },
+                "panLng": {
+                  "column": "panLng"
+                },
+                "zoom": {
+                  "column": "zoom"
+                }
+              },
+              "namespaceId": "public",
+              "table": "Trip"
+            }
+          },
+          "TripDetail": {
+            "fields": {
+              "description": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "image": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "lat": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "lng": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "order": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/int4@1",
@@ -57,83 +279,93 @@
                   "kind": "scalar"
                 }
               },
-              "updatedAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
-                }
-              }
-            },
-            "relations": {
-              "author": {
-                "cardinality": "N:1",
-                "nullable": false,
-                "on": {
-                  "localFields": [
-                    "authorId"
-                  ],
-                  "targetFields": [
-                    "id"
-                  ]
-                },
-                "to": {
-                  "model": "User",
-                  "namespace": "public"
-                }
-              }
-            },
-            "storage": {
-              "fields": {
-                "authorId": {
-                  "column": "authorId"
-                },
-                "content": {
-                  "column": "content"
-                },
-                "createdAt": {
-                  "column": "createdAt"
-                },
-                "id": {
-                  "column": "id"
-                },
-                "title": {
-                  "column": "title"
-                },
-                "updatedAt": {
-                  "column": "updatedAt"
-                }
-              },
-              "namespaceId": "public",
-              "table": "Post"
-            }
-          },
-          "User": {
-            "fields": {
-              "createdAt": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
-                }
-              },
-              "email": {
+              "tripId": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
+              "type": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "trip": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "tripId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Trip",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "image": {
+                  "column": "image"
+                },
+                "lat": {
+                  "column": "lat"
+                },
+                "lng": {
+                  "column": "lng"
+                },
+                "order": {
+                  "column": "order"
+                },
+                "title": {
+                  "column": "title"
+                },
+                "tripId": {
+                  "column": "tripId"
+                },
+                "type": {
+                  "column": "type"
+                }
+              },
+              "namespaceId": "public",
+              "table": "TripDetail"
+            }
+          },
+          "Waypoint": {
+            "fields": {
               "id": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/int4@1",
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "lat": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
+                  "kind": "scalar"
+                }
+              },
+              "lng": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/float8@1",
                   "kind": "scalar"
                 }
               },
@@ -144,18 +376,29 @@
                   "kind": "scalar"
                 }
               },
-              "updatedAt": {
+              "order": {
                 "nullable": false,
                 "type": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
                 }
               },
-              "username": {
-                "nullable": true,
+              "routeNum": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "tripId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "type": {
+                "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -163,45 +406,52 @@
               }
             },
             "relations": {
-              "posts": {
-                "cardinality": "1:N",
+              "trip": {
+                "cardinality": "N:1",
+                "nullable": false,
                 "on": {
                   "localFields": [
-                    "id"
+                    "tripId"
                   ],
                   "targetFields": [
-                    "authorId"
+                    "id"
                   ]
                 },
                 "to": {
-                  "model": "Post",
+                  "model": "Trip",
                   "namespace": "public"
                 }
               }
             },
             "storage": {
               "fields": {
-                "createdAt": {
-                  "column": "createdAt"
-                },
-                "email": {
-                  "column": "email"
-                },
                 "id": {
                   "column": "id"
+                },
+                "lat": {
+                  "column": "lat"
+                },
+                "lng": {
+                  "column": "lng"
                 },
                 "name": {
                   "column": "name"
                 },
-                "updatedAt": {
-                  "column": "updatedAt"
+                "order": {
+                  "column": "order"
                 },
-                "username": {
-                  "column": "username"
+                "routeNum": {
+                  "column": "routeNum"
+                },
+                "tripId": {
+                  "column": "tripId"
+                },
+                "type": {
+                  "column": "type"
                 }
               },
               "namespaceId": "public",
-              "table": "User"
+              "table": "Waypoint"
             }
           }
         }
@@ -213,29 +463,22 @@
       "public": {
         "entries": {
           "table": {
-            "Post": {
+            "Home": {
               "columns": {
-                "authorId": {
-                  "codecId": "pg/int4@1",
-                  "dataType": "pg/int4",
-                  "nullable": false
-                },
-                "content": {
+                "address": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
-                  "nullable": true
+                  "nullable": false
                 },
-                "createdAt": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "dataType": "pg/timestamptz",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                "description": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "from": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
                 },
                 "id": {
                   "codecId": "pg/int4@1",
@@ -246,51 +489,29 @@
                   },
                   "nullable": false
                 },
-                "title": {
+                "lat": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "lng": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "to": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
                 },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "dataType": "pg/timestamptz",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                "type": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
                 }
               },
-              "foreignKeys": [
-                {
-                  "index": {
-                    "name": "Post_authorId_idx_e47547ed"
-                  },
-                  "source": {
-                    "columns": [
-                      "authorId"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "Post"
-                  },
-                  "target": {
-                    "columns": [
-                      "id"
-                    ],
-                    "namespaceId": "public",
-                    "tableName": "User"
-                  }
-                }
-              ],
-              "indexes": [
-                {
-                  "columns": [
-                    "authorId"
-                  ],
-                  "name": "Post_authorId_idx_e47547ed",
-                  "prefix": "Post_authorId_idx",
-                  "unique": false
-                }
-              ],
+              "foreignKeys": [],
+              "indexes": [],
               "primaryKey": {
                 "columns": [
                   "id"
@@ -298,51 +519,46 @@
               },
               "uniques": []
             },
-            "User": {
+            "Trip": {
               "columns": {
+                "actionKey": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
                 "createdAt": {
-                  "codecId": "pg/timestamptz-date@1",
+                  "codecId": "pg/timestamptz-string@1",
                   "dataType": "pg/timestamptz",
                   "default": {
                     "expression": "now()",
                     "kind": "function"
                   },
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                  "nullable": false
                 },
-                "email": {
+                "htmlDescription": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
                 },
                 "id": {
-                  "codecId": "pg/int4@1",
-                  "dataType": "pg/int4",
-                  "default": {
-                    "expression": "autoincrement()",
-                    "kind": "function"
-                  },
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
                   "nullable": false
                 },
-                "name": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": true
+                "panLat": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
                 },
-                "updatedAt": {
-                  "codecId": "pg/timestamptz-date@1",
-                  "dataType": "pg/timestamptz",
-                  "nullable": false,
-                  "typeParams": {
-                    "precision": 3
-                  }
+                "panLng": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
                 },
-                "username": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": true
+                "zoom": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
                 }
               },
               "foreignKeys": [],
@@ -355,10 +571,183 @@
               "uniques": [
                 {
                   "columns": [
-                    "email"
+                    "actionKey"
                   ]
                 }
               ]
+            },
+            "TripDetail": {
+              "columns": {
+                "description": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "image": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "lat": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "lng": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "order": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
+                "title": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "tripId": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "type": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "index": {
+                    "name": "TripDetail_tripId_idx_75da6d97"
+                  },
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "tripId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "TripDetail"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Trip"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "tripId"
+                  ],
+                  "name": "TripDetail_tripId_idx_75da6d97",
+                  "prefix": "TripDetail_tripId_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
+            },
+            "Waypoint": {
+              "columns": {
+                "id": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "lat": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "lng": {
+                  "codecId": "pg/float8@1",
+                  "dataType": "pg/float8",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": true
+                },
+                "order": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
+                "routeNum": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "tripId": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "type": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "index": {
+                    "name": "Waypoint_tripId_idx_75da6d97"
+                  },
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "tripId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Waypoint"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "Trip"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "tripId"
+                  ],
+                  "name": "Waypoint_tripId_idx_75da6d97",
+                  "prefix": "Waypoint_tripId_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
             }
           }
         },
@@ -366,79 +755,42 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "920a87b50729a867e21706dd0fa5c3739e273a84ed89eb2f3525633b2d6ef85c"
+    "storageHash": "8db07a9a7851974cf5baf8da16e1ed9314a52fc076f3f7904f726a876aad0c83"
   },
   "execution": {
-    "executionHash": "0ff7f5c55037616d53a67c7c581c1178658b41c7a674a85dd59fc3b8f9dd8a49",
+    "executionHash": "c67435457df252808b2e914d8ca2ece2698740ab6304cc6c9a86559e8a34fdca",
     "mutations": {
       "defaults": [
         {
           "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
+            "id": "uuidv4",
+            "kind": "generator"
           },
           "ref": {
-            "entry": "Post",
-            "field": "createdAt",
+            "entry": "Trip",
+            "field": "id",
             "namespace": "public"
           }
         },
         {
           "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
+            "id": "uuidv4",
+            "kind": "generator"
           },
           "ref": {
-            "entry": "Post",
-            "field": "updatedAt",
+            "entry": "TripDetail",
+            "field": "id",
             "namespace": "public"
           }
         },
         {
           "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
+            "id": "uuidv4",
+            "kind": "generator"
           },
           "ref": {
-            "entry": "User",
-            "field": "createdAt",
-            "namespace": "public"
-          }
-        },
-        {
-          "onCreate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
-          },
-          "onUpdate": {
-            "id": "timestampNow",
-            "kind": "generator",
-            "params": {
-              "precision": 3
-            }
-          },
-          "ref": {
-            "entry": "User",
-            "field": "updatedAt",
+            "entry": "Waypoint",
+            "field": "id",
             "namespace": "public"
           }
         }
