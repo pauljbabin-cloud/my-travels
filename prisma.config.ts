@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { definePrismaConfig } from "prisma/config";
 import { defineConfig as ormConfig } from "@prisma/orm-postgres/config";
+import { defineConfig as composer } from "@prisma/composer/config";
 
 export default definePrismaConfig({
   orm: ormConfig({
@@ -8,5 +9,12 @@ export default definePrismaConfig({
     db: {
       connection: process.env["DATABASE_URL"]!,
     },
+  }),
+  composer: composer({
+    entry: "./module.mjs", 
+    extensions: [
+      // Add your Composer extension descriptors here (e.g., from @prisma/orm-postgres/control)
+    ],
+    // state: ... (Add your state descriptor here if required by your setup)
   }),
 });
