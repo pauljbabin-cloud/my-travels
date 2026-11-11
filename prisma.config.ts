@@ -12,9 +12,7 @@ export default definePrismaConfig({
   }),
   composer: composer({
     entry: "./module.mjs", 
-    extensions: [
-      // Add your Composer extension descriptors here (e.g., from @prisma/orm-postgres/control)
-    ],
-    // state: ... (Add your state descriptor here if required by your setup)
+    extensions: [prismaCloud(), nodeBuild()],
+    state: prismaState(),
   }),
 });
