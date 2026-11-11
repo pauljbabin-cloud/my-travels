@@ -1,7 +1,7 @@
 // use prisma-8
 
 model Trip {
-  id                String       @id @default(uuid())
+  id                String       @id @onCreate(uuid())
   actionKey         String       @unique // e.g., "Ontario", "StoNF", "Newfoundland"
   panLat            Float
   panLng            Float
@@ -13,7 +13,7 @@ model Trip {
 }
 
 model Waypoint {
-  id        String   @id @default(uuid())
+  id        String   @id @onCreate(uuid())
   tripId    String
   trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   type      String   // "origin", "destination", or "intermediate"
@@ -25,7 +25,7 @@ model Waypoint {
 }
 
 model TripDetail {
-  id          String   @id @default(uuid())
+  id          String   @id @onCreate(uuid())
   tripId      String
   trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   lat         Float
