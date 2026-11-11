@@ -4,7 +4,7 @@ import { db } from "@/src/prisma/db";
 // GET all homes
 export async function GET() {
   try {
-    const homes = await db.home.findMany();
+    const homes = await db.Home.findMany();
     return NextResponse.json(homes, { status: 200 });
   } catch (error) {
     console.error("Failed to fetch homes:", error);
