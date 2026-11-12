@@ -28,7 +28,6 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         break;
 
     case "ShowHomes":
-        await ShowHomes(gMap, (loadedHomes) => {});
         setTargetTrip({
             TripMap: gMap,
             tripId: "homes",

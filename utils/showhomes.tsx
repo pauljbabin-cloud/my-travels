@@ -1,18 +1,20 @@
-
-
-import { HomeDetails } from "./types.tsx";
+// showhomes.tsx
+import { HomeDetails, TripParams } from "./types.tsx";
+import { TripStateInstance } from "./tripState.tsx";
+import { toggleHighlight } from "./runMasterSequence.tsx";
 import { importLibrary } from "@googlemaps/js-api-loader";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faHospitalUser, faHouseUser, faSchool, faCaravan } from '@fortawesome/free-solid-svg-icons';
 
-let markers: google.maps.marker.AdvancedMarkerElement[] = [];
-let activeMarker: google.maps.marker.AdvancedMarkerElement | null = null;
-let markerCluster: any = null;
-let markerRegistry: Record < number, google.maps.marker.AdvancedMarkerElement >  = {};
-
-export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (homes: HomeDetails[]) => void) {
-
-    if (typeof window === "undefined" || typeof document === "undefined")
+export async function ShowHomes(
+    params: { TripMap: google.maps.Map | null }, 
+    state: TripStateInstance,
+    setHomesItems: React.Dispatch<React.SetStateAction<any[]>>,
+    signal: AbortSignal
+	): Promise<void> {
+    const myMap = params.TripMap;
+    if (typeof window === "undefined" || !myMap)
         return;
 
     myMap.panTo({
@@ -21,72 +23,96 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
     });
     myMap.setZoom(18);
 
-    const SHcontent = document.createElement("div");
-    SHcontent.id = "IDShowHomes";
+    let loadedHomes: any[] = [];
 
-    const newUl = document.createElement("ol");
-    newUl.className = "flexible-list";
-    SHcontent.appendChild(newUl);
+    // 1. Try fetching from API first
+    try {
+        const apiResponse = await fetch('/api/homes', {
+            signal
+        });
+        if (apiResponse.ok) {
+            loadedHomes = await apiResponse.json();
+        }
+    } catch (error) {
+        if (signal.aborted)
+            return;
+        console.warn("API /api/homes failed, falling back to CSV:", error);
+    }
 
-    if (typeof window === "undefined" || typeof document === "undefined")
+    if (signal.aborted)
         return;
 
-    myMap.panTo({
-        lat: 46.2229104,
-        lng: -64.5333937
-    });
-    myMap.setZoom(18);
+    // 2. Fallback to /csvs/homes.csv if API failed or returned empty
+    if (!loadedHomes || loadedHomes.length === 0) {
+        try {
+            const baseUrl = window.location.origin;
+            const csvResponse = await fetch(`${baseUrl}/csvs/homes.csv`, {
+                signal
+            });
 
-    resetHomesClusterer();
+            if (!csvResponse.ok) {
+                console.error(`Failed to fetch CSV fallback. Status: ${csvResponse.status}`);
+                return;
+            }
 
+            const csvText = await csvResponse.text();
+            const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
+
+            loadedHomes = rows.map((row, i) => {
+                const cols = row.split(",");
+                if (cols.length < 7)
+                    return null;
+
+                return {
+                    id: (i + 1).toString(),
+                    lat: parseFloat(cols[0]),
+                    lng: parseFloat(cols[1]),
+                    address: cols[2],
+                    from: cols[3],
+                    to: cols[4],
+                    description: cols[5],
+                    type: cols[6],
+                    index: i + 1,
+                };
+            }).filter(Boolean);
+        } catch (error) {
+            if (!signal.aborted) {
+                console.error("Error loading or parsing CSV fallback:", error);
+            }
+            return;
+        }
+    }
+
+    if (signal.aborted)
+        return;
+
+    // 3. Build markers using the shared TripStateInstance
     try {
         const { AdvancedMarkerElement } = await importLibrary("marker")as google.maps.MarkerLibrary;
+        if (signal.aborted)
+            return;
 
-		const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
-		const response = await fetch(`${baseUrl}/csvs/homes.csv`);
-    
-		if (!response.ok) {
-			console.error(`Failed to fetch CSV. Status: ${response.status}`);
-			return; 
-		}
-		
-        const csvText = await response.text();
-		const rows = csvText.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
-        const loadedHomes: HomeDetails[] = [];
-		
-        rows.forEach((row, i) => {
-            const cols = row.split(",");
-            if (cols.length < 7)
-                return;
-
-            const lat = parseFloat(cols[0]);
-            const lng = parseFloat(cols[1]);
-
-            const details: HomeDetails = {
-                address: cols[2],
-                from: cols[3],
-                to: cols[4],
-                description: cols[5],
-                type: cols[6],
-                index: i + 1,
-            };
+        loadedHomes.forEach((home, i) => {
+            const lat = parseFloat(home.lat);
+            const lng = parseFloat(home.lng);
+            const id = (home.id || i + 1).toString();
 
             if (!isNaN(lat) && !isNaN(lng)) {
                 const position = {
                     lat,
                     lng
                 };
-                const markerContentElement = buildContent(details);
+                const markerContentElement = buildContent(home, i + 1);
 
                 const marker = new AdvancedMarkerElement({
                     position,
-                    title: details.address,
+                    title: home.address,
                     content: markerContentElement,
                     gmpClickable: true,
                 });
 
-                const id = i + 1;
-                markerRegistry[id] = marker;
+                // Register in shared state so Trip.tsx can access it
+                state.markerRegistry[id] = marker;
 
                 markerContentElement.addEventListener("click", () => {
                     myMap.setZoom(18);
@@ -94,92 +120,60 @@ export async function ShowHomes(myMap: google.maps.Map, onHomesLoaded ?  : (home
                     toggleHighlight(marker);
                 });
 
-                markers.push(marker);
-                loadedHomes.push(details);
-				
+                state.markers.push(marker);
             }
         });
 
-        const { MarkerClusterer } = await import("@googlemaps/markerclusterer");
-        markerCluster = new MarkerClusterer({
+        if (signal.aborted) {
+            state.markers.forEach(m => m.map = null);
+            return;
+        }
+
+        const clustererInstance = new MarkerClusterer({
             map: myMap
         });
-        markerCluster.addMarkers(markers);
+        clustererInstance.addMarkers(state.markers);
+        state.markerCluster = clustererInstance;
 
-        if (onHomesLoaded) {
-            onHomesLoaded(loadedHomes);
-        }
-
+        setHomesItems(loadedHomes);
     } catch (error) {
-        console.error("Error loading or parsing CSV file:", error);
+        console.error("Error rendering home markers:", error);
     }
+}
 
-    function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarkerElement) {
-        const content = clickedMarker.content as HTMLElement;
-        if (!content)
-            return;
+function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
+    const container = document.createElement("div");
+    container.className = "property";
 
-        if (content.classList.contains("highlight")) {
-            content.classList.remove("highlight");
-            clickedMarker.zIndex = null;
-            activeMarker = null;
-        } else {
-            if (activeMarker && activeMarker !== clickedMarker) {
-                (activeMarker.content as HTMLElement).classList.remove("highlight");
-                activeMarker.zIndex = null;
-            }
-            content.classList.add("highlight");
-            clickedMarker.zIndex = 1;
-            activeMarker = clickedMarker;
-        }
-    }
+    const cleanVariable = (details.type || "").trim();
+    const iconMap: Record < string,
+    typeof faHouseUser >  = {
+        faHospitalUser,
+        faHouseUser,
+        faSchool,
+        faCaravan,
+    };
 
-    function buildContent(details: HomeDetails): HTMLDivElement {
-        const container = document.createElement("div");
-        container.className = "property";
+    const selectedIcon = iconMap[cleanVariable] || faHouseUser;
+    const iconHtml = faIcon(selectedIcon).html[0];
 
-        const cleanVariable = details.type.trim();
-
-        const iconMap: Record < string,
-        typeof faHouseUser >  = {
-            faHospitalUser,
-            faHouseUser,
-            faSchool,
-            faCaravan,
-        };
-
-        const selectedIcon = iconMap[cleanVariable] || faHouseUser;
-        const iconHtml = faIcon(selectedIcon).html[0];
-
-        container.innerHTML = `<div class="icon">
-			<i>${iconHtml}</i> ${details.index}
-		</div>
-		<div class="details">
-			<div class="address" style="font-size: 24px;">${details.address}</div>
-			<div class="dates">From: ${details.from} To: ${details.to}</div>
-		<div class="description">${details.description}</div>
+    container.innerHTML = `<div class="icon">
+        <i>${iconHtml}</i> ${details.index || fallbackIndex}
+    </div>
+    <div class="details">
+        <div class="address" style="font-size: 24px;">${details.address}</div>
+        <div class="dates">From: ${details.from} To: ${details.to}</div>
+        <div class="description">${details.description}</div>
     </div>`;
 
-        return container;
-    }
+    return container;
 }
 
-export function resetHomesClusterer() {
-    if (markerCluster) {
-        if (typeof markerCluster.clearMarkers === "function") {
-            markerCluster.clearMarkers();
-        }
-        markerCluster.setMap(null);
-        markerCluster = null;
-    }
-    markers = [];
-    markerRegistry = {};
-}
-
-export function panToHomeMarker(id: number, myMap: google.maps.Map) {
-    const targetMarker = markerRegistry[id];
+export function panToHomeMarker(id: string | number, myMap: google.maps.Map, state ?  : TripStateInstance) {
+    const targetMarker = state?.markerRegistry[id.toString()];
     if (targetMarker && targetMarker.position) {
         myMap.panTo(targetMarker.position);
         myMap.setZoom(18);
+        toggleHighlight(targetMarker);
     }
 }

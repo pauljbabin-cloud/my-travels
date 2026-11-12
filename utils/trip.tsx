@@ -23,12 +23,12 @@ export function Trip({ params }: { params: TripParams }) {
         }
     };
 
-    const handleHomeClick = (homeId: any) => {
+	const handleHomeClick = (homeId: any) => {
         if (!params.TripMap)
             return;
-        panToHomeMarker(homeId, params.TripMap);
+        panToHomeMarker(homeId, params.TripMap, tripStateRef.current);
     };
-
+	
     useEffect(() => {
         if (typeof window === 'undefined' || !params.TripMap)
             return;

@@ -1,30 +1,78 @@
-lat,lng,title,from,to,desc,type
-43.6572703479904,-79.3877236711644,Toronto - 555 University Ave,April 1955,May 1955,I was born April 4th 1955 here at the Sick Children's Hospital and stayed until May 12th following operation for umbilical fistula,faHospitalUser
-43.6711239,-79.3789357,Toronto - 69 Huntley St,May 1955,1956,1st home,faHouseUser
-43.6700528,-79.3167953,Toronto - 37 Robbins Ave,1956,1957,2nd home,faHouseUser
-43.6605008,-79.335465,Toronto - 43 Winnifred Ave,1957,1958,3rd home,faHouseUser
-43.6809691,-79.3502245,Toronto - 993 Logan Ave,1958,April 1959,4th home. Last before leaving Canada for England,faHouseUser
-51.1242688628049,0.252385322318625,Tunbridge Wells - 20 Eridge Rd,April 1959,1961,1st home in England living with Granny,faHouseUser
-51.1091194636052,-0.0283291038711379,East Grinstead,1961,1962,Mum was the resident matron at the Fonthill School (approximate location) and I was living with her ,faSchool
-51.3622151468928,1.43355699614785,Broadstairs,1962,1963,Mum was the matron at a Broardstairs school (not sure which one) and I was a pupil but we lived in a caravan,faCaravan
-52.9063764124414,1.08752253859402,Holt - 6 New St,1963,1964,1st home after Mum married Nigel,faHouseUser
-52.9092769493949,1.09984743859428,Holt - 89 Cromer Rd,1964,1967,2nd home with Mum and Nigel,faHouseUser
-51.3496295956439,-0.0941455903600166,South Croydon - 5 Glossop Rd,1967,1971,3rd home with Mum and Nigel,faHouseUser
-52.9564944974197,0.846522,Wells-next-the-Sea - 4 Bases Ln,1971,1973,4th home and last with Mum and Nigel (also known as Tuskar House),faHouseUser
-52.5991726061097,1.72828874114396,Great Yarmouth,1973,1973,Lived and worked at a children's home for about 6 months not sure where in Great Yarmouth,faHouseUser
-51.4613133440335,-0.11415147432923,Brixton,1973,1976,1st apartment by myself. Found various jobs in London,faHouseUser
-52.626367757733,1.29385689401782,Norwich,1976,April 1978,2nd apartment by myself somewhere in Norwich and the last in England before returning to Canada,faHouseUser
-43.7231907338857,-79.4099453190284,Toronto,April 1978,August 1978,Somewhere in Toronto - 1st apartment back in Canada while I was looking for Edmond,faHouseUser
-46.7372304394758,-64.9743260935344,Saint-Louis-de-Kent - 35 Notre Dame St,August 1978,September 1978,Stayed with Uncle Alcide after finding Edmond until moving to Saint John (house was demolished some years later after Alcide died),faHouseUser
-45.2886056989572,-65.9988554129573,Saint John - Dorothea Dr,September 1978,December 1978,1st apartment in Saint John while I attended NBCC Backhoe course,faHouseUser
-45.2719841115188,-66.0584256245227,Saint John - Princess St,December 1978,1979,2nd apartment in Saint John - Edmond stayed with me for a few months,faHouseUser
-45.2759086,-66.0833094,Saint John - 5 Elgin St,1979,1986,3rd apartment in Saint John - actually owned by Uncle Edgar,faHouseUser
-45.2778772,-66.0592159,Saint John - 77 Coburg St,1986,1990,4th apartment in Saint John,faHouseUser
-45.3091796,-66.0249313,Saint John - 21 Sandpiper Rd,1990,2003,I bought a mini-home - married Denise in 2001,faHouseUser
-45.2827290429399,-66.0551875484655,Saint John - 41 Meadow St,2003,2004,1st apartment with Denise,faHouseUser
-45.2760358,-66.0518563,Saint John - 362 Union St,2004,2005,2nd apartment with Denise,faHouseUser
-46.2232297,-64.5321685,Shediac - 58 la Batture St,2005,2011,1st apartment in Shediac,faHouseUser
-46.2219171,-64.5456296,Shediac - 65 Calder St,2011,2013,2nd apartment in Shediac,faHouseUser
-46.2219825,-64.533242,Shediac - 442A Main St,2013,2017,3rd apartment in Shediac,faHouseUser
-46.2223867,-64.5339489,Shediac - 340 Pascal-Poirier St,2017,2026,4th apartment in Shediac - Denise died Dec 24th 2025,faHouseUser
-46.2229104,-64.5333937,Shediac - 366 Pascal-Poirier St,2026,Current,Care home without Denise,faHouseUser
+lat,lng,title,image,type
+41.9324809642994,-82.5129483449867,Point Pelee,blank,faCamera
+42.0904993750781,-82.4427610321203,Wheatley Provincial Park - 21st/22nd,blank,faCampground
+42.1069178574223,-83.1130240399934,Fort Malden,blank,faCamera
+42.2452939449676,-82.9336019002206,Windsor KOA campground - 23rd,blank,faCampground
+42.5812774663287,-80.39080227645,Long Point Provincial Park - 19th,blank,faCampground
+42.6732217776135,-81.3637871216519,Southwold,blank,faFontAwesome
+42.7730184849169,-80.9829422598583,Aylmer - parked in cousin David's driveway - 20th,blank,faFontAwesome
+42.7792816208295,-81.208236744843,St. Thomas - visited Mum's friend Adelaide also saw the Jumbo statue,blank,faCamera
+43.0790131100412,-79.078635636834,Niagara Falls,niagara,faCamera
+43.0887399383086,-79.1422200725294,KOA Fonthill,blank,faCampground
+43.0887399383086,-79.1422200725294,Fonthill KOA campground - 17/18th,blank,faCampground
+43.1933481255342,-79.5783465116702,Grimsby - stayed the night with cousin Connie - 16th,blank,faFontAwesome
+43.2470163778011,-81.8447136337682,Pinery Provincial Park - 24th,blank,faCampground
+43.5685658798204,-81.7061040511373,Bayfield Harbour,blank,faFontAwesome
+43.6572703479904,-79.3877236711644,Toronto - Lived here 1955 to 1959 - briefly 1978 - stopped by various times over the yearsyears,blank,faHouseUser
+44.1613074752314,-78.9125665576713,Port Perry/Scugog Landing RV campground - 28th,blank,faCampground
+44.205312191705,-79.6530894576713,Bradford KOA campground - 29th,blank,faCampground
+44.5183052339907,-80.023459999265,Wasaga Beach KOA campground - 26th,blank,faCampground
+44.569351937807,-79.3280839614873,McRae Point Provincial Park - 27th,blank,faCampground
+44.6604964769146,-65.7569565738246,Digby,blank,faFontAwesome
+44.6741981645443,-81.2567238683466,Sauble Falls Provincial Park - 25th,blank,faCampground
+44.685457645834,-63.6052218451328,Dartmouth,blank,faFontAwesome
+44.7338025904416,-79.8436681105268,Sainte Marie,blank,faFontAwesome
+44.7466547706066,-63.6353648963787,Bedford,blank,faFontAwesome
+44.8086542415408,-62.6873212572985,Tangier,blank,faFontAwesome
+45.2778772,-66.0592159,Saint John - Lived here 1978 to 2005,blank,faHouseUser
+45.4236738571366,-75.6979091391596,Ottawa sightseeing,ottawa,faCamera
+45.6474398610196,-61.404384102996,Port Hastings,blank,faFontAwesome
+45.6577857160945,-63.5492550176729,Wentworth,blank,faFontAwesome
+45.8920751721319,-59.9862850155069,The Fortress of Louisbourg,louisbourg,faCamera
+45.9751236797716,-61.1187608774702,Whycocomagh,blank,faFontAwesome
+46.0963280123778,-64.7656092875105,Moncton,blank,faFontAwesome
+46.2108844317104,-60.2439755750905,North Sydney ,blank,faFontAwesome
+46.2229104,-64.5333937,Shediac - Lived in Shediac since 2005,blank,faHouseUser
+46.2506332215589,-60.2889990180306,Little Bras D'Or,blank,faFontAwesome
+46.2974190550116,-67.5274867562801,Hartland N.B.,hartland,faCamera
+46.6284243523563,-60.420231040521,The Cape Smokey ski lift,smokey,faCamera
+46.7372304394758,-64.9743260935344,Saint-Louis-de-Kent - Lived here briefly in 1978 but returned for visits just about every year since,blank,faHouseUser
+46.74354347424,-60.8806644651691,The Skyline Trailhead,skyline,faCamera
+46.762688066642,-71.3017027383495,Quebec City,blank,faFontAwesome
+46.8117479691721,-71.2071410721413,Old Quebec City,blank,faFontAwesome
+46.8117479691721,-71.2071410721413,Old Quebec City QC,quebec,faCamera
+46.8851245126791,-60.5063817269465,Cape North,blank,faFontAwesome
+46.8894807561209,-71.1473334940303,Montmoency Falls QC,montmoencyfalls,faCamera
+46.8987775855504,-60.4705503941467,Dingwall,blank,faFontAwesome
+47.0515227375445,-67.7380950702414,Grand Falls N.B.,grandfalls,faCamera
+47.2901778255075,-53.9920044279138,Argentia,blank,faFontAwesome
+47.3956107035461,-68.3541508345849,Edmundston,blank,faFontAwesome
+47.5684554207848,-52.7023838956117,St. John's,blank,faFontAwesome
+47.5797139881151,-59.1415958081976,Channel-Port aux Basques,blank,faFontAwesome
+48.6738829087249,-54.0338464881179,Glovertown,blank,faFontAwesome
+49.2723555377443,-57.4346122607369,Cormack,blank,faFontAwesome
+49.7810691920157,-57.8413110246409,Western Brook - absolutely stunning boat ride ,blank,faFontAwesome
+49.9379270102077,-56.191580872631,Baie Verte,blank,faFontAwesome
+50.8559917372505,0.583703000403219,Hastings,blank,faFontAwesome
+51.0434079801297,-0.35856780456648,Christ's Hospital,blank,faFontAwesome
+51.1091194636052,-0.0283291038711379,East Grinstead - Mum was the resident matron at the Fonthill School and I was living with her ,blank,faSchool
+51.1242211059692,0.252382465975226,Tunbridge Wells,blank,faFontAwesome
+51.1242688628049,0.252385322318625,Tunbridge Wells - lived with Granny 1959 to 1961,blank,faHouseUser
+51.2480859147435,-0.584457584996155,Guildford,blank,faFontAwesome
+51.2480859147435,-0.584457584996155,Guildford,blank,faFontAwesome
+51.2480859147435,-0.584457584996155,Guildford,blank,faFontAwesome
+51.3496295956439,-0.0941455903600166,South Croydon - Lived here 1967 to 71,blank,faHouseUser
+51.3622151468928,1.43355699614785,Broadstairs - Mum was the matron at a Broardstairs school and I was a pupil but we lived in a caravan,blank,faCaravan
+51.3859684188411,-2.3681038909391,Bath,blank,faFontAwesome
+51.4482313172403,-2.60723222748831,Bristol,blank,faFontAwesome
+51.4613133440335,-0.11415147432923,Brixton - Lived here 1973 to1976,blank,faHouseUser
+51.4699322262527,-0.451623010057234,Heathrow,blank,faFontAwesome
+51.4843227510697,-0.608795504454992,Wndsor Castle,blank,faFontAwesome
+51.6270441938028,-0.750915202140136,High Wycombe - Stayed with Uncle Peter for two nights,blank,faFontAwesome
+52.5991726061097,1.72828874114396,Great Yarmouth - Lived here in 1973,blank,faHouseUser
+52.626367757733,1.29385689401782,Norwich - Lived here 1976 to 1978,blank,faHouseUser
+52.9063764124414,1.08752253859402,Holt - Lived here 1963 to 1967,blank,faHouseUser
+52.9564944974197,0.846522,Wells-next-the-Sea - Lived here 1971 to 1973,blank,faHouseUser
+53.1861289799296,-2.89267787477376,Chester,blank,faFontAwesome
+53.7593195466808,-0.365870996813681,Hull - stayed with Michael,blank,faBed
+53.9622652300747,-1.08359141320671,York - sightseeing,york,faCamera

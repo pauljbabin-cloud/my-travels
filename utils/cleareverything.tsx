@@ -1,5 +1,3 @@
-
-import { resetHomesClusterer } from "./showhomes.tsx";
 import { getVoyagePath } from "./showshipvoyage.tsx";
 import { getFlightPath } from "./showheathrowtorontoflight.tsx";
 import { getArgentiaFerry } from "./ferry.tsx";
@@ -10,8 +8,6 @@ export async function ClearEverything(
     state? : TripStateInstance): Promise < void > {
     if (typeof window === "undefined")
         return;
-
-    resetHomesClusterer();
 
     if (state) {
         clearPolylines(state);
