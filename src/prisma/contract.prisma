@@ -6,7 +6,7 @@ model Trip {
   panLat            Float
   panLng            Float
   zoom              Int
-  htmlDescription   String       // Stores the rich HTML text shown in the sidebar
+  htmlDescription   String       
   waypoints         Waypoint[]
   details           TripDetail[]
   createdAt         TimestamptzString @default(now())
@@ -16,12 +16,12 @@ model Waypoint {
   id        String   @id @onCreate(uuid())
   tripId    String
   trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
-  type      String   // "origin", "destination", or "intermediate"
+  type      String   
   lat       Float
   lng       Float
-  name      String?  // Optional site name from the CSV
+  name      String?  
   routeNum  Int      @default(0) // Distinguishes route0 from route1 if a trip has multiple route CSVs
-  order     Int      // To ensure the path points are loaded sequentially
+  order     Int      
 }
 
 model TripDetail {
@@ -32,9 +32,9 @@ model TripDetail {
   lng         Float
   title       String
   description String
-  image       String   // Will store "blank" or the slideshow image ID
-  type        String   // e.g., "faCamera", "faBed"
-  order       Int      // Maintains sidebar ordering sequence
+  image       String  
+  type        String  
+  order       Int     
 }
 
 model Home {
@@ -45,5 +45,14 @@ model Home {
   from        String
   to          String
   description String
-  type        String   // e.g., "faHouseUser", "faHospitalUser"
+  type        String  
+}
+
+model Places {
+  id          Int      @id @default(autoincrement())
+  lat         Float
+  lng         Float
+  title       String
+  image       String  
+  type        String  
 }
