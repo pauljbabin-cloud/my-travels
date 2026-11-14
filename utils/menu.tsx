@@ -123,8 +123,14 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         break;
 
     case "Places":
-        gMap.panTo({ lat: 45.389787020830795, lng: -63.32632936408758 });
-        gMap.setOptions({ zoom: 7 });
+        setTargetTrip({
+            TripMap: gMap,
+            tripId: "places",
+            TripHTML: "<h4>Select from the areas below and the map will jump to that location. Click on any icon to see some details, if none just means I visited the place.</h4>",
+            TripRoute: "",
+            TripRoute1: "",
+            TripDetails: "places"
+        });
         break;
 
     default:

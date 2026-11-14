@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "Paul's Travels",
 	description: "Paul's homes and travels mapped using Google Maps",
+	verification: {
+		google: "Zdv5rwKoHljYDSGwYWczPHGB6WAVnWdILIKivKu1nAw"
+	},
 };
 
 export default function RootLayout({

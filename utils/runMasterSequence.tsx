@@ -5,6 +5,7 @@ import { faHospitalUser, faHouseUser, faSchool, faCaravan, faGasPump, faCamera, 
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { loadRouteFromCSV } from "./loadRouteFromCSV.tsx";
 import { ShowHomes } from "./showhomes.tsx";
+import { Places } from "./places.tsx";
 
 interface GoogleLibs {
     AdvancedMarkerElement: any;
@@ -44,6 +45,7 @@ export async function runMasterSequence(
     state: TripStateInstance,
     setSidebarItems: React.Dispatch < React.SetStateAction < SidebarItemData[] >> ,
     setHomesItems: React.Dispatch < React.SetStateAction < any[] >> ,
+	setPlacesItems: React.Dispatch<React.SetStateAction<any[]>>,
     signal: AbortSignal): Promise < void > {
     const currentMap = params.TripMap;
     if (!currentMap)
@@ -62,6 +64,13 @@ export async function runMasterSequence(
 	if (params.TripDetails === 'homes') {
         setSidebarItems([]);
         await ShowHomes(params, state, setHomesItems, signal);
+        return;
+    }
+	
+	if (params.TripDetails === 'places') {
+        setSidebarItems([]);
+        setHomesItems([]);
+        await Places(params, state, setPlacesItems, signal);
         return;
     }
 
@@ -117,6 +126,7 @@ export async function runMasterSequence(
 
     if (!signal.aborted) {
         setHomesItems([]);
+		setPlacesItems([]);
     }
 }
 

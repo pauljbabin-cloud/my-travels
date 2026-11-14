@@ -4,10 +4,12 @@ import { TripParams } from "./types.tsx";
 import { createTripState, resetMarkerClusterer, clearPolylines } from "./tripState.tsx";
 import { panToHomeMarker } from "@/utils/showhomes.tsx";
 import { runMasterSequence, toggleHighlight, SidebarItemData } from "@/utils/runMasterSequence.tsx";
+import { PlacesMenu } from "@/utils//PlacesMenu.tsx";
 
 export function Trip({ params }: { params: TripParams }) {
     const [sidebarItems, setSidebarItems] = useState < SidebarItemData[] > ([]);
     const [homesItems, setHomesItems] = useState < any[] > ([]);
+	const [placesItems, setPlacesItems] = useState<any[]>([]);
 
     const tripStateRef = useRef(createTripState());
 
@@ -28,7 +30,7 @@ export function Trip({ params }: { params: TripParams }) {
             return;
         panToHomeMarker(homeId, params.TripMap, tripStateRef.current);
     };
-	
+
     useEffect(() => {
         if (typeof window === 'undefined' || !params.TripMap)
             return;
@@ -42,6 +44,7 @@ export function Trip({ params }: { params: TripParams }) {
                 currentSnapshot,
                 setSidebarItems,
                 setHomesItems,
+				setPlacesItems,
                 abortController.signal);
         };
 
@@ -57,6 +60,10 @@ export function Trip({ params }: { params: TripParams }) {
 
     return (
          <> { params.TripHTML &&  < div dangerouslySetInnerHTML = { {__html: params.TripHTML } } />}
+		 
+			{params.tripId === "places" && (
+				<PlacesMenu map={params.TripMap} />
+			)}
 
             {homesItems.length > 0 && (
                 <div id="IDShowHomes">
@@ -74,6 +81,7 @@ export function Trip({ params }: { params: TripParams }) {
 					</ol>
 				</div> )
 			}
+
 			{sidebarItems.length > 0 && (
 				<div id = "IDShowTrips" >
 					<ul className = "flexible-list" > 
