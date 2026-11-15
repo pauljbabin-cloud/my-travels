@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { initMap, gMap } from "@/utils/main.tsx";
-import { handleMenuAction } from "@/utils/menu.tsx";
-import { TripParams } from "@/utils/types.tsx";
-import { Trip } from "@/utils/trip.tsx";
+import { initMap, gMap } from "@/utils/main";
+import { handleMenuAction } from "@/utils/menu";
+import { TripParams } from "@/utils/types";
+import { Trip } from "@/utils/trip";
 
 export default function MapPage() {
 	const mapRef = useRef<HTMLDivElement>(null);

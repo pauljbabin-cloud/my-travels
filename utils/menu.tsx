@@ -1,11 +1,11 @@
-import { gMap } from "./main.tsx";
-import { ShowHomes } from "./showhomes.tsx";
-import { ShowShipVoyage } from "./showshipvoyage.tsx";
-import { ShowHeathrowTorontoFlight } from "./showheathrowtorontoflight.tsx";
-import { ArgentiaFerryRoute } from "./ferry.tsx";
-import { ClearEverything } from "./cleareverything.tsx";
-import { TripParams } from "./types.tsx";
-import { attachResetViewControl, removeResetViewControl } from "./runMasterSequence.tsx";
+import { gMap } from "./main";
+import { ShowHomes } from "./showhomes";
+import { ShowShipVoyage } from "./showshipvoyage";
+import { ShowHeathrowTorontoFlight } from "./showheathrowtorontoflight";
+import { ArgentiaFerryRoute } from "./ferry";
+import { ClearEverything } from "./cleareverything";
+import { TripParams } from "./types";
+import { attachResetViewControl, removeResetViewControl } from "./runMasterSequence";
 
 export async function handleMenuAction(action: string, setTargetTrip: (params: TripParams | null) => void, sidebar: HTMLElement | null) {
     if (typeof window === "undefined" || !gMap)

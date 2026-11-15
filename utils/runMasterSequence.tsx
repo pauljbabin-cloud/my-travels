@@ -1,11 +1,11 @@
-import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState.tsx";
-import { initGoogleLibraries } from "@/utils/initGoogleLibraries.tsx";
+import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
+import { initGoogleLibraries } from "@/utils/initGoogleLibraries";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faHospitalUser, faHouseUser, faSchool, faCaravan, faGasPump, faCamera, faBed, faCampground, faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { loadRouteFromCSV } from "./loadRouteFromCSV.tsx";
-import { ShowHomes } from "./showhomes.tsx";
-import { Places } from "./places.tsx";
+import { loadRouteFromCSV } from "./loadRouteFromCSV";
+import { ShowHomes } from "./showhomes";
+import { Places } from "./places";
 
 interface GoogleLibs {
     AdvancedMarkerElement: any;

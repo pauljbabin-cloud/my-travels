@@ -1,7 +1,7 @@
-import { getVoyagePath } from "./showshipvoyage.tsx";
-import { getFlightPath } from "./showheathrowtorontoflight.tsx";
-import { getArgentiaFerry } from "./ferry.tsx";
-import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState.tsx";
+import { getVoyagePath } from "./showshipvoyage";
+import { getFlightPath } from "./showheathrowtorontoflight";
+import { getArgentiaFerry } from "./ferry";
+import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
 
 export async function ClearEverything(
     myMap: google.maps.Map | null,

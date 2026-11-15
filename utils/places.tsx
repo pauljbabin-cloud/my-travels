@@ -1,6 +1,6 @@
-import { TripParams } from "./types.tsx";
-import { TripStateInstance } from "./tripState.tsx";
-import { toggleHighlight } from "./runMasterSequence.tsx";
+import { TripParams } from "./types";
+import { TripStateInstance } from "./tripState";
+import { toggleHighlight } from "./runMasterSequence";
 import { importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';

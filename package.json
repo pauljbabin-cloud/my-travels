@@ -22,7 +22,7 @@
     "@prisma/client": "^7.10.1",
     "@prisma/composer": "^0.38.0",
     "@prisma/composer-prisma-cloud": "^0.38.0",
-    "@prisma/orm-postgres": "^8.0.0-rc.23",
+    "@prisma/orm-postgres": "8.0.0-rc.23",
     "arktype": "^2.2.9",
     "csv-parser": "^3.2.1",
     "effect": "4.0.5",
@@ -44,7 +44,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^0.2.4",
     "knip": "^6.44.2",
-    "prisma": "^8.0.0-rc.33",
+    "prisma": "8.0.0-rc.33",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3"
