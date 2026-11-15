@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'b0a216e226ad9cb96cfc1f43caf0127988952c33d5092e37424d1d49271bbb0c'>;
+  StorageHashBase<'edf0e46a231f9f8a3d1bd339df67d7bec78524ae46294f2d1988f2438256098e'>;
 export type ExecutionHash =
   ExecutionHashBase<'c67435457df252808b2e914d8ca2ece2698740ab6304cc6c9a86559e8a34fdca'>;
 export type ProfileHash =
@@ -321,10 +321,9 @@ export namespace Models {
     readonly [RelationKeys]?: never;
   };
   export type public_Places = {
+    address: FieldOutputTypes['public']['Places']['address'];
     id: FieldOutputTypes['public']['Places']['id'];
     image: FieldOutputTypes['public']['Places']['image'];
-    lat: FieldOutputTypes['public']['Places']['lat'];
-    lng: FieldOutputTypes['public']['Places']['lng'];
     title: FieldOutputTypes['public']['Places']['title'];
     type: FieldOutputTypes['public']['Places']['type'];
     readonly [RelationKeys]?: never;
@@ -458,6 +457,12 @@ type ContractBase = Omit<
             };
             readonly Places: {
               columns: {
+                readonly address: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
                 readonly id: {
                   readonly dataType: 'pg/int4';
                   readonly codecId: 'pg/int4@1';
@@ -471,18 +476,6 @@ type ContractBase = Omit<
                 readonly image: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lat: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
-                  readonly nullable: false;
-                  readonly many: false;
-                };
-                readonly lng: {
-                  readonly dataType: 'pg/float8';
-                  readonly codecId: 'pg/float8@1';
                   readonly nullable: false;
                   readonly many: false;
                 };
@@ -794,6 +787,10 @@ type ContractBase = Omit<
           };
           readonly Places: {
             readonly fields: {
+              readonly address: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
               readonly id: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
@@ -801,14 +798,6 @@ type ContractBase = Omit<
               readonly image: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
-              };
-              readonly lat: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
-              };
-              readonly lng: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
               };
               readonly title: {
                 readonly nullable: false;
@@ -824,10 +813,9 @@ type ContractBase = Omit<
               readonly table: 'Places';
               readonly namespaceId: 'public';
               readonly fields: {
+                readonly address: { readonly column: 'address' };
                 readonly id: { readonly column: 'id' };
                 readonly image: { readonly column: 'image' };
-                readonly lat: { readonly column: 'lat' };
-                readonly lng: { readonly column: 'lng' };
                 readonly title: { readonly column: 'title' };
                 readonly type: { readonly column: 'type' };
               };

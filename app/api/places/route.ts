@@ -22,15 +22,9 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { lat, lng, title, image, type } = body;
+        const { address, title, image, type } = body;
 
-        if (
-            lat === undefined ||
-            lng === undefined ||
-            !title ||
-            !image ||
-            !type
-        ) {
+        if (!address || !title || !image || !type) {
             return NextResponse.json({
                 error: "Missing required fields"
             }, {
@@ -39,8 +33,7 @@ export async function POST(request: Request) {
         }
 
         const newPlace = await db.orm.public.Places.create({
-            lat,
-            lng,
+            address,
             title,
             image,
             type,

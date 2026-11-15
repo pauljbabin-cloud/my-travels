@@ -1,6 +1,6 @@
 #!/usr/bin/env -S node
-import type { Contract as End } from '../../snapshots/9017a75895ba0c15d892ffce35f2caab1d50273e132c0cca4565a1fd7ee6d0a0/contract';
-import endContract from '../../snapshots/9017a75895ba0c15d892ffce35f2caab1d50273e132c0cca4565a1fd7ee6d0a0/contract.json' with { type: 'json' };
+import type { Contract as End } from '../../snapshots/edf0e46a231f9f8a3d1bd339df67d7bec78524ae46294f2d1988f2438256098e/contract';
+import endContract from '../../snapshots/edf0e46a231f9f8a3d1bd339df67d7bec78524ae46294f2d1988f2438256098e/contract.json' with { type: 'json' };
 import {
   Migration,
   MigrationCLI,
@@ -34,13 +34,25 @@ export default class M extends Migration<never, End> {
       }),
       this.createTable({
         schema: 'public',
+        table: 'Places',
+        columns: [
+          col('address', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
+          col('id', 'SERIAL', { notNull: true, codecRef: { codecId: 'pg/int4@1' } }),
+          col('image', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
+          col('title', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
+          col('type', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
+        ],
+        constraints: [primaryKey(['id'])],
+      }),
+      this.createTable({
+        schema: 'public',
         table: 'Trip',
         columns: [
           col('actionKey', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
-          col('createdAt', 'timestamp(3)', {
+          col('createdAt', 'timestamptz', {
             notNull: true,
             default: fn(sql`now()`),
-            codecRef: { codecId: 'pg/timestamp-string@1', typeParams: { precision: 3 } },
+            codecRef: { codecId: 'pg/timestamptz-string@1' },
           }),
           col('htmlDescription', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
           col('id', 'text', { notNull: true, codecRef: { codecId: 'pg/text@1' } }),
@@ -85,12 +97,23 @@ export default class M extends Migration<never, End> {
         ],
         constraints: [primaryKey(['id'])],
       }),
-      this.createIndex({
+      this.addUnique({
         schema: 'public',
         table: 'Trip',
-        index: 'Trip_actionKey_key',
+        constraint: 'Trip_actionKey_key',
         columns: ['actionKey'],
-        extras: { unique: true },
+      }),
+      this.createIndex({
+        schema: 'public',
+        table: 'TripDetail',
+        index: 'TripDetail_tripId_idx_75da6d97',
+        columns: ['tripId'],
+      }),
+      this.createIndex({
+        schema: 'public',
+        table: 'Waypoint',
+        index: 'Waypoint_tripId_idx_75da6d97',
+        columns: ['tripId'],
       }),
       this.addForeignKey({
         schema: 'public',
@@ -100,7 +123,6 @@ export default class M extends Migration<never, End> {
           columns: ['tripId'],
           references: { schema: 'public', table: 'Trip', columns: ['id'] },
           onDelete: 'cascade',
-          onUpdate: 'cascade',
         },
       }),
       this.addForeignKey({
@@ -111,7 +133,6 @@ export default class M extends Migration<never, End> {
           columns: ['tripId'],
           references: { schema: 'public', table: 'Trip', columns: ['id'] },
           onDelete: 'cascade',
-          onUpdate: 'cascade',
         },
       }),
     ];

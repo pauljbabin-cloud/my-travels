@@ -66,6 +66,55 @@
     ]
   },
   {
+    "id": "table.Places",
+    "label": "Create table \"Places\"",
+    "summary": "Creates table \"Places\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Places"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Places\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Places\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"Places\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Places\"",
+        "sql": "CREATE TABLE \"public\".\"Places\" (\n  \"address\" text NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"image\" text NOT NULL,\n  \"title\" text NOT NULL,\n  \"type\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Places\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"Places\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"Places\""
+        }
+      }
+    ]
+  },
+  {
     "id": "table.Trip",
     "label": "Create table \"Trip\"",
     "summary": "Creates table \"Trip\"",
@@ -94,7 +143,7 @@
     "execute": [
       {
         "description": "create table \"Trip\"",
-        "sql": "CREATE TABLE \"public\".\"Trip\" (\n  \"actionKey\" text NOT NULL,\n  \"createdAt\" timestamp(3) DEFAULT (now()) NOT NULL,\n  \"htmlDescription\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"panLat\" float8 NOT NULL,\n  \"panLng\" float8 NOT NULL,\n  \"zoom\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "sql": "CREATE TABLE \"public\".\"Trip\" (\n  \"actionKey\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"htmlDescription\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"panLat\" float8 NOT NULL,\n  \"panLng\" float8 NOT NULL,\n  \"zoom\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
         "params": []
       }
     ],
@@ -213,49 +262,145 @@
     ]
   },
   {
-    "id": "index.Trip.Trip_actionKey_key",
-    "label": "Create index \"Trip_actionKey_key\" on \"Trip\"",
+    "id": "unique.Trip.Trip_actionKey_key",
+    "label": "Add unique constraint on \"Trip\" (actionKey)",
     "operationClass": "additive",
     "target": {
       "id": "postgres",
       "details": {
         "schema": "public",
-        "objectType": "index",
+        "objectType": "unique",
         "name": "Trip_actionKey_key",
         "table": "Trip"
       }
     },
     "precheck": [
       {
-        "description": "ensure index \"Trip_actionKey_key\" does not exist",
-        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "description": "ensure constraint \"Trip_actionKey_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
         "params": [
-          "\"public\".\"Trip_actionKey_key\""
+          "Trip_actionKey_key",
+          "public",
+          "\"public\".\"Trip\""
         ],
         "expectation": {
           "expects": "absent",
-          "object": "index \"Trip_actionKey_key\""
+          "object": "constraint \"Trip_actionKey_key\" on \"Trip\""
         }
       }
     ],
     "execute": [
       {
-        "description": "create index \"Trip_actionKey_key\"",
-        "sql": "CREATE UNIQUE INDEX \"Trip_actionKey_key\" ON \"public\".\"Trip\" (\"actionKey\")",
+        "description": "add unique constraint \"Trip_actionKey_key\"",
+        "sql": "ALTER TABLE \"public\".\"Trip\" ADD CONSTRAINT \"Trip_actionKey_key\" UNIQUE (\"actionKey\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify unique constraint \"Trip_actionKey_key\" exists on (actionKey)",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3) AND \"c\".\"contype\" = $4 AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"c\".\"conkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"c\".\"conrelid\" AND key_attribute.attnum = key_column.attnum) = ($5)::jsonb)) AS \"result\"",
+        "params": [
+          "Trip_actionKey_key",
+          "public",
+          "\"public\".\"Trip\"",
+          "u",
+          "[\"actionKey\"]"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.TripDetail.TripDetail_tripId_idx_75da6d97",
+    "label": "Create index \"TripDetail_tripId_idx_75da6d97\" on \"TripDetail\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "TripDetail_tripId_idx_75da6d97",
+        "table": "TripDetail"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"TripDetail_tripId_idx_75da6d97\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"TripDetail_tripId_idx_75da6d97\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "index \"TripDetail_tripId_idx_75da6d97\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"TripDetail_tripId_idx_75da6d97\"",
+        "sql": "CREATE INDEX \"TripDetail_tripId_idx_75da6d97\" ON \"public\".\"TripDetail\" (\"tripId\")",
         "params": []
       }
     ],
     "postcheck": [
       {
-        "description": "verify index \"Trip_actionKey_key\" exists on \"Trip\" with the planned definition",
-        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" INNER JOIN \"pg_index\" AS \"i\" ON \"i\".\"indexrelid\" = \"c\".\"oid\" INNER JOIN \"pg_am\" AS \"m\" ON \"m\".\"oid\" = \"c\".\"relam\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3) AND \"i\".\"indrelid\" = to_regclass($4) AND \"i\".\"indisunique\" AND \"m\".\"amname\" = $5 AND (\"i\".\"indexprs\" IS NULL AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"i\".\"indkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"i\".\"indrelid\" AND key_attribute.attnum = key_column.attnum) = ($6)::jsonb) AND \"i\".\"indpred\" IS NULL)) AS \"result\"",
+        "description": "verify index \"TripDetail_tripId_idx_75da6d97\" exists on \"TripDetail\" with the planned definition",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" INNER JOIN \"pg_index\" AS \"i\" ON \"i\".\"indexrelid\" = \"c\".\"oid\" INNER JOIN \"pg_am\" AS \"m\" ON \"m\".\"oid\" = \"c\".\"relam\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3) AND \"i\".\"indrelid\" = to_regclass($4) AND NOT (\"i\".\"indisunique\") AND \"m\".\"amname\" = $5 AND (\"i\".\"indexprs\" IS NULL AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"i\".\"indkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"i\".\"indrelid\" AND key_attribute.attnum = key_column.attnum) = ($6)::jsonb) AND \"i\".\"indpred\" IS NULL)) AS \"result\"",
         "params": [
-          "\"public\".\"Trip_actionKey_key\"",
+          "\"public\".\"TripDetail_tripId_idx_75da6d97\"",
           "i",
           "I",
-          "\"public\".\"Trip\"",
+          "\"public\".\"TripDetail\"",
           "btree",
-          "[\"actionKey\"]"
+          "[\"tripId\"]"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Waypoint.Waypoint_tripId_idx_75da6d97",
+    "label": "Create index \"Waypoint_tripId_idx_75da6d97\" on \"Waypoint\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Waypoint_tripId_idx_75da6d97",
+        "table": "Waypoint"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Waypoint_tripId_idx_75da6d97\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Waypoint_tripId_idx_75da6d97\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "index \"Waypoint_tripId_idx_75da6d97\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Waypoint_tripId_idx_75da6d97\"",
+        "sql": "CREATE INDEX \"Waypoint_tripId_idx_75da6d97\" ON \"public\".\"Waypoint\" (\"tripId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Waypoint_tripId_idx_75da6d97\" exists on \"Waypoint\" with the planned definition",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" INNER JOIN \"pg_index\" AS \"i\" ON \"i\".\"indexrelid\" = \"c\".\"oid\" INNER JOIN \"pg_am\" AS \"m\" ON \"m\".\"oid\" = \"c\".\"relam\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3) AND \"i\".\"indrelid\" = to_regclass($4) AND NOT (\"i\".\"indisunique\") AND \"m\".\"amname\" = $5 AND (\"i\".\"indexprs\" IS NULL AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"i\".\"indkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"i\".\"indrelid\" AND key_attribute.attnum = key_column.attnum) = ($6)::jsonb) AND \"i\".\"indpred\" IS NULL)) AS \"result\"",
+        "params": [
+          "\"public\".\"Waypoint_tripId_idx_75da6d97\"",
+          "i",
+          "I",
+          "\"public\".\"Waypoint\"",
+          "btree",
+          "[\"tripId\"]"
         ]
       }
     ]
@@ -291,7 +436,7 @@
     "execute": [
       {
         "description": "add FK \"TripDetail_tripId_fkey\"",
-        "sql": "ALTER TABLE \"public\".\"TripDetail\"\nADD CONSTRAINT \"TripDetail_tripId_fkey\"\nFOREIGN KEY (\"tripId\")\nREFERENCES \"public\".\"Trip\" (\"id\")\nON DELETE CASCADE\nON UPDATE CASCADE"
+        "sql": "ALTER TABLE \"public\".\"TripDetail\"\nADD CONSTRAINT \"TripDetail_tripId_fkey\"\nFOREIGN KEY (\"tripId\")\nREFERENCES \"public\".\"Trip\" (\"id\")\nON DELETE CASCADE"
       }
     ],
     "postcheck": [
@@ -307,7 +452,7 @@
           "\"public\".\"Trip\"",
           "[\"id\"]",
           "c",
-          "c"
+          "a"
         ]
       }
     ]
@@ -343,7 +488,7 @@
     "execute": [
       {
         "description": "add FK \"Waypoint_tripId_fkey\"",
-        "sql": "ALTER TABLE \"public\".\"Waypoint\"\nADD CONSTRAINT \"Waypoint_tripId_fkey\"\nFOREIGN KEY (\"tripId\")\nREFERENCES \"public\".\"Trip\" (\"id\")\nON DELETE CASCADE\nON UPDATE CASCADE"
+        "sql": "ALTER TABLE \"public\".\"Waypoint\"\nADD CONSTRAINT \"Waypoint_tripId_fkey\"\nFOREIGN KEY (\"tripId\")\nREFERENCES \"public\".\"Trip\" (\"id\")\nON DELETE CASCADE"
       }
     ],
     "postcheck": [
@@ -359,7 +504,7 @@
           "\"public\".\"Trip\"",
           "[\"id\"]",
           "c",
-          "c"
+          "a"
         ]
       }
     ]

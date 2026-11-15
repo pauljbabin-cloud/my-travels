@@ -122,6 +122,13 @@
           },
           "Places": {
             "fields": {
+              "address": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "id": {
                 "nullable": false,
                 "type": {
@@ -133,20 +140,6 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
-              "lat": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/float8@1",
-                  "kind": "scalar"
-                }
-              },
-              "lng": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/float8@1",
                   "kind": "scalar"
                 }
               },
@@ -168,17 +161,14 @@
             "relations": {},
             "storage": {
               "fields": {
+                "address": {
+                  "column": "address"
+                },
                 "id": {
                   "column": "id"
                 },
                 "image": {
                   "column": "image"
-                },
-                "lat": {
-                  "column": "lat"
-                },
-                "lng": {
-                  "column": "lng"
                 },
                 "title": {
                   "column": "title"
@@ -596,6 +586,11 @@
             },
             "Places": {
               "columns": {
+                "address": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
                 "id": {
                   "codecId": "pg/int4@1",
                   "dataType": "pg/int4",
@@ -608,16 +603,6 @@
                 "image": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
-                  "nullable": false
-                },
-                "lat": {
-                  "codecId": "pg/float8@1",
-                  "dataType": "pg/float8",
-                  "nullable": false
-                },
-                "lng": {
-                  "codecId": "pg/float8@1",
-                  "dataType": "pg/float8",
                   "nullable": false
                 },
                 "title": {
@@ -876,7 +861,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "b0a216e226ad9cb96cfc1f43caf0127988952c33d5092e37424d1d49271bbb0c"
+    "storageHash": "edf0e46a231f9f8a3d1bd339df67d7bec78524ae46294f2d1988f2438256098e"
   },
   "execution": {
     "executionHash": "c67435457df252808b2e914d8ca2ece2698740ab6304cc6c9a86559e8a34fdca",
