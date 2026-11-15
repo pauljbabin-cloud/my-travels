@@ -5,42 +5,62 @@ import { ShowHeathrowTorontoFlight } from "./showheathrowtorontoflight.tsx";
 import { ArgentiaFerryRoute } from "./ferry.tsx";
 import { ClearEverything } from "./cleareverything.tsx";
 import { TripParams } from "./types.tsx";
+import { attachResetViewControl, removeResetViewControl } from "./runMasterSequence.tsx";
 
 export async function handleMenuAction(action: string, setTargetTrip: (params: TripParams | null) => void, sidebar: HTMLElement | null) {
     if (typeof window === "undefined" || !gMap)
         return;
 
     await ClearEverything(gMap);
+    removeResetViewControl(gMap); 
     setTargetTrip(null);
 
     switch (action) {
-    case "goHome":
-        gMap.panTo({ lat: 46.2229104, lng: -64.5333937 });
-        gMap.setOptions({ zoom: 18 });
+    case "goHome": {
+        const center = { lat: 46.2229104, lng: -64.5333937 };
+        const zoom = 18;
+        gMap.panTo(center);
+        gMap.setOptions({ zoom });
+        attachResetViewControl(gMap, center, zoom);
+
         setTargetTrip({
             TripMap: gMap,
             tripId: "home",
             TripHTML: "<h4>Select from the menu to see my homes and travels mapped using Google Maps</h4>",
             TripRoute: "",
             TripRoute1: "",
-            TripDetails: "0000Trip.csv"
+            TripDetails: "0000Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "ShowHomes":
+    case "ShowHomes": {
+        const center = { lat: 46.2229104, lng: -64.5333937 };
+        const zoom = 18;
+        attachResetViewControl(gMap, center, zoom);
+
         setTargetTrip({
             TripMap: gMap,
             tripId: "homes",
             TripHTML: "<h4>Select from the addresses below and the map will jump to that location. Click on the icon to see some details.</h4>",
             TripRoute: "",
             TripRoute1: "",
-            TripDetails: "homes"
+            TripDetails: "homes",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "CtoUKandBack":
+    case "CtoUKandBack": {
+        const center = { lat: 48.327806522220335, lng: -38.378272970276264 };
+        const zoom = 4;
         await ShowShipVoyage(gMap);
         await ShowHeathrowTorontoFlight(gMap);
+        attachResetViewControl(gMap, center, zoom);
+
         setTargetTrip({
             TripMap: gMap,
             tripId: "ctouk",
@@ -52,86 +72,120 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         `,
             TripRoute: "",
             TripRoute1: "",
-            TripDetails: "0000Trip.csv"
+            TripDetails: "0000Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
-
-    case "Ontario":
-        gMap.panTo({ lat: 43.62505385526114, lng: -80.6859858253849 });
-        gMap.setOptions({ zoom: 7 });
+    }
+    case "Ontario": {
+        const center = { lat: 43.62505385526114, lng: -80.6859858253849 };
+        const zoom = 7;
+        gMap.panTo(center);
+        gMap.setOptions({ zoom });
         setTargetTrip({
             TripMap: gMap,
             tripId: "ontario-1989",
             TripHTML: "<h4>Approximate route for vacation with Mum - driving an RV around Ontario 16th to 30th September 1989 and stopping at the following places:</h4>",
             TripRoute: "/csvs/1989route0.csv",
             TripRoute1: "/csvs/1989route1.csv",
-            TripDetails: "/csvs/1989Trip.csv"
+            TripDetails: "/csvs/1989Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "StoNF":
-        gMap.panTo({ lat: 44.59618326844843, lng: -72.68065594848818 });
-        gMap.setOptions({ zoom: 6 });
+    case "StoNF": {
+        const center = { lat: 44.59618326844843, lng: -72.68065594848818 };
+        const zoom = 6;
+        gMap.panTo(center);
+        gMap.setOptions({ zoom });
         setTargetTrip({
             TripMap: gMap,
             tripId: "niagara-2008",
             TripHTML: "<h4>Approximate route for vacation with Denise - driving from Shediac to Niagara Falls starting June 9th 2008 and stopping at the following places:</h4>",
             TripRoute: "/csvs/2008route.csv",
             TripRoute1: "",
-            TripDetails: "/csvs/2008Trip.csv"
+            TripDetails: "/csvs/2008Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "England":
-        gMap.panTo({ lat: 52.34725687163485, lng: -1.289361054285812 });
-        gMap.setOptions({ zoom: 6 });
+    case "England": {
+        const center = { lat: 52.34725687163485, lng: -1.289361054285812 };
+        const zoom = 6;
+        gMap.panTo(center);
+        gMap.setOptions({ zoom });
         setTargetTrip({
             TripMap: gMap,
             tripId: "england-2002",
             TripHTML: "<h4>Approximate route for July 2002 vacation with Denise to England - Starting from Heathrow airport we rented a car and stopped at the following places:</h4>",
             TripRoute: "/csvs/2002route.csv",
             TripRoute1: "",
-            TripDetails: "/csvs/2002Trip.csv"
+            TripDetails: "/csvs/2002Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "Newfoundland":
-        gMap.panTo({ lat: 46.86486106816211, lng: -59.857204948346094 });
-        gMap.setOptions({ zoom: 6 });
+    case "Newfoundland": {
+        const center = { lat: 46.86486106816211, lng: -59.857204948346094 };
+        const zoom = 6;
+        gMap.panTo(center);
+        gMap.setOptions({ zoom });
         setTargetTrip({
             TripMap: gMap,
             tripId: "newfoundland-1987",
             TripHTML: "<h4>Approximate route for 1987 vacation with Mum and Nigel in a motorhome.<br />Starting from Bedford NS we drove to North Sydney to take the ferry to Newfoundland and then back. Then we went to visit Saint-Louis-de-Kent and on to Saint John to take the ferry to Digby NS. We stopped at the following places:</h4>",
             TripRoute: "/csvs/1987croute.csv",
             TripRoute1: "",
-            TripDetails: "/csvs/1987Trip.csv"
+            TripDetails: "/csvs/1987Trip.csv",
+            initialCenter: center,
+            initialZoom: zoom
         });
         await ArgentiaFerryRoute(gMap);
         break;
+    }
 
-    case "CapeBreton":
-        gMap.panTo({ lat: 45.389787020830795, lng: -63.32632936408758 });
-        gMap.setZoom(7);
+    case "CapeBreton": {
+        const center = { lat: 45.389787020830795, lng: -63.32632936408758 };
+        const zoom = 7;
+        gMap.panTo(center);
+        gMap.setZoom(zoom);
         setTargetTrip({
             TripMap: gMap,
             tripId: "capebreton-2001",
             TripHTML: "<h4>Approximate route for 2001 vacation with Denise to Cape Breton.<br />Starting from Saint John on September 11th 2001 we stopped at a friend in Moncton and saw the second plane hit the Twin Towers.<br />Like everyone else we were horrified by what happened, but decided that even if war was to break out, we should still go on our vacation. Of course we listened to some news, but generally said that we needed to enjoy the trip and see what happens. We also stopped at the following places:</h4>",
             TripRoute: '/csvs/2001route.csv',
             TripRoute1: "",
-            TripDetails: '/csvs/2001Trip.csv'
+            TripDetails: '/csvs/2001Trip.csv',
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
-    case "Places":
+case "Places": {
+        const center = { lat: 45.177953753536876, lng: -52.42747407873573 };
+        const zoom = 3;
+        attachResetViewControl(gMap, center, zoom);
+
         setTargetTrip({
             TripMap: gMap,
             tripId: "places",
             TripHTML: "<h4>Select from the areas below and the map will jump to that location. Click on any icon to see some details, if none just means I visited the place.</h4>",
             TripRoute: "",
             TripRoute1: "",
-            TripDetails: "places"
+            TripDetails: "places",
+            initialCenter: center,
+            initialZoom: zoom
         });
         break;
+    }
 
     default:
         break;

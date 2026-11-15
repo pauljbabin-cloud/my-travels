@@ -30,7 +30,7 @@ export default function MapPage() {
 				<nav className="navbar">
 					<ul className="nav-links">
 						<li>
-							<button onClick={()=> onMenuClick("goHome")} className="nav-btn">Paul&apos;s Travels</button>
+							<button onClick={()=> onMenuClick("goHome")} className="nav-btn">Paul Babin&apos;s Travels etc</button>
 						</li>
 						<li>
 							<button onClick={()=> onMenuClick("ShowHomes")} className="nav-btn">Places I have lived</button>

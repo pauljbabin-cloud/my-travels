@@ -120,13 +120,97 @@ export function PlacesMenu({
             });
             break;
 
-        case "Devon":
-            panToPlace(map, "Devon");
+        case "Cornwall":
+            panToPlace(map, "Cornwall");
+            map.setOptions({
+                zoom: 8
+            });
+            break;
+
+        case "Somerset":
+            panToPlace(map, "Somerset");
             map.setOptions({
                 zoom: 9
             });
             break;
 
+	case "Wales":
+            panToPlace(map, "North Wales");
+            map.setOptions({
+                zoom: 9
+            });
+            break;
+			
+	case "Suffolk":
+            panToPlace(map, "Suffolk");
+            map.setOptions({
+                zoom: 9
+            });
+            break;
+			
+	case "Belguim":
+            panToPlace(map, "Belguim");
+            map.setOptions({
+                zoom: 7
+            });
+            break;
+			
+	case "France":
+            panToPlace(map, "France");
+            map.setOptions({
+                zoom: 6
+            });
+            break;
+			
+	case "Ireland":
+            panToPlace(map, "Ireland");
+            map.setOptions({
+                zoom: 7
+            });
+            break;
+			
+	case "Italy":
+            panToPlace(map, "Italy");
+            map.setOptions({
+                zoom: 6
+            });
+            break;
+			
+	case "Greece":
+            panToPlace(map, "Greece");
+            map.setOptions({
+                zoom: 7
+            });
+            break;
+			
+	case "Holland":
+            panToPlace(map, "Holland");
+            map.setOptions({
+                zoom: 7
+            });
+            break;
+			
+	case "Spain":
+            panToPlace(map, "Spain");
+            map.setOptions({
+                zoom: 6
+            });
+            break;
+			
+	case "Switzerland":
+            panToPlace(map, "Switzerland");
+            map.setOptions({
+                zoom: 7
+            });
+            break;
+			
+	case "Suffolk":
+            panToPlace(map, "Suffolk");
+            map.setOptions({
+                zoom: 9
+            });
+            break;
+			
         default:
             break;
         }
@@ -170,7 +254,7 @@ export function PlacesMenu({
             onClick={() => setIsEnglandOpen(!isEnglandOpen)} 
             className="side-dropdown-btn"
           >
-            England {isEnglandOpen ? "▲" : "▼"}
+            United Kingdom {isEnglandOpen ? "▲" : "▼"}
           </button>
           <div 
             className="side-dropdown-content"
@@ -179,12 +263,22 @@ export function PlacesMenu({
             <button onClick={() => onMenuClick("Norfolk")} className="side-dropdown-item">Norfolk</button>
             <button onClick={() => onMenuClick("Kent")} className="side-dropdown-item">Kent</button>
             <button onClick={() => onMenuClick("Dorset")} className="side-dropdown-item">Dorset</button>
-            <button onClick={() => onMenuClick("Devon")} className="side-dropdown-item">Devon</button>
-            <button onClick={() => onMenuClick("ON")} className="side-dropdown-item">Ontario</button>
-            <button onClick={() => onMenuClick("PE")} className="side-dropdown-item">Prince Edward Island</button>
-            <button onClick={() => onMenuClick("QC")} className="side-dropdown-item">Quebec</button>
+            <button onClick={() => onMenuClick("Cornwall")} className="side-dropdown-item">Cornwall and Devon</button>
+            <button onClick={() => onMenuClick("Somerset")} className="side-dropdown-item">Somerset</button>
+            <button onClick={() => onMenuClick("Wales")} className="side-dropdown-item">North Wales and Cheshire</button>
+            <button onClick={() => onMenuClick("Suffolk")} className="side-dropdown-item">Suffolk</button>
           </div>
         </li>
+        <li><button onClick={() => onMenuClick("Belguim")} className="side-nav-btn">Belguim</button></li>
+        <li><button onClick={() => onMenuClick("France")} className="side-nav-btn">France</button></li>
+        <li><button onClick={() => onMenuClick("Ireland")} className="side-nav-btn">Ireland</button></li>
+        <li><button onClick={() => onMenuClick("Italy")} className="side-nav-btn">Italy</button></li>
+        <li><button onClick={() => onMenuClick("Greece")} className="side-nav-btn">Greece</button></li>
+        <li><button onClick={() => onMenuClick("Holland")} className="side-nav-btn">Holland</button></li>
+        <li><button onClick={() => onMenuClick("Spain")} className="side-nav-btn">Spain</button></li>
+        <li><button onClick={() => onMenuClick("Switzerland")} className="side-nav-btn">Switzerland</button></li>
+        <li><button onClick={() => onMenuClick("goHome")} className="side-nav-btn">U.S.A.</button></li>
+
       </ul>
     </nav>
 	);

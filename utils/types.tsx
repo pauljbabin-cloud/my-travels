@@ -5,6 +5,8 @@ export interface TripParams {
   TripRoute: string;
   TripRoute1: string;
   TripDetails: string;
+  initialCenter?: google.maps.LatLngLiteral; // Added
+  initialZoom?: number;                      // Added
   onHomesLoaded?: (homes: any[]) => void;
 }
 

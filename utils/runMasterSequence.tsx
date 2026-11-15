@@ -24,10 +24,12 @@ export interface SidebarItemData {
 
 interface RunMasterSequenceParams {
     TripMap: any;
-    tripId ?  : string; // Added to dynamically fetch API route
+    tripId?: string;
     TripRoute: string;
     TripRoute1: string | null;
     TripDetails: string;
+    initialCenter?: google.maps.LatLngLiteral; // Added
+    initialZoom?: number;                      // Added
 }
 
 interface TripDetails {
@@ -114,9 +116,16 @@ export async function runMasterSequence(
             return;
     }
 
-    // --- Sidebar Markers ---
-    if (params.TripDetails !== '0000Trip.csv') {
-        const structuralData = await parseSidebarCSVAndBuildMarkers(currentMap, params.TripDetails, state, libs, signal);
+	if (params.TripDetails !== '0000Trip.csv') {
+        const structuralData = await parseSidebarCSVAndBuildMarkers(
+            currentMap,
+            params.TripDetails,
+            state,
+            libs,
+            signal,
+            params.initialCenter,
+            params.initialZoom
+        );
         if (!signal.aborted) {
             setSidebarItems(structuralData);
         }
@@ -190,8 +199,13 @@ async function parseSidebarCSVAndBuildMarkers(
     detailsPath: string,
     state: TripStateInstance,
     activeLibs: GoogleLibs,
-    signal: AbortSignal): Promise < SidebarItemData[] > {
+    signal: AbortSignal,
+    initialCenter?: google.maps.LatLngLiteral,
+    initialZoom?: number
+	): Promise<SidebarItemData[]> {
     const parsedItems: SidebarItemData[] = [];
+    const bounds = new google.maps.LatLngBounds();
+
     try {
         const response = await fetch(detailsPath, {
             signal
@@ -226,6 +240,8 @@ async function parseSidebarCSVAndBuildMarkers(
                     lat,
                     lng
                 };
+				
+				bounds.extend(position);
                 const markerContentElement = buildMarkerUI(details);
 
                 const marker = new activeLibs.AdvancedMarkerElement({
@@ -267,6 +283,12 @@ async function parseSidebarCSVAndBuildMarkers(
         });
         clustererInstance.addMarkers(state.markers);
         state.markerCluster = clustererInstance;
+		
+		if (initialCenter && initialZoom !== undefined) {
+            attachResetViewControl(currentMap, initialCenter, initialZoom);
+        } else if (!bounds.isEmpty()) {
+            attachResetViewControl(currentMap, bounds.getCenter().toJSON(), 7);
+        }
 
     } catch (error) {
         console.error('Error loading or parsing Trip metadata file:', error);
@@ -404,4 +426,53 @@ function buildHomeMarkerUI(details: any, index: number): HTMLDivElement {
 	`;
 
     return container;
+}
+
+export function removeResetViewControl(currentMap: google.maps.Map) {
+    const controls = currentMap.controls[google.maps.ControlPosition.TOP_RIGHT];
+    for (let i = controls.getLength() - 1; i >= 0; i--) {
+        if (controls.getAt(i)?.id === "map-reset-view-btn") {
+            controls.removeAt(i);
+        }
+    }
+}
+
+export function attachResetViewControl(
+    currentMap: google.maps.Map,
+    center: google.maps.LatLngLiteral,
+    zoom: number
+) {
+    removeResetViewControl(currentMap);
+
+    const controlButton = document.createElement("button");
+    controlButton.id = "map-reset-view-btn";
+    controlButton.textContent = "Reset Zoom";
+    controlButton.title = "Return to initial view";
+    controlButton.type = "button";
+
+    Object.assign(controlButton.style, {
+        backgroundColor: "#fff",
+        border: "2px solid #fff",
+        borderRadius: "3px",
+        boxShadow: "0 2px 6px rgba(0,0,0,.3)",
+        color: "rgb(25,25,25)",
+        cursor: "pointer",
+        fontFamily: "Roboto,Arial,sans-serif",
+        fontSize: "14px",
+        fontWeight: "500",
+        margin: "10px",
+        padding: "8px 12px",
+        textAlign: "center",
+    });
+
+    controlButton.addEventListener("click", () => {
+        currentMap.panTo(center);
+        currentMap.setZoom(zoom);
+
+        if (activeMarker) {
+            toggleHighlight(activeMarker);
+        }
+    });
+
+    currentMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlButton);
 }

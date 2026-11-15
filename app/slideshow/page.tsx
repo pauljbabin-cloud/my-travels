@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-interface Props {}
-
-const SlideshowComponent: React.FC<Props> = () => {
+const SlideshowComponent: React.FC = () => {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const showId = searchParams.get('showId');
 
     const [images, setImages] = useState<string[]>([]);
@@ -47,6 +46,15 @@ const SlideshowComponent: React.FC<Props> = () => {
         setSlideIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
 
+    const handleClose = () => {
+        window.close();
+        setTimeout(() => {
+            if (!window.closed) {
+                router.back();
+            }
+        }, 100);
+    };
+
     const getFilename = (url: string) => {
         const match = url.match(/[^/]+(?=\.[^.]+$)/);
         return match ? match[0] : 'Image';
@@ -85,6 +93,28 @@ const SlideshowComponent: React.FC<Props> = () => {
                     justify-content: center;
                     align-items: center;
                 }
+                .close-btn {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: rgba(0, 0, 0, 0.6);
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    font-size: 20px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: background-color 0.3s ease;
+                    z-index: 20;
+                }
+                .close-btn:hover {
+                    background-color: rgba(0, 0, 0, 0.9);
+                }
                 .mySlides {
                     display: flex;
                     justify-content: center;
@@ -116,10 +146,10 @@ const SlideshowComponent: React.FC<Props> = () => {
                     transition: background-color 0.3s ease;
                     z-index: 10;
                 }
-				.prev {
-					left: 0;
-					border-radius: 3px 0 0 3px;
-				}
+                .prev {
+                    left: 0;
+                    border-radius: 3px 0 0 3px;
+                }
                 .next {
                     right: 0;
                     border-radius: 3px 0 0 3px;
@@ -147,6 +177,10 @@ const SlideshowComponent: React.FC<Props> = () => {
                 }
             `}</style>
 
+            <button className="close-btn" onClick={handleClose} aria-label="Close slideshow">
+                ✕
+            </button>
+
             <div className="slideshow-container">
                 {images.length > 0 && (
                     <div className="mySlides fade">
@@ -171,12 +205,10 @@ const SlideshowComponent: React.FC<Props> = () => {
     );
 };
 
-const Component = () => {
+export default function SlideshowPage() {
     return (
         <Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif' }}>Loading layout...</div>}>
             <SlideshowComponent />
         </Suspense>
     );
-};
-
-export default Component;
+}

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma db migrate",
-    "contract:emit": "prisma contract emit"
+    "contract:emit": "prisma contract emit",
+    "postinstall": "prisma skills sync || exit 0"
   },
   "type": "module",
   "dependencies": {
@@ -19,9 +20,10 @@
     "@googlemaps/markerclusterer": "^2.6.2",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
-    "@prisma/composer": "0.38.0",
-    "@prisma/composer-prisma-cloud": "0.38.0",
+    "@prisma/composer": "^0.38.0",
+    "@prisma/composer-prisma-cloud": "^0.38.0",
     "@prisma/orm-postgres": "^8.0.0-rc.23",
+    "arktype": "^2.2.9",
     "csv-parser": "^3.2.1",
     "effect": "4.0.5",
     "next": "^16.4.6",
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@prisma/cli-engine": "^0.9.0",
+    "@types/bun": "^1.4.4",
     "@types/google.maps": "^3.66.10",
     "@types/node": "^20.19.43",
     "@types/pg": "^8.23.1",
@@ -52,5 +55,16 @@
     "@effect/platform-node-shared": "4.0.5",
     "@effect/vitest": "4.0.5",
     "effect": "4.0.5"
-  }
+  },
+  "description": "MyTravels",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "my-travels"
+  },
+  "author": "Paul Babin",
+  "license": "ISC"
 }
