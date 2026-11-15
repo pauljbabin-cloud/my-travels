@@ -20,8 +20,6 @@
     "@googlemaps/markerclusterer": "^2.6.2",
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
-    "@prisma/composer": "^0.38.0",
-    "@prisma/composer-prisma-cloud": "^0.38.0",
     "@prisma/orm-postgres": "8.0.0-rc.23",
     "arktype": "^2.2.9",
     "csv-parse": "^7.0.3",
