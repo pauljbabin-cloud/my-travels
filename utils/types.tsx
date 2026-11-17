@@ -4,7 +4,6 @@ export interface TripParams {
   tripId?: string;
   tripYear?: string; 
   TripRoute: string;
-  TripRoute1: string;
   TripDetails: string;
   initialCenter?: google.maps.LatLngLiteral;
   initialZoom?: number;

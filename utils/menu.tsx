@@ -28,8 +28,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "home",
             TripHTML: "<h4>Select from the menu to see my homes and travels mapped using Google Maps</h4>",
             TripRoute: "",
-            TripRoute1: "",
-            TripDetails: "0000Trip.csv",
+            TripDetails: "none",
             initialCenter: center,
             initialZoom: zoom
         });
@@ -46,7 +45,6 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "homes",
             TripHTML: "<h4>Select from the addresses below and the map will jump to that location. Click on the icon to see some details.</h4>",
             TripRoute: "",
-            TripRoute1: "",
             TripDetails: "homes",
             initialCenter: center,
             initialZoom: zoom
@@ -71,13 +69,13 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
           <h4 class="my-2">On April 4th 1978 I returned to Toronto by myself flying roughly the blue line from Heathrow</h4>
         `,
             TripRoute: "",
-            TripRoute1: "",
-            TripDetails: "0000Trip.csv",
+            TripDetails: "none",
             initialCenter: center,
             initialZoom: zoom
         });
         break;
     }
+
     case "Ontario": {
         const center = { lat: 43.62505385526114, lng: -80.6859858253849 };
         const zoom = 7;
@@ -88,9 +86,8 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "ontario-1989",
             tripYear: "1989",
             TripHTML: "<h4>Approximate route for vacation with Mum - driving an RV around Ontario 16th to 30th September 1989 and stopping at the following places:</h4>",
-            TripRoute: "/csvs/1989route0.csv",
-            TripRoute1: "/csvs/1989route1.csv",
-            TripDetails: "/csvs/1989Trip.csv",
+            TripRoute: "/csvs/routes.csv",
+            TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
@@ -107,9 +104,8 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "niagara-2008",
             tripYear: "2008",
             TripHTML: "<h4>Approximate route for vacation with Denise - driving from Shediac to Niagara Falls starting June 9th 2008 and stopping at the following places:</h4>",
-            TripRoute: "/csvs/2008route.csv",
-            TripRoute1: "",
-            TripDetails: "/csvs/2008Trip.csv",
+            TripRoute: "/csvs/routes.csv",
+            TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
@@ -126,9 +122,8 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "england-2002",
             tripYear: "2002",
             TripHTML: "<h4>Approximate route for July 2002 vacation with Denise to England - Starting from Heathrow airport we rented a car and stopped at the following places:</h4>",
-            TripRoute: "/csvs/2002route.csv",
-            TripRoute1: "",
-            TripDetails: "/csvs/2002Trip.csv",
+            TripRoute: "/csvs/routes.csv",
+            TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
@@ -145,9 +140,8 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "newfoundland-1987",
             tripYear: "1987",
             TripHTML: "<h4>Approximate route for 1987 vacation with Mum and Nigel in a motorhome.<br />Starting from Bedford NS we drove to North Sydney to take the ferry to Newfoundland and then back. Then we went to visit Saint-Louis-de-Kent and on to Saint John to take the ferry to Digby NS. We stopped at the following places:</h4>",
-            TripRoute: "/csvs/1987croute.csv",
-            TripRoute1: "",
-            TripDetails: "/csvs/1987Trip.csv",
+            TripRoute: "/csvs/routes.csv",
+            TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
@@ -165,16 +159,15 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             tripId: "capebreton-2001",
             tripYear: "2001",
             TripHTML: "<h4>Approximate route for 2001 vacation with Denise to Cape Breton.<br />Starting from Saint John on September 11th 2001 we stopped at a friend in Moncton and saw the second plane hit the Twin Towers.<br />Like everyone else we were horrified by what happened, but decided that even if war was to break out, we should still go on our vacation. Of course we listened to some news, but generally said that we needed to enjoy the trip and see what happens. We also stopped at the following places:</h4>",
-            TripRoute: '/csvs/2001route.csv',
-            TripRoute1: "",
-            TripDetails: '/csvs/2001Trip.csv',
+            TripRoute: "/csvs/routes.csv",
+            TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
         break;
     }
 
-case "Places": {
+    case "Places": {
         const center = { lat: 45.177953753536876, lng: -52.42747407873573 };
         const zoom = 3;
         attachResetViewControl(gMap, center, zoom);
@@ -184,7 +177,6 @@ case "Places": {
             tripId: "places",
             TripHTML: "<h4>Select from the areas below and the map will jump to that location. Click on any icon to see some details, if none just means I visited the place.</h4>",
             TripRoute: "",
-            TripRoute1: "",
             TripDetails: "places",
             initialCenter: center,
             initialZoom: zoom

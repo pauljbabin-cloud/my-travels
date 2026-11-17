@@ -3,7 +3,6 @@ import { initGoogleLibraries } from "@/utils/initGoogleLibraries";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
 import { faHospitalUser, faHouseUser, faSchool, faCaravan, faGasPump, faCamera, faBed, faCampground, faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { loadRouteFromCSV } from "./loadRouteFromCSV";
 import { ShowHomes } from "./showhomes";
 import { Places } from "./places";
 
@@ -24,13 +23,12 @@ export interface SidebarItemData {
 
 interface RunMasterSequenceParams {
     TripMap: any;
-    tripId?: string;
-	tripYear?: string;
+    tripId ?  : string;
+    tripYear ?  : string;
     TripRoute: string;
-    TripRoute1: string | null;
     TripDetails: string;
-    initialCenter?: google.maps.LatLngLiteral; // Added
-    initialZoom?: number;                      // Added
+    initialCenter ?  : google.maps.LatLngLiteral;
+    initialZoom ?  : number;
 }
 
 interface TripDetails {
@@ -43,12 +41,32 @@ interface TripDetails {
 
 let activeMarker: google.maps.marker.AdvancedMarkerElement | null = null;
 
+function splitCsvLine(line: string): string[]{
+    const result: string[] = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current.trim());
+    return result;
+}
+
 export async function runMasterSequence(
     params: RunMasterSequenceParams,
     state: TripStateInstance,
     setSidebarItems: React.Dispatch < React.SetStateAction < SidebarItemData[] >> ,
     setHomesItems: React.Dispatch < React.SetStateAction < any[] >> ,
-	setPlacesItems: React.Dispatch<React.SetStateAction<any[]>>,
+    setPlacesItems: React.Dispatch < React.SetStateAction < any[] >> ,
     signal: AbortSignal): Promise < void > {
     const currentMap = params.TripMap;
     if (!currentMap)
@@ -63,21 +81,21 @@ export async function runMasterSequence(
     const libs = await initGoogleLibraries();
     if (signal.aborted || !libs)
         return;
-	
-	if (params.TripDetails === 'homes') {
+
+    if (params.TripDetails === 'homes') {
         setSidebarItems([]);
         await ShowHomes(params, state, setHomesItems, signal);
         return;
     }
-	
-	if (params.TripDetails === 'places') {
+
+    if (params.TripDetails === 'places') {
         setSidebarItems([]);
         setHomesItems([]);
         await Places(params, state, setPlacesItems, signal);
         return;
     }
 
-    // --- Route Execution from Prisma `Routes` Table (with CSV Fallback) ---
+    // --- Route Execution from Prisma `Routes` Table (with `routes.csv` Fallback) ---
     let drawnFromDb = false;
 
     if (params.tripYear) {
@@ -89,64 +107,53 @@ export async function runMasterSequence(
                 const { routes } = await routeRes.json();
                 if (Array.isArray(routes) && routes.length > 0) {
                     for (const routeSegment of routes) {
-                        if (signal.aborted) return;
+                        if (signal.aborted)
+                            return;
                         await computeAndDrawRoute(routeSegment, state, currentMap, signal);
                     }
                     drawnFromDb = true;
                 }
             }
         } catch (error) {
-            console.warn("API routes fetch failed, trying CSV fallback:", error);
+            console.warn("API routes fetch failed, trying routes.csv fallback:", error);
         }
     }
 
-    // Fallback to legacy CSV files if DB returned no routes
-    if (!drawnFromDb) {
-        if (params.TripRoute) {
-            const fileData0 = await loadRouteFromCSV(params.TripRoute);
-            if (fileData0 && fileData0.origin && !signal.aborted) {
-                await computeAndDrawRoute(fileData0, state, currentMap, signal);
-            }
-        }
-        if (signal.aborted) return;
-
-        if (params.TripRoute1) {
-            const fileData1 = await loadRouteFromCSV(params.TripRoute1);
-            if (fileData1 && fileData1.origin && fileData1.destination && !signal.aborted) {
-                await computeAndDrawRoute(fileData1, state, currentMap, signal);
-            }
+    // Fallback to consolidated `/csvs/routes.csv` filtered by `tripYear`
+    if (!drawnFromDb && params.TripRoute && params.tripYear) {
+        const routeSegments = await loadRoutesFromMasterCSV(params.TripRoute, params.tripYear, signal);
+        for (const segment of routeSegments) {
+            if (signal.aborted)
+                return;
+            await computeAndDrawRoute(segment, state, currentMap, signal);
         }
     }
 
-    if (signal.aborted) return;
+    if (signal.aborted)
+        return;
 
-    // --- Trip Stops / Sidebar Markers from Prisma `Trips` Table ---
-    if (params.TripDetails !== '0000Trip.csv') {
-        let structuralData: SidebarItemData[] = [];
-
-        if (params.tripYear) {
-            structuralData = await fetchSidebarTripsAndBuildMarkers(
+    // --- Trip Stops / Sidebar Markers from Prisma `Trips` Table (with `trips.csv` Fallback) ---
+    if (params.TripDetails && params.TripDetails !== 'none' && params.tripYear) {
+        let structuralData: SidebarItemData[] = await fetchSidebarTripsAndBuildMarkers(
                 currentMap,
                 params.tripYear,
                 state,
                 libs,
                 signal,
                 params.initialCenter,
-                params.initialZoom
-            );
-        }
+                params.initialZoom);
 
-        // Fallback to CSV if database returned empty
-        if (structuralData.length === 0 && params.TripDetails) {
+        // Fallback to consolidated `/csvs/trips.csv` filtered by `tripYear`
+        if (structuralData.length === 0) {
             structuralData = await parseSidebarCSVAndBuildMarkers(
-                currentMap,
-                params.TripDetails,
-                state,
-                libs,
-                signal,
-                params.initialCenter,
-                params.initialZoom
-            );
+                    currentMap,
+                    params.TripDetails,
+                    params.tripYear,
+                    state,
+                    libs,
+                    signal,
+                    params.initialCenter,
+                    params.initialZoom);
         }
 
         if (!signal.aborted) {
@@ -160,6 +167,87 @@ export async function runMasterSequence(
         setHomesItems([]);
         setPlacesItems([]);
     }
+}
+
+async function loadRoutesFromMasterCSV(
+    csvPath: string,
+    tripYear: string,
+    signal: AbortSignal): Promise < any[] > {
+    const segments: any[] = [];
+
+    try {
+        const response = await fetch(csvPath, {
+            signal
+        });
+        if (signal.aborted || !response.ok)
+            return [];
+
+        const csvText = await response.text();
+        const rows = csvText.split('\n').slice(1);
+
+        let currentSegment: any = null;
+
+        for (const row of rows) {
+            const trimmedRow = row.trim();
+            if (!trimmedRow)
+                continue;
+
+            // Columns matching Routes model: year, type, lat, lng, name
+            const cols = splitCsvLine(trimmedRow);
+            const rowYear = cols[0];
+            if (rowYear !== tripYear)
+                continue;
+
+            const type = (cols[1] || '').toLowerCase();
+            const lat = parseFloat(cols[2]);
+            const lng = parseFloat(cols[3]);
+
+            if (isNaN(lat) || isNaN(lng))
+                continue;
+
+            if (type === 'origin') {
+                if (currentSegment && currentSegment.origin && currentSegment.destination) {
+                    segments.push(currentSegment);
+                }
+                currentSegment = {
+                    origin: {
+                        location: {
+                            lat,
+                            lng
+                        }
+                    },
+                    destination: null,
+                    intermediates: [],
+                    travelMode: 'DRIVING',
+                    routingPreference: 'TRAFFIC_AWARE',
+                };
+            } else if (type === 'destination' && currentSegment) {
+                currentSegment.destination = {
+                    location: {
+                        lat,
+                        lng
+                    }
+                };
+                segments.push(currentSegment);
+                currentSegment = null;
+            } else if (currentSegment) {
+                currentSegment.intermediates.push({
+                    location: {
+                        lat,
+                        lng
+                    }
+                });
+            }
+        }
+
+        if (currentSegment && currentSegment.origin && currentSegment.destination) {
+            segments.push(currentSegment);
+        }
+    } catch (error) {
+        console.error('Error loading routes from master CSV:', error);
+    }
+
+    return segments;
 }
 
 async function computeAndDrawRoute(routeData: any, state: TripStateInstance, currentMap: any, signal: AbortSignal) {
@@ -181,7 +269,7 @@ async function computeAndDrawRoute(routeData: any, state: TripStateInstance, cur
                     lng: routeData.destination.location.lng
                 }
             },
-            intermediates: routeData.intermediates.map((waypoint: any) => ({
+            intermediates: (routeData.intermediates || []).map((waypoint: any) => ({
                     location: {
                         lat: waypoint.location.lat,
                         lng: waypoint.location.lng
@@ -220,12 +308,12 @@ async function computeAndDrawRoute(routeData: any, state: TripStateInstance, cur
 async function parseSidebarCSVAndBuildMarkers(
     currentMap: any,
     detailsPath: string,
+    tripYear: string,
     state: TripStateInstance,
     activeLibs: GoogleLibs,
     signal: AbortSignal,
-    initialCenter?: google.maps.LatLngLiteral,
-    initialZoom?: number
-	): Promise<SidebarItemData[]> {
+    initialCenter ?  : google.maps.LatLngLiteral,
+    initialZoom ?  : number): Promise < SidebarItemData[] > {
     const parsedItems: SidebarItemData[] = [];
     const bounds = new google.maps.LatLngBounds();
 
@@ -239,52 +327,50 @@ async function parseSidebarCSVAndBuildMarkers(
         const csvText = await response.text();
         const rows = csvText.split('\n').slice(1);
 
-        rows.forEach((row, i) => {
+        let matchIndex = 0;
+
+        rows.forEach((row) => {
             const trimmedRow = row.trim();
             if (!trimmedRow)
                 return;
 
-            const cols = trimmedRow.split(',');
-            const lat = parseFloat(cols[0]);
-            const lng = parseFloat(cols[1]);
-
+            // Columns matching Trips model: year, lat, lng, title, description, image, type
+            const cols = splitCsvLine(trimmedRow);
+            const rowYear = cols[0];
+            if (rowYear !== tripYear)
+                return;
+            matchIndex += 1;
+            const lat = parseFloat(cols[1]);
+            const lng = parseFloat(cols[2]);
             const details: TripDetails = {
-                title: cols[2] || '',
-                description: cols[3] || '',
-                image: cols[4] || '',
-                type: cols[5] || '',
-                index: i + 1,
+                title: cols[3] || '',
+                description: cols[4] || '',
+                image: cols[5] || '',
+                type: cols[6] || '',
+                index: matchIndex,
             };
-
             const updatedTitle: string = details.title.replaceAll("<br />", ". ");
-
             if (!isNaN(lat) && !isNaN(lng)) {
                 const position = {
                     lat,
                     lng
                 };
-				
-				bounds.extend(position);
+                bounds.extend(position);
                 const markerContentElement = buildMarkerUI(details);
-
                 const marker = new activeLibs.AdvancedMarkerElement({
                     position,
                     title: updatedTitle,
                     content: markerContentElement,
                     gmpClickable: true,
                 });
-
-                const id = (i + 1).toString();
+                const id = matchIndex.toString();
                 state.markerRegistry[id] = marker;
-
                 markerContentElement.addEventListener("click", () => {
                     currentMap.setZoom(18);
                     currentMap.setCenter(position);
                     toggleHighlight(marker);
                 });
-
                 state.markers.push(marker);
-
                 parsedItems.push({
                     id,
                     title: details.title,
@@ -295,30 +381,25 @@ async function parseSidebarCSVAndBuildMarkers(
                 });
             }
         });
-
         if (signal.aborted) {
             state.markers.forEach(m => m.map = null);
             return [];
         }
-
         const clustererInstance = new MarkerClusterer({
             map: currentMap
         });
         clustererInstance.addMarkers(state.markers);
         state.markerCluster = clustererInstance;
-		
-		if (initialCenter && initialZoom !== undefined) {
+        if (initialCenter && initialZoom !== undefined) {
             attachResetViewControl(currentMap, initialCenter, initialZoom);
         } else if (!bounds.isEmpty()) {
             attachResetViewControl(currentMap, bounds.getCenter().toJSON(), 7);
         }
-
     } catch (error) {
-        console.error('Error loading or parsing Trip metadata file:', error);
+        console.error('Error loading or parsing trips.csv:', error);
     }
     return parsedItems;
 }
-
 function buildMarkerUI(details: TripDetails): HTMLDivElement {
     const container = document.createElement("div");
     container.className = "property";
@@ -328,7 +409,8 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
         faGasPump,
         faCamera,
         faBed,
-        faCampground
+        faCampground,
+        faFontAwesome
     };
     const selectedIcon = iconMap[cleanVariable] || faBed;
     let adjustedIcon = faIcon(selectedIcon, {
@@ -342,15 +424,13 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
     });
     const iconHtml = adjustedIcon.html[0];
     const detailsClass = 'details';
-
     if (details.image === 'blank') {
-        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
+        container.innerHTML = `<div class="icon">${iconHtml}</div><div class="${detailsClass}"><div class="description">${details.title}</div></div>`;
     } else {
-        container.innerHTML = `<div class="icon" style="color: black;">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+        container.innerHTML = `<div class="icon" style="color: black;">${iconHtml}</div><div class="${detailsClass}"><a href="/slideshow?showId=${details.image}" target="_blank"><img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"></a><div class="description">${details.title}</div></div>`;
     }
     return container;
 }
-
 export function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarkerElement) {
     const content = clickedMarker.content as HTMLElement;
     if (!content)
@@ -371,86 +451,6 @@ export function toggleHighlight(clickedMarker: google.maps.marker.AdvancedMarker
         activeMarker = clickedMarker;
     }
 }
-
-function buildHomeMarkers(
-    currentMap: any,
-    homes: any[],
-    state: TripStateInstance,
-    activeLibs: GoogleLibs,
-    signal: AbortSignal) {
-    homes.forEach((home, i) => {
-        const lat = parseFloat(home.lat);
-        const lng = parseFloat(home.lng);
-        const id = (home.id || i + 1).toString();
-
-        if (!isNaN(lat) && !isNaN(lng)) {
-            const position = {
-                lat,
-                lng
-            };
-            const markerContentElement = buildHomeMarkerUI(home, i + 1);
-
-            const marker = new activeLibs.AdvancedMarkerElement({
-                position,
-                title: home.address,
-                content: markerContentElement,
-                gmpClickable: true,
-            });
-
-            state.markerRegistry[id] = marker;
-
-            markerContentElement.addEventListener("click", () => {
-                currentMap.setZoom(18);
-                currentMap.setCenter(position);
-                toggleHighlight(marker);
-            });
-
-            state.markers.push(marker);
-        }
-    });
-
-    if (signal.aborted) {
-        state.markers.forEach(m => m.map = null);
-        return;
-    }
-
-    const clustererInstance = new MarkerClusterer({
-        map: currentMap
-    });
-    clustererInstance.addMarkers(state.markers);
-    state.markerCluster = clustererInstance;
-}
-
-function buildHomeMarkerUI(details: any, index: number): HTMLDivElement {
-    const container = document.createElement("div");
-    container.className = "property";
-
-    const cleanVariable = (details.type || '').trim();
-    const iconMap: Record < string,
-    any >  = {
-        faHospitalUser,
-        faHouseUser,
-        faSchool,
-        faCaravan,
-    };
-
-    const selectedIcon = iconMap[cleanVariable] || faHouseUser;
-    const iconHtml = faIcon(selectedIcon).html[0];
-
-    container.innerHTML = `
-        <div class="icon">
-            <i>${iconHtml}</i> ${details.index || index}
-        </div>
-        <div class="details">
-            <div class="address" style="font-size: 24px;">${details.address}</div>
-            <div class="dates">From: ${details.from} To: ${details.to}</div>
-            <div class="description">${details.description}</div>
-        </div>
-	`;
-
-    return container;
-}
-
 export function removeResetViewControl(currentMap: google.maps.Map) {
     const controls = currentMap.controls[google.maps.ControlPosition.TOP_RIGHT];
     for (let i = controls.getLength() - 1; i >= 0; i--) {
@@ -459,20 +459,16 @@ export function removeResetViewControl(currentMap: google.maps.Map) {
         }
     }
 }
-
 export function attachResetViewControl(
     currentMap: google.maps.Map,
     center: google.maps.LatLngLiteral,
-    zoom: number
-) {
+    zoom: number) {
     removeResetViewControl(currentMap);
-
     const controlButton = document.createElement("button");
     controlButton.id = "map-reset-view-btn";
     controlButton.textContent = "Reset Zoom";
     controlButton.title = "Return to initial view";
     controlButton.type = "button";
-
     Object.assign(controlButton.style, {
         backgroundColor: "#fff",
         border: "2px solid #fff",
@@ -487,42 +483,35 @@ export function attachResetViewControl(
         padding: "8px 12px",
         textAlign: "center",
     });
-
     controlButton.addEventListener("click", () => {
         currentMap.panTo(center);
         currentMap.setZoom(zoom);
-
         if (activeMarker) {
             toggleHighlight(activeMarker);
         }
     });
-
     currentMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlButton);
 }
-
 async function fetchSidebarTripsAndBuildMarkers(
     currentMap: any,
     tripYear: string,
     state: TripStateInstance,
     activeLibs: GoogleLibs,
     signal: AbortSignal,
-    initialCenter?: google.maps.LatLngLiteral,
-    initialZoom?: number
-): Promise<SidebarItemData[]> {
+    initialCenter ?  : google.maps.LatLngLiteral,
+    initialZoom ?  : number): Promise < SidebarItemData[] > {
     const parsedItems: SidebarItemData[] = [];
     const bounds = new google.maps.LatLngBounds();
-
     try {
-        const response = await fetch(`/api/trips/${tripYear}`, { signal });
-        if (signal.aborted || !response.ok) return [];
-
+        const response = await fetch(`/api/trips/${tripYear}`, {signal});
+        if (signal.aborted || !response.ok)
+            return [];
         const { stops } = await response.json();
-        if (!Array.isArray(stops) || stops.length === 0) return [];
-
+        if (!Array.isArray(stops) || stops.length === 0)
+            return [];
         stops.forEach((stop: any, i: number) => {
             const lat = Number(stop.lat);
             const lng = Number(stop.lng);
-
             const details: TripDetails = {
                 title: stop.title || '',
                 description: stop.description || '',
@@ -530,13 +519,13 @@ async function fetchSidebarTripsAndBuildMarkers(
                 type: stop.type || '',
                 index: i + 1,
             };
-
             const updatedTitle: string = details.title.replaceAll("<br />", ". ");
-
             if (!isNaN(lat) && !isNaN(lng)) {
-                const position = { lat, lng };
+                const position = {
+                    lat,
+                    lng
+                };
                 bounds.extend(position);
-
                 const markerContentElement = buildMarkerUI(details);
                 const marker = new activeLibs.AdvancedMarkerElement({
                     position,
@@ -544,18 +533,14 @@ async function fetchSidebarTripsAndBuildMarkers(
                     content: markerContentElement,
                     gmpClickable: true,
                 });
-
                 const id = stop.id ? stop.id.toString() : (i + 1).toString();
                 state.markerRegistry[id] = marker;
-
                 markerContentElement.addEventListener("click", () => {
                     currentMap.setZoom(18);
                     currentMap.setCenter(position);
                     toggleHighlight(marker);
                 });
-
                 state.markers.push(marker);
-
                 parsedItems.push({
                     id,
                     title: details.title,
@@ -566,16 +551,15 @@ async function fetchSidebarTripsAndBuildMarkers(
                 });
             }
         });
-
         if (signal.aborted) {
             state.markers.forEach((m) => (m.map = null));
             return [];
         }
-
-        const clustererInstance = new MarkerClusterer({ map: currentMap });
+        const clustererInstance = new MarkerClusterer({
+            map: currentMap
+        });
         clustererInstance.addMarkers(state.markers);
         state.markerCluster = clustererInstance;
-
         if (initialCenter && initialZoom !== undefined) {
             attachResetViewControl(currentMap, initialCenter, initialZoom);
         } else if (!bounds.isEmpty()) {
@@ -584,7 +568,5 @@ async function fetchSidebarTripsAndBuildMarkers(
     } catch (error) {
         console.error('Error loading Trip details from API:', error);
     }
-
     return parsedItems;
 }
-
