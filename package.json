@@ -9,7 +9,8 @@
     "lint": "eslint",
     "db:migrate": "prisma db migrate",
     "contract:emit": "prisma contract emit",
-    "postinstall": "prisma skills sync || exit 0"
+    "postinstall": "prisma skills sync || exit 0",
+    "db:seed": "tsx src/prisma/seed.ts"
   },
   "type": "module",
   "dependencies": {
@@ -27,6 +28,7 @@
     "pg": "^8.23.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "region-flags": "^1.1.0",
     "temporal-polyfill": "^1.0.8"
   },
   "devDependencies": {

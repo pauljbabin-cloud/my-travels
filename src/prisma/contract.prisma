@@ -1,8 +1,8 @@
 // use prisma-8
 
 model Trip {
-  id                String       @id @onCreate(uuid())
-  actionKey         String       @unique // e.g., "Ontario", "StoNF", "Newfoundland"
+  id                String            @id @onCreate(uuid())
+  actionKey         String            @unique // e.g., "Ontario", "StoNF", "Newfoundland"
   panLat            Float
   panLng            Float
   zoom              Int
@@ -46,6 +46,7 @@ model Home {
   to          String
   description String
   type        String  
+  image       String
 }
 
 model Places {
@@ -54,4 +55,24 @@ model Places {
   title   String
   image   String
   type    String
+}
+
+model Trips {
+  id          Int    @id @default(autoincrement())
+  year        String
+  lat         Float
+  lng         Float
+  title       String
+  description String
+  image       String
+  type        String
+}
+
+model Routes {
+  id   Int    @id @default(autoincrement())
+  year String
+  type String
+  lat  Float
+  lng  Float
+  name String
 }

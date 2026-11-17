@@ -1,107 +1,119 @@
 address,title,image,type
-Point Pelee,Point Pelee,blank,faFontAwesome
-Wheatley Provincial Park,Wheatley Provincial Park,blank,faCampground
-Fort Malden National Historic Site,Fort Malden National Historic Site,blank,faFontAwesome
-Windsor ON,Windsor KOA campground,blank,faCampground
-Long Point Provincial Park,Long Point Provincial Park,blank,faCampground
-Southwold ON,Southwold,blank,faFontAwesome
-Aylmer ON,Aylmer,blank,faFontAwesome
-St. Thomas ON,St. Thomas - saw the Jumbo statue,blank,faFontAwesome
-Niagara Falls ON,Niagara Falls,niagara,faCamera
-Fonthill ON,Fonthill KOA campground,blank,faCampground
-Grimsby ON,Grimsby,blank,faFontAwesome
-Pinery Provincial Park,Pinery Provincial Park,blank,faCampground
-Bayfield Harbour ON,Bayfield Harbour,blank,faFontAwesome
-Toronto  ON,Toronto - Lived here 1955 to 1959 - briefly 1978 - stopped by various times over the years,blank,faHouseUser
-Port Perry ON,Port Perry/Scugog Landing RV campground,blank,faCampground
-Bradford West Gwillimbury ON,Bradford KOA campground,blank,faCampground
-Wasaga Beach ON,Wasaga Beach KOA campground,blank,faCampground
-McRae Point Provincial Park,McRae Point Provincial Park,blank,faCampground
-Digby Nova Scotia,Digby,blank,faFontAwesome
-Sauble Falls Provincial Park,Sauble Falls Provincial Park,blank,faCampground
-Dartmouth Nova Scotia,Dartmouth,blank,faFontAwesome
-Sainte-Marie among the Hurons,Sainte-Marie among the Hurons,blank,faFontAwesome
-Bedford Nova Scotia,Bedford,blank,faFontAwesome
-Tangier Nova Scotia,Tangier,blank,faFontAwesome
-Saint John NB,Saint John - Lived here 1978 to 2005,blank,faHouseUser
-Ottawa ON,Ottawa sightseeing,ottawa,faCamera
-Port Hastings Nova Scotia,Port Hastings,blank,faFontAwesome
-Wentworth Nova Scotia,Wentworth,blank,faFontAwesome
-Fortress of Louisbourg National Historic Site,Fortress of Louisbourg National Historic Site,louisbourg,faCamera
-Whycocomagh Nova Scotia,Whycocomagh,blank,faFontAwesome
-Moncton NB,Moncton,blank,faFontAwesome
-North Sydney Nova Scotia,North Sydney ,blank,faFontAwesome
-Shediac NB,Shediac - Lived in Shediac since 2005,blank,faHouseUser
-Little Bras D'Or Nova Scotia,Little Bras D'Or,blank,faFontAwesome
-Hartland NB,Hartland,hartland,faCamera
-Cape Smokey Nova Scotia,The Cape Smokey ski lift,smokey,faCamera
-Saint-Louis-de-Kent NB,Saint-Louis-de-Kent - Lived here briefly in 1978 but returned for visits just about every year since,blank,faHouseUser
-Skyline Trailhead NS,Skyline Trailhead,skyline,faCamera
-Quebec City QC,Quebec City including Old Quebec City,quebec,faCamera
-Cape North NS,Cape North,blank,faFontAwesome
-Montmoency Falls QC,Montmoency Falls,montmoencyfalls,faCamera
-Dingwall NS,Dingwall,blank,faFontAwesome
-Grand Falls NB,Grand Falls,grandfalls,faCamera
-Argentia NL,Argentia,blank,faFontAwesome
-Edmundston NB,Edmundston,blank,faFontAwesome
-St. John's NL,St. John's,blank,faFontAwesome
-Channel-Port aux Basques NL,Channel-Port aux Basques,blank,faFontAwesome
-Glovertown NL,Glovertown,blank,faFontAwesome
-Cormack NL,Cormack,blank,faFontAwesome
-Western Brook NL,Western Brook - absolutely stunning boat ride ,westernbrook,faCamera
-Baie Verte NL,Baie Verte,blank,faFontAwesome
-Hastings UK,Hastings,blank,faFontAwesome
-Christs Hospital,Christs Hospital - went to school here,blank,faSchool
-East Grinstead UK,East Grinstead - Mum was the resident matron at the Fonthill School and I was living with her ,blank,faSchool
-Tunbridge Wells UK,Tunbridge Wells - lived with Gran 1959 to 1961,blank,faHouseUser
-Guildford UK,Guildford,blank,faFontAwesome
-South Croydon UK,South Croydon - Lived here 1967 to 71,blank,faHouseUser
-Broadstairs UK,Broadstairs - Mum was the matron at a Broadstairs school and I was a pupil but we lived in a caravan,blank,faCaravan
-Bath UK,Bath,blank,faFontAwesome
-Bristol UK,Bristol,blank,faFontAwesome
-Brixton UK,Brixton - Lived here 1973 to1976,blank,faHouseUser
-Heathrow Airport,Heathrow Airport,blank,faFontAwesome
-Wndsor Castle Wndsor UK,Wndsor Castle,blank,faFontAwesome
-High Wycombe UK,High Wycombe - Uncle Peter lived here. Visited before I left England a few times and then stayed with Denise for two nights in 2001,blank,faFontAwesome
-Great Yarmouth UK,Great Yarmouth - Lived here in 1973,blank,faHouseUser
-Norwich UK,Norwich - Lived here 1976 to 1978,blank,faHouseUser
-Holt UK,Holt - Lived here 1963 to 1967,blank,faHouseUser
-Wells-next-the-Sea UK,Wells-next-the-Sea - Lived here 1971 to 1973,blank,faHouseUser
-Chester UK,Chester,blank,faFontAwesome
-Hull UK,Hull - stayed with Michael,blank,faBed
-York UK,York - sightseeing,york,faCamera
-999 18th Street Denver CO,Denver - attended training at Vertafore,blank,faFontAwesome
-Calgary International Airport,Calgary International Airport - stopover on way back from Denver,blank,faFontAwesome
-Corfu Greece,Corfu - vacationed here twice ,blank,faFontAwesome
-Madrid Spain,Madrid - vacation,blank,faFontAwesome
-Barcelona Spain,Barcelona - vacation,blank,faFontAwesome
-Paris France,Paris,blank,faFontAwesome
-Cromer UK,Cromer,cromer,faCamera
-Land's End Sign,Land's End,blank,faFontAwesome
-Plymouth,Plymouth,blank,faFontAwesome
-Exmoor,Exmoor,blank,faFontAwesome
-Dartmoor National Park,Dartmoor National Park,blank,faFontAwesome
-Bristol UK,Bristol,blank,faFontAwesome
-Bath UK,Bath,blank,faFontAwesome
-Eryri National Park (Snowdonia),Eryri National Park (Snowdonia),blank,faFontAwesome
-Brussels Belguim,Brussels,blank,faFontAwesome
-Antwerp Belgium,Antwerp,blank,faFontAwesome
-Amsterdam,Amsterdam,blank,faFontAwesome
-Dublin Ireland,Dublin,blank,faFontAwesome
-Zurich,Zurich,blank,faFontAwesome
-Chamonix-Mont-Blanc,Chamonix-Mont-Blanc - I took the train up to the glacier Mer de Glace,blank,faFontAwesome
-Mer de Glace,Mer de Glace incredible journey on a cog train up to the glacier,blank,faFontAwesome
-Geneva  ,Geneva  ,blank,faFontAwesome
-Bern,Bern,blank,faFontAwesome
-Lucerne,Lucerne,blank,faFontAwesome
-Galway,Galway,blank,faFontAwesome
-Rome,Rome,blank,faFontAwesome
-Pisa,Pisa,blank,faFontAwesome
-Pompei,Pompei,blank,faFontAwesome
-Naples,Naples,blank,faFontAwesome
-Salerno,Salerno,blank,faFontAwesome
-Brindisi,Brindisi,blank,faFontAwesome
-Florence,Florence,blank,faFontAwesome
-Genoa,Genoa,blank,faFontAwesome
-Nice France,Nice,blank,faFontAwesome
-St Helier Jersey,St Helier,blank,faFontAwesome
+999 18th Street Denver CO,Denver - attended training at Vertafore,blank,us
+Amalfi,Amalfi - I stayed at the same hotel as Mum and Nigel who had been here for a week before I flew into Naples,blank,it
+Amsterdam,Amsterdam,blank,nl
+Antwerp Belgium,Antwerp,blank,be
+Argentia NL,Argentia,blank,Ca-nl
+Aylmer ON,Aylmer,blank,Ca-on
+Baie Verte NL,Baie Verte,blank,Ca-nl
+Barcelona Spain,Barcelona - vacation,blank,es
+Bath UK,Bath,blank,gb
+Bayfield Harbour ON,Bayfield Harbour,blank,Ca-on
+Bedford Nova Scotia,Bedford,blank,Ca-ns
+Bern,Bern,blank,ch
+Bradford West Gwillimbury ON,Bradford KOA campground,blank,Ca-on
+Brindisi,Brindisi - arrived by ferry from Corfu Greece  and made my way back to Englnd by train and hitchiking,blank,it
+Bristol UK,Bristol,blank,gb
+Brixton UK,Brixton - Lived here 1973 to1976,blank,gb
+Broadstairs UK,Broadstairs - Mum was the matron at a Broadstairs school and I was a pupil but we lived in a caravan,blank,gb
+Brussels Belguim,Brussels,blank,be
+Calgary International Airport,Calgary International Airport - stopover on way back from Denver,blank,Ca-ab
+Cape North NS,Cape North,blank,Ca-ns
+Cape Smokey Nova Scotia,The Cape Smokey ski lift,smokey,Ca-ns
+Capri,We took a boat for the day to Capri,blank,it
+Chamonix-Mont-Blanc,Chamonix-Mont-Blanc - I took the train up to the glacier Mer de Glace,blank,ch
+Channel-Port aux Basques NL,Channel-Port aux Basques,blank,ca
+Chester UK,Chester,blank,gb
+Christs Hospital,Christs Hospital - went to school here,blank,gb
+Conord NH,Concord - gas stop on a trip to Ontario in 1990,blank,us
+Corfu Greece,Corfu - vacationed here twice - flew here and back England once in 1973 then a few years later flew here and took the ferry to Brindisi Italy and made my way back to Englnd by train and hitchiking,blank,gr
+Cormack NL,Cormack,blank,Ca-nl
+Cromer UK,Cromer,cromer,gb
+Dartmoor National Park,Dartmoor National Park,blank,gb
+Dartmouth Nova Scotia,Dartmouth,blank,Ca-ns
+Digby Nova Scotia,Digby - ferry from Saint John NB with the motorhome in 1989,blank,Ca-ns
+Dingwall NS,Dingwall,blank,Ca-ns
+Dublin Ireland,Dublin - We flew into Dublin and rented a car then drove to Galway,blank,ie
+East Grinstead UK,East Grinstead - Mum was the resident matron at the Fonthill School and I was living with her ,blank,gb
+Edmundston NB,Edmundston,blank,Ca-nb
+Eryri National Park (Snowdonia),Eryri National Park (Snowdonia),blank,Gb-wls
+Exmoor,Exmoor,blank,gb
+Florence,Florence,blank,it
+Fonthill ON,Fonthill KOA campground,blank,Ca-on
+Fort Malden National Historic Site,Fort Malden National Historic Site,blank,Ca-on
+Fortress of Louisbourg National Historic Site,Fortress of Louisbourg National Historic Site,louisbourg,Ca-ns
+Galway,Galway- the family drove from Dublin to here and spent a week exploring the area,blank,ie
+Geneva,Geneva,blank,ch
+Genoa,Genoa,blank,it
+Glovertown NL,Glovertown,blank,Ca-nl
+Grand Falls NB,Grand Falls,grandfalls,Ca-nb
+Great Yarmouth UK,Great Yarmouth - Lived here in 1973,blank,gb
+Grimsby ON,Grimsby,blank,Ca-on
+Guildford UK,Guildford,blank,gb
+Hartland NB,Hartland,hartland,Ca-nb
+Hastings UK,Hastings,blank,gb
+Heathrow Airport,Heathrow Airport,blank,gb
+High Wycombe UK,High Wycombe - Uncle Peter lived here. Visited before I left England a few times and then stayed with Denise for two nights in 2001,blank,gb
+Holt UK,Holt - Lived here 1963 to 1967,blank,gb
+Hull UK,Hull - stayed with Michael,blank,gb
+Land's End Sign,Land's End,blank,gb
+Little Bras D'Or Nova Scotia,Little Bras D'Or,blank,Ca-ns
+Long Point Provincial Park,Long Point Provincial Park,blank,Ca-on
+Lucerne,Lucerne,blank,ch
+Madrid Spain,Madrid - vacation,blank,es
+McRae Point Provincial Park,McRae Point Provincial Park,blank,Ca-on
+Mer de Glace,Mer de Glace incredible journey on a cog train up to the glacier,blank,ch
+Moncton NB,Moncton,blank,Ca-nb
+Montmoency Falls QC,Montmoency Falls,montmoencyfalls,Ca-qc
+Mount Vesuvius,Mount Vesuvius - Mum and I made it to the top. Nigel made it 3/4 of the way up,blank,it
+Naples,Naples,blank,it
+Niagara Falls ON,Niagara Falls,niagara,Ca-on
+Nice France,Nice,blank,fr
+North Sydney Nova Scotia,North Sydney ,blank,Ca-ns
+Norwich UK,Norwich - Lived here 1976 to 1978,blank,gb
+Ottawa ON,Ottawa sightseeing,ottawa,ca
+Paris France,Paris,blank,fr
+Pinery Provincial Park,Pinery Provincial Park,blank,Ca-on
+Pisa,Pisa,blank,it
+Plymouth,Plymouth,blank,gb
+Point Pelee,Point Pelee,blank,Ca-on
+Pompei,Pompei,blank,it
+Port Hastings Nova Scotia,Port Hastings,blank,Ca-ns
+Port Perry ON,Port Perry/Scugog Landing RV campground,blank,Ca-on
+Portland Me,Portland - gas stop on a trip to Ontario in 1990,blank,us
+Positano,Positano,blank,it
+Quebec City QC,Quebec City including Old Quebec City,quebec,Ca-qc
+Rome,Rome,blank,it
+Saint John NB,Saint John - Lived here 1978 to 2005,blank,Ca-nb
+Saint-Louis-de-Kent NB,Saint-Louis-de-Kent - Lived here briefly in 1978 but returned for visits just about every year since,blank,Ca-nb
+Sainte-Marie among the Hurons,Sainte-Marie among the Hurons,blank,Ca-on
+Salerno,Salerno,blank,it
+Salerno War Cemetery,Nigel took us to the Salerno War Cemetery and he found at least one name that he knew,blank,it
+Sauble Falls Provincial Park,Sauble Falls Provincial Park,blank,Ca-on
+Schenectady ny,Schenectady - gas stop on a trip to Ontario in 1990,blank,us
+Scotia NY,Scotia - gas stop on a trip to Ontario in 1990,blank,us
+Shediac NB,Shediac - Lived in Shediac since 2005,blank,Ca-nb
+Skyline Trailhead NS,Skyline Trailhead,skyline,Ca-ns
+Sorrento,Sorrento,blank,it
+Souris Pe,Souris,blank,Ca-pe
+South Croydon UK,South Croydon - Lived here 1967 to 71,blank,gb
+Southwold ON,Southwold,blank,Ca-on
+St Helier Jersey,St Helier,blank,je
+St. John's NL,St. John's,blank,Ca-nl
+St. Thomas ON,St. Thomas - saw the Jumbo statue,blank,Ca-on
+Summerside PE,Summerside,blank,Ca-pe
+Tangier Nova Scotia,Tangier,blank,Ca-ns
+Tignish pe,Tignish,blank,Ca-pe
+Toronto  ON,Toronto - Lived here 1955 to 1959 - briefly 1978 - stopped by various times over the years,blank,Ca-on
+Tunbridge Wells UK,Tunbridge Wells - lived with Gran 1959 to 1961,blank,gb
+Wasaga Beach ON,Wasaga Beach KOA campground,blank,Ca-on
+Wells-next-the-Sea UK,Wells-next-the-Sea - Lived here 1971 to 1973,blank,gb
+Wentworth Nova Scotia,Wentworth,blank,Ca-ns
+Western Brook NL,Western Brook - absolutely stunning boat ride ,westernbrook,Ca-nl
+Wheatley Provincial Park,Wheatley Provincial Park,blank,Ca-on
+Whycocomagh Nova Scotia,Whycocomagh,blank,Ca-ns
+Windsor ON,Windsor KOA campground,blank,Ca-on
+Wiscasset me,Wiscasset - gas stop on a trip to Ontario in 1990,blank,us
+Wndsor Castle Wndsor UK,Wndsor Castle,blank,gb
+York UK,York - sightseeing,york,gb
+Zurich,Zurich,blank,ch

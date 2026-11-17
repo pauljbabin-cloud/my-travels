@@ -41,15 +41,26 @@ export default function MapPage() {
 						<li className="dropdown">
 							<button className="dropdown-btn">Trips</button>
 							<div className="dropdown-content">
-								<button onClick={()=> onMenuClick("Newfoundland")} className="dropdown-item">1987 Trip around Newfoundland</button>
-								<button onClick={()=> onMenuClick("Ontario")} className="dropdown-item">1989 Trip around Ontario</button>
-								<button onClick={()=> onMenuClick("CapeBreton")} className="dropdown-item">2001 Trip to Cape Breton</button>
-								<button onClick={()=> onMenuClick("England")} className="dropdown-item">2002 Trip to England</button>
-								<button onClick={()=> onMenuClick("StoNF")} className="dropdown-item">2008 Trip to Niagara Falls</button>
+								<button onClick={()=> onMenuClick("Newfoundland")} className="dropdown-item">1987 Trip around Newfoundland with Mum and Nigel</button>
+								<button onClick={()=> onMenuClick("Ontario")} className="dropdown-item">1989 Trip around Ontario with Mum</button>
+								<button onClick={()=> onMenuClick("StoOn1")} className="dropdown-item">1990 Trip to Ontario</button>
+								<button onClick={()=> onMenuClick("StoOn2")} className="dropdown-item">2000 Trip to Ontario</button>
+								<button onClick={()=> onMenuClick("CapeBreton")} className="dropdown-item">2001 Trip to Cape Breton with Denise</button>
+								<button onClick={()=> onMenuClick("England")} className="dropdown-item">2002 Trip to England with Denise</button>
+								<button onClick={()=> onMenuClick("StoNF")} className="dropdown-item">2008 Trip to Niagara Falls with Denise</button>
 							</div>
 						</li>
 						<li>
 							<button onClick={()=> onMenuClick("Places")} className="nav-btn">Places I have been</button>
+						</li>
+						<li className="dropdown">
+							<button className="dropdown-btn">Slideshow of photos with Denise</button>
+							<div className="dropdown-content">
+								<button onClick={()=> onMenuClick("Denise")} className="dropdown-item">Photos with Denise before I met her in 2001</button>
+								<button onClick={()=> onMenuClick("Life")} className="dropdown-item">Photos with Denise After I met her in 2001</button>
+								<button onClick={()=> onMenuClick("2001")} className="dropdown-item">2001 civil wedding photos in Saint John</button>
+								<button onClick={()=> onMenuClick("2001")} className="dropdown-item">2002 church wedding photos in Moncton</button>
+							</div>
 						</li>
 					</ul>
 				</nav>

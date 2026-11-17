@@ -86,6 +86,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         setTargetTrip({
             TripMap: gMap,
             tripId: "ontario-1989",
+            tripYear: "1989",
             TripHTML: "<h4>Approximate route for vacation with Mum - driving an RV around Ontario 16th to 30th September 1989 and stopping at the following places:</h4>",
             TripRoute: "/csvs/1989route0.csv",
             TripRoute1: "/csvs/1989route1.csv",
@@ -104,6 +105,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         setTargetTrip({
             TripMap: gMap,
             tripId: "niagara-2008",
+            tripYear: "2008",
             TripHTML: "<h4>Approximate route for vacation with Denise - driving from Shediac to Niagara Falls starting June 9th 2008 and stopping at the following places:</h4>",
             TripRoute: "/csvs/2008route.csv",
             TripRoute1: "",
@@ -122,6 +124,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         setTargetTrip({
             TripMap: gMap,
             tripId: "england-2002",
+            tripYear: "2002",
             TripHTML: "<h4>Approximate route for July 2002 vacation with Denise to England - Starting from Heathrow airport we rented a car and stopped at the following places:</h4>",
             TripRoute: "/csvs/2002route.csv",
             TripRoute1: "",
@@ -140,6 +143,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         setTargetTrip({
             TripMap: gMap,
             tripId: "newfoundland-1987",
+            tripYear: "1987",
             TripHTML: "<h4>Approximate route for 1987 vacation with Mum and Nigel in a motorhome.<br />Starting from Bedford NS we drove to North Sydney to take the ferry to Newfoundland and then back. Then we went to visit Saint-Louis-de-Kent and on to Saint John to take the ferry to Digby NS. We stopped at the following places:</h4>",
             TripRoute: "/csvs/1987croute.csv",
             TripRoute1: "",
@@ -159,6 +163,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         setTargetTrip({
             TripMap: gMap,
             tripId: "capebreton-2001",
+            tripYear: "2001",
             TripHTML: "<h4>Approximate route for 2001 vacation with Denise to Cape Breton.<br />Starting from Saint John on September 11th 2001 we stopped at a friend in Moncton and saw the second plane hit the Twin Towers.<br />Like everyone else we were horrified by what happened, but decided that even if war was to break out, we should still go on our vacation. Of course we listened to some news, but generally said that we needed to enjoy the trip and see what happens. We also stopped at the following places:</h4>",
             TripRoute: '/csvs/2001route.csv',
             TripRoute1: "",

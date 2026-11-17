@@ -13,7 +13,9 @@ export function PlacesMenu({
     const [currentAction, setCurrentAction] = useState < string > ("goHome");
     const [isCanadaOpen, setIsCanadaOpen] = useState < boolean > (false);
     const [isEnglandOpen, setIsEnglandOpen] = useState < boolean > (false);
-
+	const [isItalyOpen, setIsItalyOpen] = useState < boolean > (false);
+	const [isUSAOpen, setIsUSAOpen] = useState < boolean > (false);
+	
     const handleSideMenuAction = (action: string) => {
         if (typeof window === "undefined" || !map)
             return;
@@ -148,17 +150,10 @@ export function PlacesMenu({
             });
             break;
 			
-	case "Belguim":
-            panToPlace(map, "Belguim");
-            map.setOptions({
-                zoom: 7
-            });
-            break;
-			
 	case "France":
-            panToPlace(map, "France");
+            panToPlace(map, "Bourges");
             map.setOptions({
-                zoom: 6
+                zoom: 5.8
             });
             break;
 			
@@ -184,9 +179,9 @@ export function PlacesMenu({
             break;
 			
 	case "Holland":
-            panToPlace(map, "Holland");
+            panToPlace(map, "Breda");
             map.setOptions({
-                zoom: 7
+                zoom: 7.4
             });
             break;
 			
@@ -200,7 +195,7 @@ export function PlacesMenu({
 	case "Switzerland":
             panToPlace(map, "Switzerland");
             map.setOptions({
-                zoom: 7
+                zoom: 7.8
             });
             break;
 			
@@ -210,7 +205,28 @@ export function PlacesMenu({
                 zoom: 9
             });
             break;
+		
+	case "Campania":
+            panToPlace(map, "Mount Vesuvius");
+            map.setOptions({
+                zoom: 9.8
+            });
+            break;
+
+	case "Colorado":
+            panToPlace(map, "Colorado");
+            map.setOptions({
+                zoom: 6
+            });
+            break;
 			
+	case "New England":
+            panToPlace(map, "New England");
+            map.setOptions({
+                zoom: 6
+            });
+            break;
+
         default:
             break;
         }
@@ -269,15 +285,43 @@ export function PlacesMenu({
             <button onClick={() => onMenuClick("Suffolk")} className="side-dropdown-item">Suffolk</button>
           </div>
         </li>
-        <li><button onClick={() => onMenuClick("Belguim")} className="side-nav-btn">Belguim</button></li>
         <li><button onClick={() => onMenuClick("France")} className="side-nav-btn">France</button></li>
         <li><button onClick={() => onMenuClick("Ireland")} className="side-nav-btn">Ireland</button></li>
-        <li><button onClick={() => onMenuClick("Italy")} className="side-nav-btn">Italy</button></li>
+        <li></li>
+        <li className="side-dropdown">
+          <button 
+            onClick={() => setIsItalyOpen(!isItalyOpen)} 
+            className="side-dropdown-btn"
+          >
+            Italy {isItalyOpen ? "▲" : "▼"}
+          </button>
+          <div 
+            className="side-dropdown-content"
+            style={{ display: isItalyOpen ? "block" : undefined }}
+          >
+            <button onClick={() => onMenuClick("Italy")} className="side-dropdown-item">Italy</button>
+            <button onClick={() => onMenuClick("Campania")} className="side-dropdown-item">Campania region of Italy</button>
+          </div>
+        </li>
         <li><button onClick={() => onMenuClick("Greece")} className="side-nav-btn">Greece</button></li>
-        <li><button onClick={() => onMenuClick("Holland")} className="side-nav-btn">Holland</button></li>
+        <li><button onClick={() => onMenuClick("Holland")} className="side-nav-btn">Netherlands and Belguim</button></li>
         <li><button onClick={() => onMenuClick("Spain")} className="side-nav-btn">Spain</button></li>
         <li><button onClick={() => onMenuClick("Switzerland")} className="side-nav-btn">Switzerland</button></li>
-        <li><button onClick={() => onMenuClick("goHome")} className="side-nav-btn">U.S.A.</button></li>
+        <li className="side-dropdown">
+          <button 
+            onClick={() => setIsUSAOpen(!isUSAOpen)} 
+            className="side-dropdown-btn"
+          >
+            United States of America {isUSAOpen ? "▲" : "▼"}
+          </button>
+          <div 
+            className="side-dropdown-content"
+            style={{ display: isUSAOpen ? "block" : undefined }}
+          >
+            <button onClick={() => onMenuClick("New England")} className="side-dropdown-item">New England</button>
+            <button onClick={() => onMenuClick("Colorado")} className="side-dropdown-item">Colorado</button>
+          </div>
+        </li>
 
       </ul>
     </nav>

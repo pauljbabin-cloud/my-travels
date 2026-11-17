@@ -21,7 +21,8 @@ export async function initMap(mapElement: HTMLDivElement) {
       center: { lat: 46.2229104, lng: -64.5333937 },
       zoom: 18,
       mapTypeId: "hybrid",
-      mapId: "4504f8b37365c3d0",
+      mapId: "51c7b615f7c323bbfc90e214",
+	  isFractionalZoomEnabled: true,
     });
   } catch (error) {
     console.error("Failed to load Google Maps API:", error);

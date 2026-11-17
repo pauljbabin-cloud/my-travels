@@ -2,11 +2,12 @@ export interface TripParams {
   TripMap: google.maps.Map | null;
   TripHTML: string;
   tripId?: string;
+  tripYear?: string; 
   TripRoute: string;
   TripRoute1: string;
   TripDetails: string;
-  initialCenter?: google.maps.LatLngLiteral; // Added
-  initialZoom?: number;                      // Added
+  initialCenter?: google.maps.LatLngLiteral;
+  initialZoom?: number;
   onHomesLoaded?: (homes: any[]) => void;
 }
 

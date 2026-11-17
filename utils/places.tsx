@@ -3,8 +3,6 @@ import { TripStateInstance } from "./tripState";
 import { toggleHighlight } from "./runMasterSequence";
 import { importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
-import { faCamera, faCampground, faFontAwesome, faHouseUser, faBed, faSchool, faCaravan } from '@fortawesome/free-solid-svg-icons';
 
 export async function Places(
     params: {
@@ -209,25 +207,20 @@ function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
     const container = document.createElement("div");
     container.className = "property";
 
-    const cleanVariable = (details.type || "").trim();
-    const iconMap: Record<string, typeof faHouseUser> = {
-        faCamera,
-        faCampground,
-        faFontAwesome,
-        faHouseUser,
-        faBed,
-        faSchool,
-        faCaravan,
-    };
+    // Normalize the type/region code to uppercase (e.g., "ca-nb" -> "CA-NB", "us-me" -> "US-ME", "ca" -> "CA")
+    // Falls back to "UN" (United Nations) or "XX" if empty
+    const regionCode = (details.type || "UN").trim().toUpperCase();
 
-    const selectedIcon = iconMap[cleanVariable] || faHouseUser;
-    const iconHtml = faIcon(selectedIcon).html[0];
+    // Load the SVG from jsDelivr (or change path to `/flags/${regionCode}.svg` if copied to public/flags/)
+    const flagUrl = `/flags/${regionCode}.svg`;
+
+    const iconHtml = `<img src="${flagUrl}" alt="${regionCode} flag" width="24" height="16" style="border-radius: 2px; object-fit: cover; display: block;" onerror="this.onerror=null;this.src='https://jsdelivr.net';" />`;
     const detailsClass = 'details';
 
     if (details.image === 'blank') {
         container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
     } else {
-        container.innerHTML = `<div class="icon" style="color: black;">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
     }
 
     return container;

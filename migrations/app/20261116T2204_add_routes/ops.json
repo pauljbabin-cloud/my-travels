@@ -1,0 +1,51 @@
+[
+  {
+    "id": "table.Routes",
+    "label": "Create table \"Routes\"",
+    "summary": "Creates table \"Routes\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Routes"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Routes\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Routes\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"Routes\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Routes\"",
+        "sql": "CREATE TABLE \"public\".\"Routes\" (\n  \"id\" SERIAL NOT NULL,\n  \"lat\" float8 NOT NULL,\n  \"lng\" float8 NOT NULL,\n  \"name\" text NOT NULL,\n  \"type\" text NOT NULL,\n  \"year\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Routes\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"Routes\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"Routes\""
+        }
+      }
+    ]
+  }
+]

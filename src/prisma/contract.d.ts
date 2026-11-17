@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'edf0e46a231f9f8a3d1bd339df67d7bec78524ae46294f2d1988f2438256098e'>;
+  StorageHashBase<'35854e3656e39e47c21130a489bd8a21aa06bea9084fcaa30b88a320e083594a'>;
 export type ExecutionHash =
   ExecutionHashBase<'c67435457df252808b2e914d8ca2ece2698740ab6304cc6c9a86559e8a34fdca'>;
 export type ProfileHash =
@@ -314,6 +314,7 @@ export namespace Models {
     description: FieldOutputTypes['public']['Home']['description'];
     from: FieldOutputTypes['public']['Home']['from'];
     id: FieldOutputTypes['public']['Home']['id'];
+    image: FieldOutputTypes['public']['Home']['image'];
     lat: FieldOutputTypes['public']['Home']['lat'];
     lng: FieldOutputTypes['public']['Home']['lng'];
     to: FieldOutputTypes['public']['Home']['to'];
@@ -326,6 +327,15 @@ export namespace Models {
     image: FieldOutputTypes['public']['Places']['image'];
     title: FieldOutputTypes['public']['Places']['title'];
     type: FieldOutputTypes['public']['Places']['type'];
+    readonly [RelationKeys]?: never;
+  };
+  export type public_Routes = {
+    id: FieldOutputTypes['public']['Routes']['id'];
+    lat: FieldOutputTypes['public']['Routes']['lat'];
+    lng: FieldOutputTypes['public']['Routes']['lng'];
+    name: FieldOutputTypes['public']['Routes']['name'];
+    type: FieldOutputTypes['public']['Routes']['type'];
+    year: FieldOutputTypes['public']['Routes']['year'];
     readonly [RelationKeys]?: never;
   };
   export type public_Trip = {
@@ -353,6 +363,17 @@ export namespace Models {
     trip: public_Trip;
     readonly [RelationKeys]?: 'trip';
   };
+  export type public_Trips = {
+    description: FieldOutputTypes['public']['Trips']['description'];
+    id: FieldOutputTypes['public']['Trips']['id'];
+    image: FieldOutputTypes['public']['Trips']['image'];
+    lat: FieldOutputTypes['public']['Trips']['lat'];
+    lng: FieldOutputTypes['public']['Trips']['lng'];
+    title: FieldOutputTypes['public']['Trips']['title'];
+    type: FieldOutputTypes['public']['Trips']['type'];
+    year: FieldOutputTypes['public']['Trips']['year'];
+    readonly [RelationKeys]?: never;
+  };
   export type public_Waypoint = {
     id: FieldOutputTypes['public']['Waypoint']['id'];
     lat: FieldOutputTypes['public']['Waypoint']['lat'];
@@ -371,8 +392,10 @@ export declare const models: {
   public: {
     Home: Models.public_Home;
     Places: Models.public_Places;
+    Routes: Models.public_Routes;
     Trip: Models.public_Trip;
     TripDetail: Models.public_TripDetail;
+    Trips: Models.public_Trips;
     Waypoint: Models.public_Waypoint;
   };
 };
@@ -423,6 +446,12 @@ type ContractBase = Omit<
                     readonly kind: 'function';
                     readonly expression: 'autoincrement()';
                   };
+                  readonly many: false;
+                };
+                readonly image: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
                   readonly many: false;
                 };
                 readonly lat: {
@@ -486,6 +515,54 @@ type ContractBase = Omit<
                   readonly many: false;
                 };
                 readonly type: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
+            readonly Routes: {
+              columns: {
+                readonly id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'function';
+                    readonly expression: 'autoincrement()';
+                  };
+                  readonly many: false;
+                };
+                readonly lat: {
+                  readonly dataType: 'pg/float8';
+                  readonly codecId: 'pg/float8@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly lng: {
+                  readonly dataType: 'pg/float8';
+                  readonly codecId: 'pg/float8@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly name: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly type: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly year: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
@@ -630,6 +707,66 @@ type ContractBase = Omit<
                 },
               ];
             };
+            readonly Trips: {
+              columns: {
+                readonly description: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'function';
+                    readonly expression: 'autoincrement()';
+                  };
+                  readonly many: false;
+                };
+                readonly image: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly lat: {
+                  readonly dataType: 'pg/float8';
+                  readonly codecId: 'pg/float8@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly lng: {
+                  readonly dataType: 'pg/float8';
+                  readonly codecId: 'pg/float8@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly title: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly type: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly year: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
             readonly Waypoint: {
               columns: {
                 readonly id: {
@@ -723,11 +860,13 @@ type ContractBase = Omit<
   readonly roots: {
     readonly Home: { readonly namespace: 'public' & NamespaceId; readonly model: 'Home' };
     readonly Places: { readonly namespace: 'public' & NamespaceId; readonly model: 'Places' };
+    readonly Routes: { readonly namespace: 'public' & NamespaceId; readonly model: 'Routes' };
     readonly Trip: { readonly namespace: 'public' & NamespaceId; readonly model: 'Trip' };
     readonly TripDetail: {
       readonly namespace: 'public' & NamespaceId;
       readonly model: 'TripDetail';
     };
+    readonly Trips: { readonly namespace: 'public' & NamespaceId; readonly model: 'Trips' };
     readonly Waypoint: { readonly namespace: 'public' & NamespaceId; readonly model: 'Waypoint' };
   };
   readonly domain: {
@@ -751,6 +890,10 @@ type ContractBase = Omit<
               readonly id: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly image: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
               readonly lat: {
                 readonly nullable: false;
@@ -778,6 +921,7 @@ type ContractBase = Omit<
                 readonly description: { readonly column: 'description' };
                 readonly from: { readonly column: 'from' };
                 readonly id: { readonly column: 'id' };
+                readonly image: { readonly column: 'image' };
                 readonly lat: { readonly column: 'lat' };
                 readonly lng: { readonly column: 'lng' };
                 readonly to: { readonly column: 'to' };
@@ -818,6 +962,47 @@ type ContractBase = Omit<
                 readonly image: { readonly column: 'image' };
                 readonly title: { readonly column: 'title' };
                 readonly type: { readonly column: 'type' };
+              };
+            };
+          };
+          readonly Routes: {
+            readonly fields: {
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly lat: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
+              };
+              readonly lng: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
+              };
+              readonly name: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly type: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly year: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: Record<string, never>;
+            readonly storage: {
+              readonly table: 'Routes';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly id: { readonly column: 'id' };
+                readonly lat: { readonly column: 'lat' };
+                readonly lng: { readonly column: 'lng' };
+                readonly name: { readonly column: 'name' };
+                readonly type: { readonly column: 'type' };
+                readonly year: { readonly column: 'year' };
               };
             };
           };
@@ -956,6 +1141,57 @@ type ContractBase = Omit<
                 readonly title: { readonly column: 'title' };
                 readonly tripId: { readonly column: 'tripId' };
                 readonly type: { readonly column: 'type' };
+              };
+            };
+          };
+          readonly Trips: {
+            readonly fields: {
+              readonly description: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly image: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly lat: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
+              };
+              readonly lng: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/float8@1' };
+              };
+              readonly title: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly type: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly year: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: Record<string, never>;
+            readonly storage: {
+              readonly table: 'Trips';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly description: { readonly column: 'description' };
+                readonly id: { readonly column: 'id' };
+                readonly image: { readonly column: 'image' };
+                readonly lat: { readonly column: 'lat' };
+                readonly lng: { readonly column: 'lng' };
+                readonly title: { readonly column: 'title' };
+                readonly type: { readonly column: 'type' };
+                readonly year: { readonly column: 'year' };
               };
             };
           };

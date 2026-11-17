@@ -25,6 +25,7 @@ export interface SidebarItemData {
 interface RunMasterSequenceParams {
     TripMap: any;
     tripId?: string;
+	tripYear?: string;
     TripRoute: string;
     TripRoute1: string | null;
     TripDetails: string;
@@ -76,56 +77,78 @@ export async function runMasterSequence(
         return;
     }
 
-    // --- Route 0 Execution (with CSV Fallback) ---
-    let fileData0 = null;
-    if (params.tripId) {
+    // --- Route Execution from Prisma `Routes` Table (with CSV Fallback) ---
+    let drawnFromDb = false;
+
+    if (params.tripYear) {
         try {
-            const routeRes = await fetch(`/api/routes/${params.tripId}/0`, {
+            const routeRes = await fetch(`/api/routes/${params.tripYear}`, {
                 signal
             });
             if (routeRes.ok) {
-                fileData0 = await routeRes.json();
+                const { routes } = await routeRes.json();
+                if (Array.isArray(routes) && routes.length > 0) {
+                    for (const routeSegment of routes) {
+                        if (signal.aborted) return;
+                        await computeAndDrawRoute(routeSegment, state, currentMap, signal);
+                    }
+                    drawnFromDb = true;
+                }
             }
         } catch (error) {
-            console.warn("API route failed, trying CSV fallback:", error);
+            console.warn("API routes fetch failed, trying CSV fallback:", error);
         }
     }
 
-    // Fallback to legacy CSV tracking if API data could not be built
-    if ((!fileData0 || !fileData0.origin) && params.TripRoute) {
-        fileData0 = await loadRouteFromCSV(params.TripRoute);
-    }
-
-    if (fileData0 && fileData0.origin && !signal.aborted) {
-        await computeAndDrawRoute(fileData0, state, currentMap, signal);
-    }
-
-    if (signal.aborted)
-        return;
-
-    // --- Route 1 Execution ---
-    if (params.TripRoute1) {
-        const fileData1 = await loadRouteFromCSV(params.TripRoute1);
-        if (signal.aborted)
-            return;
-
-        if (fileData1 && fileData1.origin && fileData1.destination) {
-            await computeAndDrawRoute(fileData1, state, currentMap, signal);
+    // Fallback to legacy CSV files if DB returned no routes
+    if (!drawnFromDb) {
+        if (params.TripRoute) {
+            const fileData0 = await loadRouteFromCSV(params.TripRoute);
+            if (fileData0 && fileData0.origin && !signal.aborted) {
+                await computeAndDrawRoute(fileData0, state, currentMap, signal);
+            }
         }
-        if (signal.aborted)
-            return;
+        if (signal.aborted) return;
+
+        if (params.TripRoute1) {
+            const fileData1 = await loadRouteFromCSV(params.TripRoute1);
+            if (fileData1 && fileData1.origin && fileData1.destination && !signal.aborted) {
+                await computeAndDrawRoute(fileData1, state, currentMap, signal);
+            }
+        }
     }
 
-	if (params.TripDetails !== '0000Trip.csv') {
-        const structuralData = await parseSidebarCSVAndBuildMarkers(
-            currentMap,
-            params.TripDetails,
-            state,
-            libs,
-            signal,
-            params.initialCenter,
-            params.initialZoom
-        );
+    if (signal.aborted) return;
+
+    // --- Trip Stops / Sidebar Markers from Prisma `Trips` Table ---
+    if (params.TripDetails !== '0000Trip.csv') {
+        let structuralData: SidebarItemData[] = [];
+
+        if (params.tripYear) {
+            structuralData = await fetchSidebarTripsAndBuildMarkers(
+                currentMap,
+                params.tripYear,
+                state,
+                libs,
+                signal,
+                params.initialCenter,
+                params.initialZoom
+            );
+        }
+
+        // Fallback to CSV if database returned empty
+        if (structuralData.length === 0 && params.TripDetails) {
+            structuralData = await parseSidebarCSVAndBuildMarkers(
+                currentMap,
+                params.TripDetails,
+                state,
+                libs,
+                signal,
+                params.initialCenter,
+                params.initialZoom
+            );
+        }
+
         if (!signal.aborted) {
             setSidebarItems(structuralData);
         }
@@ -135,7 +158,7 @@ export async function runMasterSequence(
 
     if (!signal.aborted) {
         setHomesItems([]);
-		setPlacesItems([]);
+        setPlacesItems([]);
     }
 }
 
@@ -476,3 +499,92 @@ export function attachResetViewControl(
 
     currentMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlButton);
 }
+
+async function fetchSidebarTripsAndBuildMarkers(
+    currentMap: any,
+    tripYear: string,
+    state: TripStateInstance,
+    activeLibs: GoogleLibs,
+    signal: AbortSignal,
+    initialCenter?: google.maps.LatLngLiteral,
+    initialZoom?: number
+): Promise<SidebarItemData[]> {
+    const parsedItems: SidebarItemData[] = [];
+    const bounds = new google.maps.LatLngBounds();
+
+    try {
+        const response = await fetch(`/api/trips/${tripYear}`, { signal });
+        if (signal.aborted || !response.ok) return [];
+
+        const { stops } = await response.json();
+        if (!Array.isArray(stops) || stops.length === 0) return [];
+
+        stops.forEach((stop: any, i: number) => {
+            const lat = Number(stop.lat);
+            const lng = Number(stop.lng);
+
+            const details: TripDetails = {
+                title: stop.title || '',
+                description: stop.description || '',
+                image: stop.image || '',
+                type: stop.type || '',
+                index: i + 1,
+            };
+
+            const updatedTitle: string = details.title.replaceAll("<br />", ". ");
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const position = { lat, lng };
+                bounds.extend(position);
+
+                const markerContentElement = buildMarkerUI(details);
+                const marker = new activeLibs.AdvancedMarkerElement({
+                    position,
+                    title: updatedTitle,
+                    content: markerContentElement,
+                    gmpClickable: true,
+                });
+
+                const id = stop.id ? stop.id.toString() : (i + 1).toString();
+                state.markerRegistry[id] = marker;
+
+                markerContentElement.addEventListener("click", () => {
+                    currentMap.setZoom(18);
+                    currentMap.setCenter(position);
+                    toggleHighlight(marker);
+                });
+
+                state.markers.push(marker);
+
+                parsedItems.push({
+                    id,
+                    title: details.title,
+                    description: details.description,
+                    image: details.image,
+                    type: details.type,
+                    position,
+                });
+            }
+        });
+
+        if (signal.aborted) {
+            state.markers.forEach((m) => (m.map = null));
+            return [];
+        }
+
+        const clustererInstance = new MarkerClusterer({ map: currentMap });
+        clustererInstance.addMarkers(state.markers);
+        state.markerCluster = clustererInstance;
+
+        if (initialCenter && initialZoom !== undefined) {
+            attachResetViewControl(currentMap, initialCenter, initialZoom);
+        } else if (!bounds.isEmpty()) {
+            attachResetViewControl(currentMap, bounds.getCenter().toJSON(), 7);
+        }
+    } catch (error) {
+        console.error('Error loading Trip details from API:', error);
+    }
+
+    return parsedItems;
+}
+

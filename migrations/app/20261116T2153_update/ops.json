@@ -1,0 +1,52 @@
+[
+  {
+    "id": "alterType.Trips.year",
+    "label": "Alter type of \"Trips\".\"year\" to text",
+    "operationClass": "widening",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "year",
+        "table": "Trips"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"year\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Trips",
+          "year"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "column \"year\" on \"Trips\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "alter type of \"year\" to text",
+        "sql": "ALTER TABLE \"public\".\"Trips\" ALTER COLUMN \"year\" TYPE text USING \"year\"::text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"year\" has type \"text\"",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_attribute\" AS \"a\" INNER JOIN \"pg_class\" AS \"c\" ON \"c\".\"oid\" = \"a\".\"attrelid\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"relnamespace\" WHERE (\"n\".\"nspname\" = $1 AND \"c\".\"relname\" = $2 AND \"a\".\"attname\" = $3 AND (format_type(\"a\".\"atttypid\", \"a\".\"atttypmod\")) = $4 AND NOT (\"a\".\"attisdropped\"))) AS \"result\"",
+        "params": [
+          "public",
+          "Trips",
+          "year",
+          "text"
+        ]
+      }
+    ],
+    "meta": {
+      "warning": "TABLE_REWRITE"
+    }
+  }
+]

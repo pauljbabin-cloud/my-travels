@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { lat, lng, address, from, to, description, type } = body;
+        const { lat, lng, address, from, to, description, type, image } = body;
 
         if (
             lat === undefined ||
@@ -30,7 +30,8 @@ export async function POST(request: Request) {
             !from ||
             !to ||
             !description ||
-            !type) {
+            !type ||
+			!image) {
             return NextResponse.json({
                 error: "Missing required fields"
             }, {
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
             to,
             description,
             type,
+			image
         });
 
         return NextResponse.json(newHome, {

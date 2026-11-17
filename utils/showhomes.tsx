@@ -60,7 +60,7 @@ export async function ShowHomes(
 
             loadedHomes = rows.map((row, i) => {
                 const cols = row.split(",");
-                if (cols.length < 7)
+                if (cols.length < 8)
                     return null;
 
                 return {
@@ -72,6 +72,7 @@ export async function ShowHomes(
                     to: cols[4],
                     description: cols[5],
                     type: cols[6],
+					image: cols[7],
                     index: i + 1,
                 };
             }).filter(Boolean);
