@@ -1,30 +1,30 @@
 year,lat,lng,title,description,image,type
-1987,44.8034986582753,-62.6972152766177,Bedford NS to Tangier NS - Gas stop<br />199 kms 60.8 litres,Tangier NS - Gas stop,blank,faGasPump
-1987,45.9751236797716,-61.1187608774702,Outgoing: Tangier NS to Whycocomagh NS - Gas stop<br />279 kms 68.6 litres<br />On the way back<br />Dingwall NS to Whycocomagh NS - Gas stop<br />224 kms 60.2 litres,Whycocomagh NS - Gas stop,blank,faGasPump
-1987,47.558616872523,-52.7133550971068,Whycocomagh NS to St. John's NL - Gas stop<br />246 kms 63.5 litres<br />but does not include the ferry journey from North Sydney to Argentia of 518 kms ,St. John's NL - Gas stop,blank,faGasPump
-1987,48.6738829087249,-54.0338464881179,St. John's NL to Glovertown NL - Gas stop<br />301 kms 88.2 litres ,Glovertown NL - Gas stop,blank,faGasPump
-1987,49.9275034512572,-56.212224882025,Glovertown NL to Baie Verte NL - Gas stop<br />294 kms 82.0 litres,Baie Verte NL - Gas stop,blank,faGasPump
-1987,49.2723555377443,-56.2124615542859,Baie Verte NL to Cormack NL - Gas stop<br />325 kms 91.4 litres,Cormack NL - Gas stop,blank,faGasPump
+1987,44.8034986582753,-62.6972152766177,Tangier - Gas stop<br />199 kms from Bedford,Tangier NS - Gas stop,blank,faGasPump
+1987,45.9751236797716,-61.1187608774702,Whycocomagh - Gas stop<br />279 kms outgoing from Tangier<br />Whycocomagh - Gas stop<br />224 kms On the way back from Dingwall,Whycocomagh NS - Gas stop,blank,faGasPump
+1987,47.558616872523,-52.7133550971068,St. John's  - Gas stop and sightseeing<br />246 kms from Whycocomagh NS<br />but does not include the ferry journey from North Sydney to Argentia of 518 kms ,St. John's NL - Gas stop,blank,faGasPump
+1987,48.6738829087249,-54.0338464881179, Glovertown NL - Gas stop<br />301 kms from St. John's,Glovertown NL - Gas stop,blank,faGasPump
+1987,49.9275034512572,-56.212224882025,Baie Verte NL - Gas stop<br />294 kms from Glovertown,Baie Verte NL - Gas stop,blank,faGasPump
+1987,49.2340285473795,-57.4632910418626,Cormack - Gas stop<br />325 kms from Baie Verte,Cormack NL - Gas stop,blank,faGasPump
 1987,49.7810691920157,-57.8413110246409,Western Brook - absolutely stunning boat ride ,Western Brook NL,westernbrook,faCamera
 1989,43.1933481255342,-79.5783465116702,Grimsby - stayed the night with cousin Connie - 16th,Grimsby - 16th,grimsby,faBed
-1989,43.1859447630041,-79.4766304083881,Branpton to Beamsville - Gas stop<br />102 kms 95.9 litres<br />RV was not full of gas when I picked it up.,Gas stop - 17th,blank,faGasPump
+1989,43.1859447630041,-79.4766304083881,Beamsville - Gas stop<br />102 kms from Branpton,Gas stop - 17th,blank,faGasPump
 1989,43.0887399383086,-79.1422200725294,Fonthill KOA campground - 17/18th,Fonthill - 17/18th,blank,faCampground
 1989,43.0804175491098,-79.076812528655,Niagara Falls tour of the attractions,Niagara Falls - 18th,niagarafalls,faCamera
-1989,42.6257081584144,-80.4639395423062,Beamsville to Port Rowan - Gas stop<br />391 kms 95.0 litres,Gas stop - 19th,blank,faGasPump
+1989,42.6257081584144,-80.4639395423062,Port Rowan - Gas stop<br />391 kms from Beamsville,Gas stop - 19th,blank,faGasPump
 1989,42.5812774663287,-80.39080227645,Long Point Provincial Park - 19th,Long Point - 19th,blank,faCampground
 1989,42.7730184849169,-80.9829422598583,Aylmer - parked in cousin David's driveway - 20th,Aylmer - 20th,aylmer,faBed
 1989,42.7792816208295,-81.208236744843,St. Thomas - visited Mum's friend Adelaide also saw the Jumbo statue,St. Thomas - 20th,blank,faCamera
 1989,42.0904993750781,-82.4427610321203,Wheatley Provincial Park - 21st/22nd,Wheatley - 21st/22nd,blank,faCampground
-1989,42.0355640903996,-82.9158200554863,Port Rowan to Harrow - Gas stop<br />394 kms 98.2 litres,Gas stop - 23rd,blank,faGasPump
+1989,42.0355640903996,-82.9158200554863,Harrow - Gas stop<br />394 kms from Port Rowan,Gas stop - 23rd,blank,faGasPump
 1989,42.2452939449676,-82.9336019002206,Windsor KOA campground - 23rd,Windsor - 23rd,blank,faCampground
 1989,43.2470163778011,-81.8447136337682,Pinery Provincial Park - 24th,Pinery - 24th,blank,faCampground
-1989,43.3091444925035,-81.7590342948438,Harrow to Grand Bend - Gas stop<br />386 kms 90.9 litres,Gas stop - 25th,blank,faGasPump
+1989,43.3091444925035,-81.7590342948438,Grand Bend - Gas stop<br />386 kms from Harrow,Gas stop - 25th,blank,faGasPump
 1989,44.6741981645443,-81.2567238683466,Sauble Falls Provincial Park - 25th,Sauble Falls -25th,blank,faCampground
-1989,44.3501278824058,-80.2509283248427,Grand Bend to Singhampton - Gas stop<br />389 kms 96.3 litres,Gas stop - 26th,blank,faGasPump
+1989,44.3501278824058,-80.2509283248427,Singhampton - Gas stop<br />389 kms from Grand Bend,Gas stop - 26th,blank,faGasPump
 1989,44.5183052339907,-80.023459999265,Wasaga Beach KOA campground - 26th,Wasaga - 26th,blank,faCampground
 1989,44.569351937807,-79.3280839614873,McRae Point Provincial Park - 27th,McRae Point - 27th,blank,faCampground
 1989,44.1613074752314,-78.9125665576713,Port Perry/Scugog Landing RV campground - 28th,Port Perry -28th,blank,faCampground
-1989,44.0998462226226,-78.9444059892881,Singhampton to Port Perry - Gas stop<br />394 kms 103.6 litres,Gas stop - 29th,blank,faGasPump
+1989,44.0998462226226,-78.9444059892881,Port Perry - Gas stop<br />394 kms from Singhampton,Gas stop - 29th,blank,faGasPump
 1989,44.205312191705,-79.6530894576713,Bradford KOA campground - 29th,Bradford - 29th,blank,faCampground
 2001,46.0959206670927,-64.7649615075708,Moncton - stopped to see a friend,,blank,faFontAwesome
 2001,46.74354347424,-60.8806644651691,The Skyline Trailhead,The Skyline Trailhead,skyline,faCamera

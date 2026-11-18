@@ -183,6 +183,14 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
         });
         break;
     }
+	
+	case "denisebefore":
+    case "deniseafter":
+    case "2001wedding":
+    case "2002wedding": {
+        window.open(`/slideshow?showId=${action}`, "_blank", "noopener,noreferrer");
+        break;
+    }
 
     default:
         break;
