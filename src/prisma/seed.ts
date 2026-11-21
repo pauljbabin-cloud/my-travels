@@ -14,6 +14,17 @@ const db = postgres({
   url: process.env.DATABASE_URL!,
 });
 
+interface HomeCsvRow {
+  lat: string;
+  lng: string;
+  address: string;
+  from: string;
+  to: string;
+  description: string;
+  type: string;
+  image: string;
+}
+
 interface PlaceCsvRow {
   address: string;
   title: string;
@@ -37,6 +48,39 @@ interface RouteCsvRow {
   lat: string;
   lng: string;
   name: string;
+}
+
+async function seedHomes() {
+  const csvFilePath = path.join(process.cwd(), 'public', 'csvs', 'homes.csv');
+  const fileContent = fs.readFileSync(csvFilePath, 'utf-8');
+
+  const records = parse(fileContent, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+  }) as HomeCsvRow[];
+
+  console.log(`Found ${records.length} homes in CSV...`);
+
+  // Clear existing rows so re-running the seed doesn't create duplicates
+  const deletedCount = await db.orm.public.Home.where(() => all()).deleteAndCount();
+  console.log(`Cleared ${deletedCount} existing homes.`);
+
+  // Bulk insert all rows, parsing lat/lng strings into numbers
+  const insertedCount = await db.orm.public.Home.createAndCount(
+    records.map((row) => ({
+      lat: parseFloat(row.lat),
+      lng: parseFloat(row.lng),
+      address: row.address,
+      from: row.from,
+      to: row.to,
+      description: row.description,
+      type: row.type,
+      image: row.image,
+    }))
+  );
+
+  console.log(`Successfully seeded ${insertedCount} homes!`);
 }
 
 async function seedPlaces() {
@@ -131,6 +175,7 @@ async function seedRoutes() {
 }
 
 async function main() {
+  await seedHomes();
   await seedPlaces();
   await seedTrips();
   await seedRoutes();

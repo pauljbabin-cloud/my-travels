@@ -706,3 +706,8 @@ ul {
   height: auto;
   flex: 1;
 }
+
+.property:not(.highlight) .slideshow-link {
+  display: none;
+}
+

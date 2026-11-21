@@ -26,7 +26,8 @@ year,lat,lng,title,description,image,type
 1989,44.1613074752314,-78.9125665576713,Port Perry/Scugog Landing RV campground - 28th,Port Perry -28th,blank,faCampground
 1989,44.0998462226226,-78.9444059892881,Port Perry - Gas stop<br />394 kms from Singhampton,Gas stop - 29th,blank,faGasPump
 1989,44.205312191705,-79.6530894576713,Bradford KOA campground - 29th,Bradford - 29th,blank,faCampground
-2001,46.0959206670927,-64.7649615075708,Moncton - stopped to see a friend,,blank,faFontAwesome
+2001,45.3091796,-66.0249313,Saint John,Saint John,blank,faHouseUser
+2001,46.0959206670927,-64.7649615075708,Moncton - stopped to see a friend,Moncton,blank,faFontAwesome
 2001,46.74354347424,-60.8806644651691,The Skyline Trailhead,The Skyline Trailhead,skyline,faCamera
 2001,46.6284243523563,-60.420231040521,The Cape Smokey ski lift,The Cape Smokey ski lift,smokey,faCamera
 2001,45.8920751721319,-59.9862850155069,The Fortress of Louisbourg,The Fortress of Louisbourg,louisbourg,faCamera
@@ -36,6 +37,7 @@ year,lat,lng,title,description,image,type
 2002,52.9511051190827,0.801966756878872,Holkham Hall - showing Denise a beautiful place near Wells,Holkham Hall - showing Denise a beautiful place near Wells,holkhamd,faCamera
 2002,53.7593195466808,-0.365870996813681,Hull - stayed with Michael,Hull - stayed with Michael,hull,faBed
 2002,53.9622535348947,-1.08050919857973,York - sightseeing,York - sightseeing,york,faCamera
+2008,46.2232297,-64.5321685,Shediac,Shediac,blank,faHouseUser
 2008,46.2974190550116,-67.5274867562801,Hartland N.B. - June 9,Hartland N.B. - June 9,hartland,faCamera
 2008,47.0515227375445,-67.7380950702414,Grand Falls N.B. - June 9,Grand Falls N.B. - June 9,grandfalls,faCamera
 2008,47.3950911645076,-68.3535785432321,Edmundston N.B. motel - June 9/10,Edmundston N.B. motel - June 9/10,blank,faBed
@@ -48,3 +50,12 @@ year,lat,lng,title,description,image,type
 2008,43.0790131100412,-79.078635636834,Niagara Falls vacation - June 12/20,Niagara Falls vacation - June 12/20,niagara,faCamera
 2008,45.4539539371953,-75.5161629883607,Ottawa staying with Denise's brother Bob - June 20/22,Ottawa staying with Denise's brother Bob - June 20/22,blank,faBed
 2008,45.4236738571366,-75.6979091391596,Ottawa sightseeing - June 20/22,Ottawa sightseeing - June 20/22,ottawa,faCamera
+1990,45.2778772,-66.0592159,Saint John,Saint John,blank,faHouseUser
+1990,44.0039402180739,-69.6720258790664,Wiscasset ME - Gas stop<br />394 km from Saint John,Wiscasset ME -Gas stop 5/27,blank,faGasPump
+1990,43.2047259674658,-71.535904864495,Concord NY - Gas stop<br />214 km from Wiscasset,Concord NY - Gas stop 5/28,blank,faGasPump
+1990,42.8246555841324,-73.9606765740849,Scotia NY - Gas stop<br />262 km from Concord NY,Scotia NY - Gas stop 5/29,blank,faGasPump
+1990,45.4234526603049,-75.6981299595272,Ottawa - Gas stop<br />501 km from Scotia NY,Ottawa - Gas stop 5/30,blank,faGasPump
+1990,43.8448244778896,-79.3568655267738,Toronto - Gas stop<br />377 km from Ottawa,Toronto - Gas stop 6/1,blank,faGasPump
+1990,43.1951932307329,-79.563872457497,Grimsby - Gas stop<br />542 km from Toronto and sightseeing,Grimsby - Gas stop 6/5,blank,faGasPump
+1990,42.8056629451612,-73.9469473385766,Schenectady NY - Gas stop<br />507 km from Grimsby,Schenectady NY - Gas stop 6/7,blank,faGasPump
+1990,43.6333895019779,-70.3146116918716,Portland ME -Gas stop<br />393 km from Schenectady NY,Portland ME - Gas stop 6/8,blank,faGasPump

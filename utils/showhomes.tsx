@@ -84,6 +84,13 @@ export async function ShowHomes(
         }
     }
 
+    // Ensure consistent ordering regardless of database/API return order
+    loadedHomes.sort((a, b) => {
+        const orderA = Number(a.index ?? a.id ?? 0);
+        const orderB = Number(b.index ?? b.id ?? 0);
+        return orderA - orderB;
+    });
+
     if (signal.aborted)
         return;
 
@@ -146,8 +153,7 @@ function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
     container.className = "property";
 
     const cleanVariable = (details.type || "").trim();
-    const iconMap: Record < string,
-    typeof faHouseUser >  = {
+    const iconMap: Record<string, typeof faHouseUser> = {
         faHospitalUser,
         faHouseUser,
         faSchool,
@@ -155,16 +161,49 @@ function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
     };
 
     const selectedIcon = iconMap[cleanVariable] || faHouseUser;
-    const iconHtml = faIcon(selectedIcon).html[0];
+    const adjustedIcon = faIcon(selectedIcon, {
+        styles: {
+            color: 'black',
+            'font-size': '2em'
+        },
+        attributes: {
+            'aria-hidden': 'true'
+        },
+    });
+    const iconHtml = adjustedIcon.html[0];
+    const displayIndex = details.index || fallbackIndex;
 
-    container.innerHTML = `<div class="icon">
-        <i>${iconHtml}</i> ${details.index || fallbackIndex}
-    </div>
-    <div class="details">
-        <div class="address" style="font-size: 24px;">${details.address}</div>
-        <div class="dates">From: ${details.from} To: ${details.to}</div>
-        <div class="description">${details.description}</div>
-    </div>`;
+    if (details.image === 'blank' || !details.image) {
+        container.innerHTML = `
+            <div class="icon" style="color: black;">${iconHtml} ${displayIndex}</div>
+            <div class="details">
+                <div class="address" style="font-size: 24px;">${details.address}</div>
+                <div class="dates">From: ${details.from} To: ${details.to}</div>
+                <div class="description">${details.description}</div>
+            </div>`;
+        } else {
+        container.innerHTML = `
+            <div class="icon" style="color: black;">${iconHtml} ${displayIndex}</div>
+            <div class="details">
+                <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <a href="/slideshow?showId=${details.image}" target="_blank" class="slideshow-link" style="flex-shrink: 0;">
+                        <img id="myImage-${displayIndex}" src="/images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block">
+                    </a>
+                    <div class="details-text">
+                        <div class="address" style="font-size: 24px;">${details.address}</div>
+                        <div class="dates">From: ${details.from} To: ${details.to}</div>
+                        <div class="description">${details.description}</div>
+                    </div>
+                </div>
+            </div>
+			`;
+		}
+
+    // Prevent clicking the slideshow link from toggling the marker highlight
+    const link = container.querySelector('.slideshow-link');
+    if (link) {
+        link.addEventListener('click', (e) => e.stopPropagation());
+    }
 
     return container;
 }

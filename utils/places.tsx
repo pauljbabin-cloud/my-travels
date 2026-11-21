@@ -3,6 +3,9 @@ import { TripStateInstance } from "./tripState";
 import { toggleHighlight } from "./runMasterSequence";
 import { importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
+import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+
 
 export async function Places(
     params: {
@@ -207,20 +210,37 @@ function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
     const container = document.createElement("div");
     container.className = "property";
 
-    // Normalize the type/region code to uppercase (e.g., "ca-nb" -> "CA-NB", "us-me" -> "US-ME", "ca" -> "CA")
-    // Falls back to "UN" (United Nations) or "XX" if empty
-    const regionCode = (details.type || "UN").trim().toUpperCase();
+    const cleanType = (details.type || "").trim();
+    let iconHtml = "";
 
-    // Load the SVG from jsDelivr (or change path to `/flags/${regionCode}.svg` if copied to public/flags/)
-    const flagUrl = `/flags/${regionCode}.svg`;
+    if (cleanType === "faHouseUser") {
+        const adjustedIcon = faIcon(faHouseUser, {
+            styles: {
+                color: 'black',
+                'font-size': '2em'
+            },
+            attributes: {
+                'aria-hidden': 'true'
+            },
+        });
+        iconHtml = adjustedIcon.html[0];
+    } else {
+        // Normalize the type/region code to uppercase (e.g., "ca-nb" -> "CA-NB", "us-me" -> "US-ME", "ca" -> "CA")
+        // Falls back to "UN" (United Nations) or "XX" if empty
+        const regionCode = (cleanType || "UN").toUpperCase();
 
-    const iconHtml = `<img src="${flagUrl}" alt="${regionCode} flag" width="24" height="16" style="border-radius: 2px; object-fit: cover; display: block;" onerror="this.onerror=null;this.src='https://jsdelivr.net';" />`;
+        // Load the SVG from jsDelivr (or change path to `/flags/${regionCode}.svg` if copied to public/flags/)
+        const flagUrl = `/flags/${regionCode}.svg`;
+
+        iconHtml = `<img src="${flagUrl}" alt="${regionCode} flag" width="24" height="16" style="border-radius: 2px; object-fit: cover; display: block;" onerror="this.onerror=null;this.src='https://jsdelivr.net';" />`;
+    }
+
     const detailsClass = 'details';
 
     if (details.image === 'blank') {
         container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <div class="description">${details.title}</div> </div>`;
     } else {
-        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
+        container.innerHTML = `<div class="icon">${iconHtml}</div> <div class="${detailsClass}"> <a href="/slideshow?showId=${details.image}" target="_blank"> <img id="myImage-${details.index || fallbackIndex}" src="images/s-${details.image}.jpg" width="60" height="60" data-image="${details.image}" class="center-block"> </a> <div class="description">${details.title}</div> </div>`;
     }
 
     return container;

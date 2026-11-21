@@ -410,6 +410,7 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
         faCamera,
         faBed,
         faCampground,
+		faHouseUser,
         faFontAwesome
     };
     const selectedIcon = iconMap[cleanVariable] || faBed;

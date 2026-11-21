@@ -1,9 +1,9 @@
 lat,lng,address,from,to,description,type,image
-43.6572703479904,-79.3877236711644,Toronto - 555 University Ave,April 1955,May 1955,I was born April 4th 1955 here at the Sick Children's Hospital and stayed until May 12th following operation for umbilical fistula,faHospitalUser,blank
-43.6711239,-79.3789357,Toronto - 69 Huntley St,May 1955,1956,1st home,faHouseUser,blank
-43.6700528,-79.3167953,Toronto - 37 Robbins Ave,1956,1957,2nd home,faHouseUser,blank
-43.6605008,-79.335465,Toronto - 43 Winnifred Ave,1957,1958,3rd home,faHouseUser,blank
-43.6809691,-79.3502245,Toronto - 993 Logan Ave,1958,April 1959,4th home. Last before leaving Canada for England,faHouseUser,blank
+43.6572703479904,-79.3877236711644,Toronto - 555 University Ave,April 1955,May 1955,I was born April 4th 1955 here at the Sick Children's Hospital and stayed until May 12th following operation for umbilical fistula,faHospitalUser,toh
+43.6711239,-79.3789357,Toronto - 69 Huntley St,May 1955,1956,1st home,faHouseUser,huntley
+43.6700528,-79.3167953,Toronto - 37 Robbins Ave,1956,1957,2nd home,faHouseUser,robbins
+43.6605008,-79.335465,Toronto - 43 Winnifred Ave,1957,1958,3rd home,faHouseUser,winnifred
+43.6809691,-79.3502245,Toronto - 993 Logan Ave,1958,April 1959,4th home. Last before leaving Canada for England,faHouseUser,logan
 51.1242688628049,0.252385322318625,Tunbridge Wells - 20 Eridge Rd,April 1959,1961,1st home in England living with Granny,faHouseUser,blank
 51.1091194636052,-0.0283291038711379,East Grinstead,1961,1962,Mum was the resident matron at the Fonthill School (approximate location) and I was living with her ,faSchool,blank
 51.3622151468928,1.43355699614785,Broadstairs,1962,1963,Mum was the matron at a Broardstairs school (not sure which one) and I was a pupil but we lived in a caravan,faCaravan,blank
