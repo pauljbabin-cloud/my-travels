@@ -7,7 +7,7 @@ Amherst ns,Amherst ,blank,Ca-ns
 Amsterdam,Amsterdam,blank,nl
 Antwerp Belgium,Antwerp,blank,be
 Argentia NL,Argentia,blank,Ca-nl
-Aylmer ON,Aylmer,blank,Ca-on
+Aylmer ON,Aylmer,aylmer,faCamera
 Baie Verte NL,Baie Verte,blank,Ca-nl
 Bangor me,Bangor ,blank,us
 Barcelona Spain,Barcelona - vacation,blank,es
@@ -27,6 +27,7 @@ Boston ma,Boston ,blank,us
 Bournemouth uk,Bournemouth ,blank,gb
 Bradford West Gwillimbury ON,Bradford KOA campground,blank,Ca-on
 Brighton uk,Brighton ,blank,gb
+Lions Foundation of Canada Dog Guides Breslau is a specialized breeding and training facility for future service and guide dogs,Lions Foundation of Canada Dog Guides Breslau is a specialized breeding and training facility for future service and guide dogs,breslau,faCamera
 Brindisi,Brindisi - arrived by ferry from Corfu Greece  and made my way back to Englnd by train and hitchiking,blank,it
 Bristol UK,Bristol,blank,gb
 Brixton UK,Brixton - Lived here 1973 to1976,blank,faHouseUser
@@ -103,7 +104,7 @@ Grand Falls NB,Grand Falls,grandfalls,faCamera
 Grand Manan nb,Grand Manan ,blank,Ca-nb
 Grand-Bouctouche NB,Grand-Bouctouche,blank,Ca-nb
 Great Yarmouth UK,Great Yarmouth - Lived here in 1973,blank,faHouseUser
-Grimsby ON,Grimsby,blank,Ca-on
+Grimsby ON,Grimsby,grimsby,faCamera
 Guildford UK,Guildford,blank,gb
 Hampton Court Palace ,Hampton Court Palace ,blank,gb
 Hampton NB,Hampton,blank,Ca-nb
@@ -112,6 +113,7 @@ Hastings UK,Hastings,blank,gb
 Heathrow Airport,Heathrow Airport,blank,gb
 High Wycombe UK,High Wycombe - Uncle Peter lived here. Visited before I left England a few times and then stayed with Denise for two nights in 2001,blank,gb
 HMP Dartmoor,Dartmoor Prison - when I was about 17 I went on a 'pony trek' and we rode the horses past the prison,blank,gb
+Holkham Hall,Holkham Hall - visited many times before and after moving to Canada,holkham,faCamera
 Holt UK,Holt - Lived here 1963 to 1967,blank,faHouseUser
 Hopewell Rocks Provincial Park,Hopewell Rocks Provincial Park,blank,Ca-nb
 Hull UK,Hull - stayed with Michael,blank,gb
@@ -149,6 +151,7 @@ Niagara Falls ON,Niagara Falls,niagara,faCamera
 Nice France,Nice,blank,fr
 North Sydney Nova Scotia,North Sydney ,blank,Ca-ns
 Norwich UK,Norwich - Lived here 1976 to 1978,blank,faHouseUser
+Lions Foundation of Canada Dog Guides HQ at Oakville,Lions Foundation of Canada Dog Guides HQ at Oakville,oakville,faCamera
 Oromocto NB,Oromocto,blank,Ca-nb
 Ottawa ON,Ottawa sightseeing,ottawa,faCamera
 Oxford uk,Oxford ,blank,gb
