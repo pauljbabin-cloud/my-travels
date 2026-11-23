@@ -42,7 +42,7 @@ Cambridge  UK,Cambridge  ,blank,gb
 Campbellton nb,Campbellton ,blank,Ca-nb
 Canterbury uk,Canterbury ,blank,gb
 Cape North NS,Cape North,blank,Ca-ns
-Cape Smokey Nova Scotia,The Cape Smokey ski lift,smokey,Ca-ns
+Cape Smokey Nova Scotia,The Cape Smokey ski lift,smokey,faCamera
 Cape Tormentine nb,Cape Tormentine - before the Confederation Bridge was built I took the ferry to Borden-Carleton ,blank,Ca-nb
 Capri,We took a boat for the day to Capri,blank,it
 Caraquet NB,Caraquet,blank,Ca-nb
@@ -61,7 +61,7 @@ Conord NH,Concord - gas stop on a trip to Ontario in 1990,blank,us
 Corfu Greece,Corfu - vacationed here twice - flew here and back England once in 1973 then a few years later flew here and took the ferry to Brindisi Italy and made my way back to Englnd by train and hitchiking,blank,gr
 Cormack NL,Cormack,blank,Ca-nl
 Cowes uk,Cowes ,blank,gb
-Cromer UK,Cromer,cromer,gb
+Cromer UK,Cromer,cromer,faCamera
 Dartmoor National Park,Dartmoor National Park,blank,gb
 Dartmouth Nova Scotia,Dartmouth,blank,Ca-ns
 Dereham uk,Dereham ,blank,gb
@@ -90,7 +90,7 @@ Folkestone uk,Folkestone ,blank,gb
 Fonthill ON,Fonthill KOA campground,blank,Ca-on
 Fort Kent me,Fort Kent - when I was working for J.D. Irving I went to the sawmill there to work on their computers,blank,us
 Fort Malden National Historic Site,Fort Malden National Historic Site,blank,Ca-on
-Fortress of Louisbourg National Historic Site,Fortress of Louisbourg National Historic Site,louisbourg,Ca-ns
+Fortress of Louisbourg National Historic Site,Fortress of Louisbourg National Historic Site,louisbourg,faCamera
 Fredericton NB,Fredericton - visited many times over the years for various reasons,blank,Ca-nb
 Fundy National Park Of Canada,Fundy National Park Of Canada,blank,Ca-nb
 Fundy Trail Provincial Park,Fundy Trail Provincial Park,blank,Ca-nb
@@ -99,7 +99,7 @@ Geneva,Geneva,blank,ch
 Genoa,Genoa,blank,it
 Glovertown NL,Glovertown,blank,Ca-nl
 Grand Bay-Westfield NB,Grand Bay-Westfield,blank,Ca-nb
-Grand Falls NB,Grand Falls,grandfalls,Ca-nb
+Grand Falls NB,Grand Falls,grandfalls,faCamera
 Grand Manan nb,Grand Manan ,blank,Ca-nb
 Grand-Bouctouche NB,Grand-Bouctouche,blank,Ca-nb
 Great Yarmouth UK,Great Yarmouth - Lived here in 1973,blank,faHouseUser
@@ -107,7 +107,7 @@ Grimsby ON,Grimsby,blank,Ca-on
 Guildford UK,Guildford,blank,gb
 Hampton Court Palace ,Hampton Court Palace ,blank,gb
 Hampton NB,Hampton,blank,Ca-nb
-Hartland NB,Hartland,hartland,Ca-nb
+Hartland NB,Hartland,hartland,faCamera
 Hastings UK,Hastings,blank,gb
 Heathrow Airport,Heathrow Airport,blank,gb
 High Wycombe UK,High Wycombe - Uncle Peter lived here. Visited before I left England a few times and then stayed with Denise for two nights in 2001,blank,gb
@@ -140,17 +140,17 @@ Middelburg ,Middelburg ,blank,nl
 Mildenhall  uk,Mildenhall - went to several airshows here,blank,gb
 Miramichi nb,Miramichi ,blank,Ca-nb
 Moncton NB,Moncton,blank,Ca-nb
-Montmoency Falls QC,Montmoency Falls,montmoencyfalls,Ca-qc
+Montmoency Falls QC,Montmoency Falls,montmoencyfalls,faCamera
 Montreal qc,Montreal ,blank,Ca-qc
 Mount Vesuvius,Mount Vesuvius - Mum and I made it to the top. Nigel made it 3/4 of the way up,blank,it
 Naples,Naples,blank,it
 Newmarket uk,Newmarket ,blank,gb
-Niagara Falls ON,Niagara Falls,niagara,Ca-on
+Niagara Falls ON,Niagara Falls,niagara,faCamera
 Nice France,Nice,blank,fr
 North Sydney Nova Scotia,North Sydney ,blank,Ca-ns
 Norwich UK,Norwich - Lived here 1976 to 1978,blank,faHouseUser
 Oromocto NB,Oromocto,blank,Ca-nb
-Ottawa ON,Ottawa sightseeing,ottawa,ca
+Ottawa ON,Ottawa sightseeing,ottawa,faCamera
 Oxford uk,Oxford ,blank,gb
 Paris France,Paris,blank,fr
 Peak District National Park ,Peak District National Park ,blank,gb
@@ -167,7 +167,7 @@ Port Perry ON,Port Perry/Scugog Landing RV campground,blank,Ca-on
 Portland Me,Portland - gas stop on a trip to Ontario in 1990,blank,us
 Portsmouth uk,Portsmouth ,blank,gb
 Positano,Positano,blank,it
-Quebec City QC,Quebec City including Old Quebec City,quebec,Ca-qc
+Quebec City QC,Quebec City including Old Quebec City,quebec,faCamera
 Quispamsis NB,Quispamsis,blank,Ca-nb
 Reading uk,Reading ,blank,gb
 Redhill uk,Redhill ,blank,gb
@@ -195,7 +195,7 @@ Shediac NB,Shediac - Lived in Shediac since 2005,blank,faHouseUser
 Sheffield UK,Sheffield went on a tour a a cutlery steel works,blank,gb
 Sherbrooke qc,Sherbrooke ,blank,Ca-qc
 Shippagan NB,Shippagan,blank,Ca-nb
-Skyline Trailhead NS,Skyline Trailhead,skyline,Ca-ns
+Skyline Trailhead NS,Skyline Trailhead,skyline,faCamera
 Sorrento,Sorrento,blank,it
 Souris Pe,Souris,blank,Ca-pe
 South Croydon UK,South Croydon - Lived here 1967 to 71,blank,faHouseUser
@@ -231,7 +231,7 @@ Wasaga Beach ON,Wasaga Beach KOA campground,blank,Ca-on
 Wells-next-the-Sea UK,Wells-next-the-Sea - Lived here 1971 to 1973,blank,faHouseUser
 Wentworth Nova Scotia,Wentworth,blank,Ca-ns
 West Point prince edward island,West Point ,blank,Ca-pe
-Western Brook NL,Western Brook - absolutely stunning boat ride ,westernbrook,Ca-nl
+Western Brook NL,Western Brook - absolutely stunning boat ride ,westernbrook,faCamera
 Westminster Abbey ,Westminster Abbey ,blank,gb
 Weymouth uk,Weymouth ,blank,gb
 Wheatley Provincial Park,Wheatley Provincial Park,blank,Ca-on
@@ -247,5 +247,5 @@ Wndsor Castle Wndsor UK,Wndsor Castle,blank,gb
 Woodstock NB,Woodstock,blank,Ca-nb
 Worthing uk,Worthing ,blank,gb
 Wymondham uk,Wymondham ,blank,gb
-York UK,York - sightseeing,york,gb
+York UK,York - sightseeing,york,faCamera
 Zurich,Zurich,blank,ch

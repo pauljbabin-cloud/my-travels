@@ -4,7 +4,7 @@ import { toggleHighlight } from "./runMasterSequence";
 import { importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
-import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faCamera } from '@fortawesome/free-solid-svg-icons';
 
 
 export async function Places(
@@ -213,8 +213,14 @@ function buildContent(details: any, fallbackIndex: number): HTMLDivElement {
     const cleanType = (details.type || "").trim();
     let iconHtml = "";
 
-    if (cleanType === "faHouseUser") {
-        const adjustedIcon = faIcon(faHouseUser, {
+    // Map supported Font Awesome icon names to their imported definitions
+    const faIconsMap: Record<string, any> = {
+        faHouseUser,
+        faCamera,
+    };
+
+    if (faIconsMap[cleanType]) {
+        const adjustedIcon = faIcon(faIconsMap[cleanType], {
             styles: {
                 color: 'black',
                 'font-size': '2em'

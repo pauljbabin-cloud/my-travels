@@ -1,7 +1,7 @@
 import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
 import { initGoogleLibraries } from "@/utils/initGoogleLibraries";
 import { icon as faIcon } from '@fortawesome/fontawesome-svg-core';
-import { faHospitalUser, faHouseUser, faSchool, faCaravan, faGasPump, faCamera, faBed, faCampground, faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+import { faHospitalUser, faHouseUser, faSchool, faCaravan, faGasPump, faCamera, faBed, faCampground, faFontAwesome, faS } from '@fortawesome/free-solid-svg-icons';
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { ShowHomes } from "./showhomes";
 import { Places } from "./places";
@@ -411,7 +411,8 @@ function buildMarkerUI(details: TripDetails): HTMLDivElement {
         faBed,
         faCampground,
 		faHouseUser,
-        faFontAwesome
+        faFontAwesome,
+		faS
     };
     const selectedIcon = iconMap[cleanVariable] || faBed;
     let adjustedIcon = faIcon(selectedIcon, {

@@ -1,10 +1,16 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { TripParams } from "./types";
 import { createTripState, resetMarkerClusterer, clearPolylines } from "./tripState";
 import { panToHomeMarker } from "@/utils/showhomes";
 import { runMasterSequence, toggleHighlight, SidebarItemData } from "@/utils/runMasterSequence";
 import { PlacesMenu } from "@/utils//PlacesMenu";
+
+function decodeHtml(html: string): string {
+    if (typeof document === 'undefined') return html;
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
 
 export function Trip({ params }: { params: TripParams }) {
     const [sidebarItems, setSidebarItems] = useState < SidebarItemData[] > ([]);
@@ -92,7 +98,7 @@ export function Trip({ params }: { params: TripParams }) {
 							data-id={item.id}
 							onClick = {() => handleItemClick(item)}
 						> 
-							{ item.description }
+							{ decodeHtml(item.description) }
 						</li> ))
 						}
 					</ul>

@@ -141,7 +141,7 @@ html, body {
   height: 50px;
 }
 
-/* Icon / Marker State Variations */ .property.highlight:has(.fa-house-user) .icon {
+.property.highlight:has(.fa-house-user) .icon {
   color: var(--house-color);
 }
 
@@ -150,6 +150,18 @@ html, body {
 }
 
 .property:not(.highlight):has(.fa-house-user)::after {
+  border-top: 9px solid var(--border-color);
+}
+
+.property.highlight:has(.fa-s) .icon {
+  color: var(--house-color);
+}
+
+.property:not(.highlight):has(.fa-s) {
+  background-color: var(--house-color);
+}
+
+.property:not(.highlight):has(.fa-s)::after {
   border-top: 9px solid var(--border-color);
 }
 
