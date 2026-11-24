@@ -2,7 +2,7 @@ address,title,image,type
 999 18th Street Denver CO,Denver - attended training at Vertafore,blank,us
 Acadiaville NB,Acadiaville - Denise lived here as a child and spent a lot of time here after Edgar was born - she is also buried here,blank,Ca-nb
 Aldershot uk,Aldershot - went to the Military Tattoo,blank,gb
-Amalfi,Amalfi - I stayed at the same hotel as Mum and Nigel who had been here for a week before I flew into Naples,blank,it
+Amalfi,Amalfi - I stayed at the same hotel as Mum and Nigel who had been here for a week before I flew into Naples,amalfi,faCamera
 Amherst ns,Amherst ,blank,Ca-ns
 Amsterdam,Amsterdam,blank,nl
 Antwerp Belgium,Antwerp,blank,be
@@ -13,13 +13,14 @@ Bangor me,Bangor ,blank,us
 Barcelona Spain,Barcelona - vacation,blank,es
 Bath UK,Bath,blank,gb
 Bathurst nb,Bathurst ,blank,Ca-nb
-Battle uk,Battle ,blank,gb
-Bayfield Harbour ON,Bayfield Harbour,blank,Ca-on
+Battle uk,Battle ,battle,faCamera
+Bayfield Harbour ON,Bayfield Harbour,blank,Ca-nl
 Bedford Nova Scotia,Bedford,blank,Ca-ns
 Bern,Bern,blank,ch
 Bexhill uk,Bexhill ,blank,gb
 Bishop's Stortford uk,Bishop's Stortford ,blank,gb
 Blacks Harbour nb,Blacks Harbour ,blank,Ca-nb
+Blakeney,Blakeney,blakeney,faCamera
 Bognor Regis ,Bognor Regis ,blank,gb
 Bordeaux fr,Bordeaux ,blank,fr
 Borden-Carleton PE,Borden-Carleton ,blank,Ca-pe
@@ -55,7 +56,7 @@ Channel-Port aux Basques NL,Channel-Port aux Basques,blank,Ca-nl
 Charlottetown pe,Charlottetown ,blank,Ca-pe
 Chester UK,Chester,blank,gb
 chipman nb,Chipman - when I was working for J.D. Irving I went to the sawmill there to work on their computers,blank,Ca-nb
-Christs Hospital,Christs Hospital - went to school here,blank,gb
+Christs Hospital,Christs Hospital - went to school here,ch,faCamera
 Clapham uk,Clapham ,blank,gb
 Colchester uk,Colchester ,blank,gb
 Conord NH,Concord - gas stop on a trip to Ontario in 1990,blank,us
@@ -106,10 +107,11 @@ Grand-Bouctouche NB,Grand-Bouctouche,blank,Ca-nb
 Great Yarmouth UK,Great Yarmouth - Lived here in 1973,blank,faHouseUser
 Grimsby ON,Grimsby,grimsby,faCamera
 Guildford UK,Guildford,blank,gb
+Guist,Guist,guist,faCamera
 Hampton Court Palace ,Hampton Court Palace ,blank,gb
 Hampton NB,Hampton,blank,Ca-nb
 Hartland NB,Hartland,hartland,faCamera
-Hastings UK,Hastings,blank,gb
+Hastings UK,Hastings,hastings,faCamera
 Heathrow Airport,Heathrow Airport,blank,gb
 High Wycombe UK,High Wycombe - Uncle Peter lived here. Visited before I left England a few times and then stayed with Denise for two nights in 2001,blank,gb
 HMP Dartmoor,Dartmoor Prison - when I was about 17 I went on a 'pony trek' and we rode the horses past the prison,blank,gb
@@ -133,6 +135,7 @@ Lowestoft  uk,Lowestoft  ,blank,gb
 Lucerne,Lucerne,blank,ch
 Madrid Spain,Madrid - vacation,blank,es
 Maidstone uk,Maidstone ,blank,gb
+Maiori  italy,Maiori,maiori,faCamera
 Margate uk,Margate ,blank,gb
 Marsden uk,Marsden ,blank,gb
 Marseille fr,Marseille ,blank,fr
@@ -150,7 +153,7 @@ Newmarket uk,Newmarket ,blank,gb
 Niagara Falls ON,Niagara Falls,niagara,faCamera
 Nice France,Nice,blank,fr
 North Sydney Nova Scotia,North Sydney ,blank,Ca-ns
-Norwich UK,Norwich - Lived here 1976 to 1978,blank,faHouseUser
+Norwich UK,Norwich - Lived here 1976 to 1978. Then later Mum and Nigel also moved here,norwich,faHouseUser
 Lions Foundation of Canada Dog Guides HQ at Oakville,Lions Foundation of Canada Dog Guides HQ at Oakville,oakville,faCamera
 Oromocto NB,Oromocto,blank,Ca-nb
 Ottawa ON,Ottawa sightseeing,ottawa,faCamera
@@ -184,7 +187,7 @@ Rotterdam ,Rotterdam ,blank,nl
 Ryde uk,Ryde ,blank,gb
 Sackville NB,Sackville,blank,Ca-nb
 Saint John NB,Saint John - Lived here 1978 to 2005,blank,faHouseUser
-Saint-Louis-de-Kent NB,Saint-Louis-de-Kent - Lived here briefly in 1978 but returned for visits just about every year since,blank,faHouseUser
+Saint-Louis-de-Kent NB,Saint-Louis-de-Kent - Lived here briefly in 1978 but returned for visits just about every year since,stl1,faHouseUser
 Sainte-Marie among the Hurons,Sainte-Marie among the Hurons,blank,Ca-on
 Salerno,Salerno,blank,it
 Salerno War Cemetery,Nigel took us to the Salerno War Cemetery and he found at least one name that he knew,blank,it
@@ -205,7 +208,7 @@ South Croydon UK,South Croydon - Lived here 1967 to 71,blank,faHouseUser
 Southampton uk,Southampton ,blank,gb
 Southwold  uk,Southwold  ,blank,gb
 Southwold ON,Southwold,blank,Ca-on
-St Helier Jersey,St Helier,blank,je
+St Helier Jersey,St Helier toured island with Mum and Nigel 1995. I had been before in 1976 especially to see the Durrell zoo.,jersey,faCamera
 St. George nb,St. George ,blank,Ca-nb
 St. John's NL,St. John's,blank,Ca-nl
 St. Stephen NB,St. Stephen,blank,Ca-nb
@@ -224,20 +227,20 @@ Thetford  uk,Thetford  ,blank,gb
 Tignish pe,Tignish,blank,Ca-pe
 Tiverton uk,Tiverton ,blank,gb
 Toronto  ON,Toronto - Lived here 1955 to 1959 - briefly 1978 - stopped by various times over the years,blank,faHouseUser
-Tower Bridge ,Tower Bridge ,blank,gb
-Tower of London ,Tower of London ,blank,gb
+Tower Bridge ,Tower Bridge and Tower of London ,tower,faCamera
 Truro ns,Truro ,blank,Ca-ns
 Tunbridge Wells UK,Tunbridge Wells - lived with Gran 1959 to 1961,blank,faHouseUser
 Vatican,Vatican - toured Saint Peter's ,blank,va
 Ventnor uk,Ventnor ,blank,gb
 Wasaga Beach ON,Wasaga Beach KOA campground,blank,Ca-on
-Wells-next-the-Sea UK,Wells-next-the-Sea - Lived here 1971 to 1973,blank,faHouseUser
+Wells-next-the-Sea UK,Wells-next-the-Sea - Lived here 1971 to 1973,wells,faHouseUser
 Wentworth Nova Scotia,Wentworth,blank,Ca-ns
 West Point prince edward island,West Point ,blank,Ca-pe
 Western Brook NL,Western Brook - absolutely stunning boat ride ,westernbrook,faCamera
 Westminster Abbey ,Westminster Abbey ,blank,gb
 Weymouth uk,Weymouth ,blank,gb
 Wheatley Provincial Park,Wheatley Provincial Park,blank,Ca-on
+Whipsnade Zoo,Whipsnade Zoo,whipsnade,faCamera
 Whitstable uk,Whitstable - Christopher lived here,blank,gb
 Whycocomagh Nova Scotia,Whycocomagh,blank,Ca-ns
 Winchester  uk,Winchester ,blank,gb
