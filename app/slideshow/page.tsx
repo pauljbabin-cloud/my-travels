@@ -221,33 +221,20 @@ const SlideshowComponent: React.FC = () => {
                 }
                 body {
                     font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    background-color: #000;
                     height: 100vh;
+                    width: 100vw;
                     overflow: hidden;
                 }
                 .slideshow-container {
-                    max-width: 800px;
-                    width: 100%;
-                    position: relative;
-                    margin: auto;
-                    overflow: hidden;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-                    border-radius: 8px;
-                    background-color: #000;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    touch-action: none;
-                    transition: max-width 0.25s ease, height 0.25s ease, border-radius 0.25s ease;
-                }
-                .slideshow-container.zoomed {
-                    max-width: 100vw;
                     width: 100vw;
                     height: 100vh;
-                    border-radius: 0;
+                    position: relative;
+                    overflow: hidden;
+                    background-color: #000;
+                    display: flex;
+                    flex-direction: column;
+                    touch-action: none;
                 }
                 .close-btn {
                     position: fixed;
@@ -299,16 +286,23 @@ const SlideshowComponent: React.FC = () => {
                 }
                 .mySlides {
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    box-sizing: border-box; 
+                    flex-direction: column;
                     width: 100%;
                     height: 100%;
                     overflow: hidden;
                 }
-                .mySlides img {
-                    max-width: 100vw;
-                    max-height: 100vh;
+                .image-wrapper {
+                    flex: 1;
+                    min-height: 0;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                }
+                .image-wrapper img {
+                    max-width: 100%;
+                    max-height: 100%;
                     width: auto;
                     height: auto;
                     object-fit: contain;
@@ -343,15 +337,14 @@ const SlideshowComponent: React.FC = () => {
                     background-color: rgba(0, 0, 0, 0.8);
                 }
                 .caption {
-                    color: #f2f2f2;
+                    color: #000000;
                     font-size: 15px;
-                    padding: 12px 24px;
-                    position: absolute;
-                    bottom: 15px;
+                    padding: 14px 24px;
                     width: 100%;
                     text-align: center;
-                    background-color: rgba(0,0,0,0.5);
-                    pointer-events: none;
+                    background-color: #f2f2f2;
+                    flex-shrink: 0;
+                    z-index: 15;
                 }
                 .fade {
                     animation-name: fadeAnimation;
@@ -384,7 +377,7 @@ const SlideshowComponent: React.FC = () => {
             </button>
 
             <div 
-                className={`slideshow-container ${zoom > 1 ? 'zoomed' : ''}`}
+                className="slideshow-container"
                 onWheel={handleWheel}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -395,33 +388,35 @@ const SlideshowComponent: React.FC = () => {
             >
                 {images.length > 0 && (
                     <div className="mySlides fade">
-                        <img 
-                            src={images[slideIndex]} 
-                            alt={getFilename(images[slideIndex])} 
-                            onLoad={handleImageLoad}
-                            onMouseDown={handleMouseDown}
-                            onClick={handleImageClick}
-                            style={{
-                                transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-                                transition: isDragging || initialPinchRef.current ? 'none' : 'transform 0.2s ease-out',
-                                cursor: !isZoomable
-                                    ? 'default'
-                                    : zoom > 1
-                                        ? isDragging
-                                            ? 'grabbing'
-                                            : 'grab'
-                                        : 'zoom-in',
-                            }}
-                        />
+                        <div className="image-wrapper">
+                            <img 
+                                src={images[slideIndex]} 
+                                alt={getFilename(images[slideIndex])} 
+                                onLoad={handleImageLoad}
+                                onMouseDown={handleMouseDown}
+                                onClick={handleImageClick}
+                                style={{
+                                    transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                                    transition: isDragging || initialPinchRef.current ? 'none' : 'transform 0.2s ease-out',
+                                    cursor: !isZoomable
+                                        ? 'default'
+                                        : zoom > 1
+                                            ? isDragging
+                                                ? 'grabbing'
+                                                : 'grab'
+                                            : 'zoom-in',
+                                }}
+                            />
+                        </div>
                         <div className="caption">
                             {getFilename(images[slideIndex])}
-                            {isZoomable && zoom === 1 ? ' (Click, pinch, or scroll to zoom)' : ''}
+                            
                         </div>
                     </div>
                 )}
 
                 {images.length === 0 && !loading && (
-                    <div style={{ color: '#fff', textAlign: 'center', padding: '20px' }}>
+                    <div style={{ color: '#fff', textAlign: 'center', padding: '20px', margin: 'auto' }}>
                         No slideshow content to display.
                     </div>
                 )}

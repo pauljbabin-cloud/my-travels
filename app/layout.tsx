@@ -9,8 +9,8 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Paul Babin's Travels and photos",
-	description: "Paul Babin's Travels and photos et cmapped using Google Maps",
+	title: "Paul Babin's and family - Travels and photos",
+	description: "Paul Babin's and family Travels and photos",
 	verification: {
 		google: "Zdv5rwKoHljYDSGwYWczPHGB6WAVnWdILIKivKu1nAw"
 	},
