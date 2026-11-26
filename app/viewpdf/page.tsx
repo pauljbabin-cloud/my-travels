@@ -48,7 +48,7 @@ export default function WarDiaryPage() {
 
   return (
     <div style={{ position: "relative", padding: "24px 0" }}>
-      <style>{`
+       <style>{`
         .close-btn {
           position: fixed;
           top: 16px;
@@ -107,6 +107,19 @@ export default function WarDiaryPage() {
           text-align: center;
           padding: 0 48px;
         }
+
+        .source {
+          max-width: 900px;
+          margin: 24px auto 0;
+          padding: 0 16px;
+          text-align: center;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+
+        .source p {
+          margin: 4px 0;
+        }
       `}</style>
 
       <button
@@ -125,7 +138,8 @@ export default function WarDiaryPage() {
           Edmond served with the 18th Canadian Field Ambulance from 3rd December 1943 to June 1st 1945
         </h3>
         <p>
-          War Diary entries are only shown for the time the unit was deployed to France from England
+          War Diary entries are only shown for the time the unit was deployed to France, Belguim, Holland and Germany</p>
+		  <p>Edmond is not mentioned anywhere but he would have been involved in all activities
         </p>
       </div>
 
@@ -139,6 +153,14 @@ export default function WarDiaryPage() {
             {entry.label}
           </button>
         ))}
+      </div>
+      <div className="source">
+        <p>Source of all documents is Library and Archives Canada</p>
+        <p>TITLE : 18th Field Ambulance, Royal Canadian Army Medical Corps</p>
+        <p>REFERENCE NUMBERS:</p>
+        <p>RG24-C-3, Volume number: 15885, File number: 200, 1944/07 to 1944/11 SUMMARIES</p>
+        <p>RG24-C-3, Volume number: 15886, File number: 200, 1944/12 to 1945/03 SUMMARIES</p>
+        <p>RG24-C-3, Volume number: 15887, File number: 200, 1945/04 to 1945/06 SUMMARIES</p>
       </div>
     </div>
   );
