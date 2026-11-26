@@ -1,5 +1,6 @@
 import { getVoyagePath } from "./showshipvoyage";
 import { getFlightPath } from "./showheathrowtorontoflight";
+import { getBiloxi } from "./biloxi";
 import { getArgentiaFerry } from "./ferry";
 import { TripStateInstance, resetMarkerClusterer, clearPolylines } from "./tripState";
 import { clearInitialMarker } from "./main";
@@ -28,4 +29,9 @@ export async function ClearEverything(
     const FerryPath = getArgentiaFerry();
     if (FerryPath)
         FerryPath.setMap(null);
+
+    const BiloxiPath = getBiloxi();
+    if (BiloxiPath)
+        BiloxiPath.setMap(null);
 }
+

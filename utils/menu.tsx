@@ -3,6 +3,7 @@ import { ShowHomes } from "./showhomes";
 import { ShowShipVoyage } from "./showshipvoyage";
 import { ShowHeathrowTorontoFlight } from "./showheathrowtorontoflight";
 import { ArgentiaFerryRoute } from "./ferry";
+import { BiloxiRoute } from "./biloxi";
 import { ClearEverything } from "./cleareverything";
 import { TripParams } from "./types";
 import { attachResetViewControl, removeResetViewControl } from "./runMasterSequence";
@@ -224,6 +225,7 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
     }
 	
     case "unitmap": {
+		await BiloxiRoute(gMap);
         const center = { lat: 51.03444502593595, lng: 2.378465795086202 };
         const zoom = 7;
         gMap.panTo(center);
@@ -232,12 +234,17 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
             TripMap: gMap,
             tripId: "unitmap",
 			tripYear: "1944",
-            TripHTML: "<h4>Select from the places below and the map will jump to that location.<br />Note that there were no motorways back in 1944, so all routes are approximate.<br />Click on any exact location icon to see some details from the 18th Field Ambulance War Dairy.</h4>",
+            TripHTML: "<h4>Select from the places below and the map will jump to that location.<br />Note that there were no motorways back in 1944, so all routes are approximate.<br />Red line indicates approximate route of the unit's voyage on the troopship Fort Biloix<br />Click on any exact location icon to see some details from the 18th Field Ambulance War Dairy.</h4>",
             TripRoute: "/csvs/routes.csv",
             TripDetails: "/csvs/trips.csv",
             initialCenter: center,
             initialZoom: zoom
         });
+        break;
+    }
+
+    case "unit": {
+        window.open("/viewpdf", "_blank", "noopener,noreferrer");
         break;
     }
 
@@ -248,7 +255,6 @@ export async function handleMenuAction(action: string, setTargetTrip: (params: T
     case "margaret":
 	case "edmondpre":
     case "service":
-    case "unit":
     case "edmondpost": {
         window.open(`/slideshow?showId=${action}`, "_blank", "noopener,noreferrer");
         break;
