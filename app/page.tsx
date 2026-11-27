@@ -5,6 +5,7 @@ import { initMap } from "@/utils/main";
 import { handleMenuAction } from "@/utils/menu";
 import { TripParams } from "@/utils/types";
 import { Trip } from "@/utils/trip";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
 	faBars, 
@@ -150,6 +151,10 @@ export default function MapPage() {
 									</div>
 								</div>
 							</div>
+						</li>
+						<li>
+							<Link href="/about" className="nav-btn" onClick={() => setIsMobileMenuOpen(false)}>About
+							</Link>
 						</li>
 					</ul>
 				</nav>

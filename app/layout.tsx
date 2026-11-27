@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Paul Babin's and family - Travels and photos",
-	description: "Paul Babin's and family Travels and photos",
+	metadataBase: new URL("https://vercel.app"),
+	title: {
+		default: "Paul Babin's and family - Travels and photos",
+		template: "%s | Paul Babin's Travels & Family Archive",
+	},
+	description:
+		"Interactive travel maps, family photo collections, and historical WWII military records from Paul Babin and family.",
 	verification: {
-		google: "Zdv5rwKoHljYDSGwYWczPHGB6WAVnWdILIKivKu1nAw"
+		google: "Zdv5rwKoHljYDSGwYWczPHGB6WAVnWdILIKivKu1nAw",
 	},
 };
 
@@ -23,9 +28,6 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<head>
-				<link rel="stylesheet" href="https://cloudflare.com" />
-			</head>
 			<body className={inter.className}>
 				{children}
 			</body>

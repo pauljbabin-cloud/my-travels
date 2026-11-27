@@ -431,6 +431,11 @@ h4 {
   font-size: 16px;
   cursor: pointer;
   text-align: left;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  line-height: normal;
 }
 
 .navbar-logo, .dropdown-btn, .nav-btn {
