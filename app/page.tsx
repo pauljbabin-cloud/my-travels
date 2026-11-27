@@ -192,7 +192,7 @@ export default function MapPage() {
 						{targetTrip ? (
 							<Trip params={targetTrip} />
 						) : (
-							<h4>Select from the menu to see my homes and travels mapped using Google Maps</h4>
+							<h4 className='first-element'>Select from the menu to see my homes and travels mapped using Google Maps</h4>
 						)}
 					</div>
 				</aside>
